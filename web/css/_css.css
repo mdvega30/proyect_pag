@@ -1,0 +1,221 @@
+
+/*varios*/
+.active{
+    background: #d9edf7;
+}
+#bd{
+    background: #ddd;
+}
+
+.well{
+    background: #F2F2F2;
+}
+/*pag nav var*/
+.btn-default {
+    background-color: #ddd;
+    border-color: #3b5998;
+    color: #333;
+}
+/* Remove the navbar's default margin-bottom and rounded borders */ 
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {height: 450px}
+
+/* Set gray background color and 100% height */
+.sidenav {
+    padding-top: 20px;
+    background-color: #ddd;
+    height: 170%;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+    background-color: #555;
+    color: white;
+    padding: 15px;
+    position: relative;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+    .sidenav {
+        height: auto;
+        padding: 15px;
+    }
+    .row.content {height:auto;} 
+}
+
+
+
+#login-dp{
+    min-width: 200px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.8);
+}
+#login-dp .help-block{
+    font-size:12px    
+}
+#login-dp .bottom{
+    background-color:rgba(255,255,255,.8);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+
+@media(max-width:768px){
+    #login-dp{
+        background-color: inherit;
+        color: #fff;
+    }
+}
+#login-dp .bottom{
+    background-color: inherit;
+}
+
+
+
+/*login*/
+
+.form-signin
+{
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin .form-signin-heading, .form-signin .checkbox
+{
+    margin-bottom: 10px;
+}
+.form-signin .checkbox
+{
+    font-weight: normal;
+}
+.form-signin .form-control
+{
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.form-signin .form-control:focus
+{
+    z-index: 2;
+}
+.form-signin input[type="text"]
+{
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"]
+{
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.account-wall
+{
+    margin-top: 45px;
+    padding: 40px 0px 20px 0px;
+    background-color: #f7f7f7;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.login-title
+{
+    color: #555;
+    font-size: 30px;
+    font-weight: 400;
+    display: block;
+}
+.profile-img
+{
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+.need-help
+{
+    margin-top: 10px;
+}
+.new-account
+{
+    display: block;
+    margin-top: 10px;
+}
+
+
+/*Estilo carousel */
+
+.transition-timer-carousel .carousel-caption {
+    background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 4%, rgba(0,0,0,0.5) 32%, rgba(0,0,0,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(4%,rgba(0,0,0,0.1)), color-stop(32%,rgba(0,0,0,0.5)), color-stop(100%,rgba(0,0,0,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 4%,rgba(0,0,0,0.5) 32%,rgba(0,0,0,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 4%,rgba(0,0,0,0.5) 32%,rgba(0,0,0,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 4%,rgba(0,0,0,0.5) 32%,rgba(0,0,0,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 4%,rgba(0,0,0,0.5) 32%,rgba(0,0,0,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+	width: 100%;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	text-align: left;
+	padding-top: 5px;
+	padding-left: 15%;
+	padding-right: 15%;
+}
+.transition-timer-carousel .carousel-caption .carousel-caption-header {
+	margin-top: 10px;
+	font-size: 24px;
+}
+
+@media (min-width: 970px) {
+    /* Lower the font size of the carousel caption header so that our caption
+    doesn't take up the full image/slide on smaller screens */
+	.transition-timer-carousel .carousel-caption .carousel-caption-header {
+		font-size: 36px;
+	}
+}
+.transition-timer-carousel .carousel-indicators {
+	bottom: 0px;
+	margin-bottom: 5px;
+}
+.transition-timer-carousel .carousel-control {
+	z-index: 11;
+}
+.transition-timer-carousel .transition-timer-carousel-progress-bar {
+    height: 5px;
+    background-color: #5cb85c;
+    width: 0%;
+    margin: -5px 0px 0px 0px;
+    border: none;
+    z-index: 11;
+    position: relative;
+}
+.transition-timer-carousel .transition-timer-carousel-progress-bar.animate{
+    /* We make the transition time shorter to avoid the slide transitioning
+    before the timer bar is "full" - change the 4.25s here to fit your
+    carousel's transition time */
+    -webkit-transition: width 4.25s linear;
+	-moz-transition: width 4.25s linear;
+	-o-transition: width 4.25s linear;
+	transition: width 4.25s linear;
+}
+
+
+
+
