@@ -97,7 +97,7 @@
                 <div class="well">
                     <h2>Registro</h2>
 
-                    <form role="form" role="form" method="post" action="iniciar" id="form-register" onsubmit="return validacion()">         
+                    <form role="form" role="form" method="post" action="iniciar" id="form-register">         
                         <div class="form-group">
 
                             <label for="primer_nombre">Primer Nombre:</label>
@@ -146,7 +146,7 @@
                             <a name="contra1"></a>
                             <label for="contraseña">Contraseña:</label>
                             <input type="password" id="contra1" class="form-control" name="pass" placeholder="Ingrese Contraseña">
-                            <div class="message alert-danger" id="resultado8"></div>
+                            <div class="message " id="resultado8"></div>
 
                             <a name="contra2"></a>
                             <label for="confirmar_contraseña">Confirmar Contraseña:</label>
