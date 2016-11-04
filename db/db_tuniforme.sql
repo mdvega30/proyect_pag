@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-08-2016 a las 22:40:38
+-- Tiempo de generación: 03-11-2016 a las 20:27:57
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -30,6 +30,12 @@ set Nombre1=nom1, Nombre2=nom2,Apellido1=ape1,Apellido2=ape2,Direccion=direc,Con
 WHERE Correo = email;
 end$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizarUsuario1` (IN `nom1` VARCHAR(30), IN `nom2` VARCHAR(30), IN `ape1` VARCHAR(30), IN `ape2` VARCHAR(30), IN `direc` VARCHAR(45), IN `email` VARCHAR(45))  BEGIN
+UPDATE usuario 
+set Nombre1=nom1, Nombre2=nom2,Apellido1=ape1,Apellido2=ape2,Direccion=direc
+WHERE Correo = email;
+end$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `autenticacionAdmin` (`email` VARCHAR(45), IN `pass` VARCHAR(45), IN `roll` INT)  BEGIN
 select* from usuario where correo=email and contraseña=pass and Id_rol=roll;
 end$$
@@ -40,8 +46,10 @@ from usuario
 where  Correo = email and Contraseña= pass;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `datosObjUsuario` (`email` VARCHAR(45))  BEGIN
-select * from usuario where correo = email;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `datosObjUsuario` (IN `email` VARCHAR(45))  BEGIN
+select Id_Usuario,Id_tipodocumento,Id_rol,firstUpper(Nombre1) AS Nombre1,firstUpper(Nombre2) Nombre2,firstUpper(Apellido1) Apellido1,firstUpper(Apellido2) Apellido2,Documento, Correo,firstUpper(Direccion) Direccion, Contraseña
+from usuario
+where correo = email;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarUsuario` (IN `tpdoc` INT, IN `roll` INT, IN `nom1` VARCHAR(30), IN `nom2` VARCHAR(30), IN `ape1` VARCHAR(30), IN `ape2` VARCHAR(30), IN `doc` VARCHAR(20), IN `email` VARCHAR(45), IN `direc` VARCHAR(45), IN `pass` VARCHAR(60))  BEGIN
@@ -54,6 +62,24 @@ select concat(nombre1,' ',nombre2)Nombres,concat( apellido1 ,' ',apellido2)Apell
 from usuario
 where Id_rol=rol;
 end$$
+
+--
+-- Funciones
+--
+CREATE DEFINER=`root`@`localhost` FUNCTION `firstUpper` (`cadena` VARCHAR(100)) RETURNS VARCHAR(100) CHARSET latin1 BEGIN 
+DECLARE pos INT DEFAULT 0; 
+DECLARE tmp VARCHAR(100) DEFAULT ''; 
+DECLARE result VARCHAR(100) DEFAULT ''; 
+set cadena=LOWER(cadena);
+REPEAT SET pos = LOCATE(' ', cadena); 
+ IF pos = 0 THEN SET pos = CHAR_LENGTH(cadena); 
+ END IF; 
+ SET tmp = LEFT(cadena,pos); 
+ SET result = CONCAT(result, UPPER(LEFT(tmp,1)),SUBSTR(tmp,2)); 
+ SET cadena = RIGHT(cadena,CHAR_LENGTH(cadena)-pos); 
+UNTIL CHAR_LENGTH(cadena) = 0 END REPEAT; 
+RETURN result; 
+END$$
 
 DELIMITER ;
 
@@ -286,13 +312,37 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`Id_Usuario`, `Id_tipodocumento`, `Id_rol`, `Nombre1`, `Nombre2`, `Apellido1`, `Apellido2`, `Documento`, `Correo`, `Direccion`, `Contraseña`) VALUES
-(1, 1, 1, 'David D', 'Andres', 'Daza', 'Diaz', '1026580077', '', 'Calle falsa 1234', '6886badb36b23129002bbbae0d9432d0'),
-(3, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'david@da.da', 'Crea 105 n°154a-36', '6886badb36b23129002bbbae0d9432d0'),
-(4, 1, 1, 'Dav', 'Andres', 'Daza', 'Diaz', '1026580077', 'david.d.08@h', 'Crea 105 n°154a-36', '6886badb36b23129002bbbae0d9432d0'),
-(5, 1, 1, 'Pompilio', 'Rocas', 'Daza', 'Diaz', '1026580077', 'david.d.08@hoo', 'Crea 105 n°154a-36', '6886badb36b23129002bbbae0d9432d0'),
-(6, 1, 1, 'Pedro', 'Nose', 'Daza', 'Diaz', '1026580077', 'david.d.08@hooo', 'Crea 105 n°154a-36', '202cb962ac59075b964b07152d234b70'),
-(68, 2, 2, 'DavidAdmin', 'Andres', 'Daza', 'Diaz', '66666661111', 'admin@admin.co', 'Calle Falsa', '7b430fcde10f344b3421d946f03f765a'),
-(70, 3, 1, 'David', '', 'Andres', '', '123456789', 'user@user.co', 'Calle falsa 123 n22', '7b430fcde10f344b3421d946f03f765a');
+(1, 1, 2, 'david', 'Andres', 'Daza', 'Diaz', '123', 'admin@admin.co', '123', '6116afedcb0bc31083935c1c262ff4c9'),
+(2, 1, 1, 'David', 'Diaz', 'Diaz', 'Pedrin', '123', 'user@user.co', 'Cra172n 7-52', '6116afedcb0bc31083935c1c262ff4c9'),
+(3, 1, 1, '123', '123', '123', '123', '123', '123', '123', '123'),
+(5, 1, 1, '123', '123', '123', '123', '123', '1', '123', '123'),
+(6, 1, 1, 'David', 'Daza', '123', '23', '123', '123456789', '123', '123'),
+(7, 1, 1, 'David', 'Daza', '123', '23', '123', '123a', '123', '123'),
+(8, 1, 1, 'David', 'Daza', '123', '23', '123', '123ab', '123', '123'),
+(9, 1, 1, 'David', 'Daza', '123', '23', '123', '123abc', '123', '123'),
+(10, 1, 1, 'David', 'Daza', '123', '23', '123', '123abh', '123', '123'),
+(11, 1, 1, 'David', 'Daza', '123', '23', '123', '123abhc', '123', '123'),
+(12, 1, 1, 'David', 'Daza', '123', '23', '123', '123abfc', '123', '123'),
+(13, 1, 1, 'David', 'Daza', '123', '23', '123', '123afggffc', '123', '123'),
+(15, 1, 1, 'David', 'Daza', '123', '23', '123', '123afgtffc', '123', '123'),
+(16, 1, 1, 'David', 'Daza', '123', '23', '123', '123afgtfghc', '123', '123'),
+(17, 1, 1, 'David', 'Daza', '123', '23', '123', '523afgtfghc', '123', '123'),
+(18, 1, 1, 'David', 'Daza', '123', '23', '123', '553afgtfghc', '123', '123'),
+(19, 1, 1, '123', '123', '123', '123', '123', 'aa458', '123', '123'),
+(20, 1, 1, '123', '123', '123', '123', '123', 'jsaas58', '123', '123'),
+(21, 1, 1, '123', '123', '123', '123', '123', 'jsaass58', '123', '123'),
+(22, 1, 1, '123', '123', '123', '123', '123', 'jsaess58', '123', '123'),
+(23, 1, 1, '123', '123', '123', '123', '123', 'jsaettts58', '123', '123'),
+(24, 1, 1, '123', '123', '123', '123', '123', 'jsagtts58', '123', '123'),
+(25, 1, 1, '123', '123', '123', '123', '123', 'jsagpts58', '123', '123'),
+(26, 1, 1, '123', '123', '123', '123', '123', 'jsapts58', '123', '123'),
+(27, 1, 1, '123', '123', '123', '123', '123', 'jsts58', '123', '123'),
+(28, 1, 1, '123', '123', '123', '123', '123', 'js5ats58', '123', '123'),
+(29, 1, 1, '123', '123', '123', '123', '123', 'js578ts58', '123', '123'),
+(30, 1, 1, '123', '123', '123', '123', '123', 'js578ats58', '123', '123'),
+(31, 1, 1, '123', '123', '123', '123', '123', 'j578ats58', '123', '123'),
+(32, 1, 1, '123', '123', '123', '123', '123', 'j57a8ats58', '123', '123'),
+(33, 1, 1, '123', '123', '123', '123', '123', 'j57a8at858', '123', '123');
 
 --
 -- Índices para tablas volcadas
@@ -418,7 +468,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `Id_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `Id_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- Restricciones para tablas volcadas
 --
