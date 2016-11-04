@@ -4,9 +4,13 @@
     Author     : David
 --%>
 
+
 <%@page import="java.util.ArrayList"%>
 <%@page import="modelo.DAO.DaoUsuario"%>
 <%@page import="modelo.BEAN.BeanUsuario"%>
+<%@page import="Util.Paginacion"%>
+
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% HttpSession sesion = request.getSession(false);
     String admin = (String) sesion.getAttribute("admin");
@@ -47,7 +51,7 @@
                     <!--Menu usuario-->
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#"class="glyphicon glyphicon-user" class="dropdown-toggle"  data-toggle="dropdown"><b> <%out.print(nombre);%></b> <span class="caret"></span></a>
+                            <a href="#" class="glyphicon glyphicon-user" class="dropdown-toggle"  data-toggle="dropdown"><b> <%out.print(nombre);%></b> <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Editar mi cuenta <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
                                 <li class="divider"></li>
@@ -83,7 +87,7 @@
                                 <li><a href="#"><i class="glyphicon glyphicon-envelope"></i> Mensajes <span class="badge badge-info">0</span></a></li>
                                 <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Opciones</a></li>
 
-                                <li class="active"><a href="menuA_listar.jsp"><i class="glyphicon glyphicon-user"></i> Lista usuarios</a></li>
+                                <li class="active"><a href="menuA_listar.jsp?pagina=0"><i class="glyphicon glyphicon-user"></i> Lista usuarios</a></li>
                                 <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Pedidods</a></li>
 
 
@@ -136,9 +140,22 @@
                     </div>
 
 
+                    <%int pagina = 0; //pagina a mostrar
+                        if (request.getParameter("pagina") == null) {
+                            pagina = 1;
+                        } else {
+                            pagina = Integer.parseInt(request.getParameter("pagina"));
+                        }
+                        Paginacion pag = new Paginacion();
+                        pag.getProductos(pagina);
+
+
+                    %>
+
                     <table class="table table-list-search">
 
                         <tr>
+                            <th>Nº</th>
                             <th>Nombres</th>
                             <th>Apellidos</th>
                             <th>Correo</th>
@@ -147,12 +164,15 @@
 
                         </tr>
 
-                        <%
-                            BeanUsuario beanUs = new BeanUsuario();
-                            DaoUsuario daous = new DaoUsuario();
-                            ArrayList<BeanUsuario> listaUsuarios = daous.listarUsuarios(beanUs);
+                        <%                            BeanUsuario beanUs = new BeanUsuario();
+                            DaoUsuario daoUs = new DaoUsuario();
+                            ArrayList<BeanUsuario> listaUsuarios = daoUs.listarUsuarios(pagina * 10, 10);
+
+                            int cont = pagina * 10;
+
                             for (BeanUsuario listaUsuario : listaUsuarios) {%>
                         <tr>
+                            <td><%=cont + 1%></td>
                             <td><%= listaUsuario.getNombre1()%> </td>
                             <td><%= listaUsuario.getApellido1()%> </td>
                             <td><%= listaUsuario.getCorreo()%> </td>
@@ -160,14 +180,49 @@
                             <td><%= listaUsuario.getDocumento()%> </td>
 
                         </tr>
-                        <% }%>
+                        <% cont++;
+                            }%>
 
                     </table>   
 
 
 
+                    <ul class="pagination pull-left">
+
+
+
+                        <%if (pagina > 0) {%> 
+                        <li class=""><a href="?pagina=<%=pagina - 1%>"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                                <%} else {%>
+                        <li class="disabled"><a ><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                                <%}%>
+                                <%
+                                    int numeroRegistros = daoUs.verRegistrosTotales();
+                                    int numerPagina = numeroRegistros / 10;
+
+                                    for (int i = 0; i <= numerPagina; i++) {
+
+                                        if (i == Integer.valueOf(request.getParameter("pagina"))) {
+                                %>
+                        <li class="active"><a href="?pagina=<%=(i)%>"><%=i + 1%></a></li> 
+
+                        <%} else {
+                        %>
+                        <li class=""><a href="?pagina=<%=(i)%>"><%=i + 1%></a></li> 
+
+                        <%}
+                            }%>
+                        <%if (pagina < numerPagina) {%> 
+                        <li><a href="?pagina=<%=pagina + 1%>"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+
+                        <%} else {%>
+                        <li class="disabled" ><a><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+
+                        <%}%>
+                    </ul>
 
                 </div>
+
 
 
 

@@ -124,12 +124,14 @@ public class ServletUsuario extends HttpServlet {
                       
                 if (daoUsu.actualizarDatosUsuario(beanUs)) {
                     
-                    request.setAttribute("exito", "");
+                    request.setAttribute("acualizado", "");
                     request.getRequestDispatcher("menu.jsp").forward(request, response);
                     
                 } else {
-                    request.setAttribute("error", "");
+                    
+                    request.setAttribute("noActualizado", "");
                     request.getRequestDispatcher("menu.jsp").forward(request, response);
+                 
                 }
 
                 break;

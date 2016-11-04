@@ -47,7 +47,7 @@
                     <!--Menu usuario-->
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#"class="glyphicon glyphicon-user" class="dropdown-toggle"  data-toggle="dropdown"><b> <%out.print(nombre);%></b> <span class="caret"></span></a>
+                            <a href="#" class="glyphicon glyphicon-user dropdown-toggle"  data-toggle="dropdown"><b> <%out.print(nombre);%></b> <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Editar mi cuenta <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
                                 <li class="divider"></li>
@@ -83,7 +83,7 @@
                                 <li><a href="#"><i class="glyphicon glyphicon-envelope"></i> Mensajes <span class="badge badge-info">0</span></a></li>
                                 <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Opciones</a></li>
 
-                                <li><a href="menuA_listar.jsp"><i class="glyphicon glyphicon-user"></i> Lista usuarios</a></li>
+                                <li><a href="menuA_listar.jsp?pagina=0"><i class="glyphicon glyphicon-user"></i> Lista usuarios</a></li>
                                 <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Pedidods</a></li>
 
 
@@ -92,6 +92,9 @@
                         <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu2"> Agregar/Editar <i class="glyphicon glyphicon-chevron-right"></i></a>
 
                             <ul class="nav nav-stacked collapse" id="menu2">
+                                    
+                                <li><a href="Adduniformes.jsp">Agregar Uniformes</a>
+                                </li>
                                 <li><a href="#">Tela &amp; Cosas</a>
                                 </li>
                                 <li><a href="#">Botones</a>
@@ -101,7 +104,6 @@
                                 <li><a href="#">Cambiar Uniforme</a>
                                 </li>
                                 <li><a href="#">Cambiar Precios</a>
-                                <li><a href="#">Subir uniformes</a>
                                 </li>
                             </ul>
                         </li>
@@ -126,7 +128,7 @@
                         <% if (request.getAttribute("exito") != null) { %>
                         ${exito}
                         <%java.util.Date hora = new java.util.Date();%>
-                        <%if (hora.getTime() == 12) {%>
+                        <%if (hora.getTime() > 13) {%>
                         <div class="alert alert-info">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             <strong>Buenos Dias apreciado Administrador!</strong>¿Como se encuentra?

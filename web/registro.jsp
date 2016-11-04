@@ -23,7 +23,7 @@
     </head>
     <body id="bd">
 
-    </div>
+    
     <nav class="navbar navbar-inverse" >
         <div class="container-fluid">
             <div class="container">
@@ -49,7 +49,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="glyphicon glyphicon-log-in"></span></a>
                             <ul id="login-dp" class="dropdown-menu">
 
-                                <div class="row">
+                                <div class="row" >
                                     <div class="col-md-12">
                                         <label>Login </label>                
                                         <form class="form" role="form" method="post" action="iniciar" accept-charset="UTF-8" id="login-nav">
@@ -90,14 +90,14 @@
             <div class="col-sm-12"  style="height: 5%;">
 
             </div>
-            <div class="col-sm-2 ">
+            <div class="col-sm-3 ">
 
             </div>
-            <div class="col-sm-8 text-left"> 
+            <div class="col-sm-5 text-left"> 
                 <div class="well">
                     <h2>Registro</h2>
 
-                    <form role="form" role="form" method="post" action="iniciar" id="form-register">         
+                    <form role="form"  method="post" action="iniciar" id="form-register">         
                         <div class="form-group">
 
                             <label for="primer_nombre">Primer Nombre:</label>
@@ -135,7 +135,7 @@
                             <input type="text" id="documento" class="form-control" name="doc" placeholder="Docuemento">
                             <div class="message alert-danger" id="resultado7"></div>
 
-                            <label for="tipoDoc"required>Tipo de documento:</label>
+                            <label for="tipoDoc" >Tipo de documento:</label>
                             <select class="form-control" id="tipoDoc" name="tipoDoc">
                                 <option value="1">Cedula de Ciudadanía</option>
                                 <option value="2">Cédula de Extranjería</option>
@@ -177,11 +177,11 @@
 
                 </div>
             </div>
-            <div class="col-sm-2" >
+            <div class="col-sm-3" >
 
             </div>
 
-            <div class="col-sm-12"  style="height: 5%;">
+            <div class="col-sm-5"  style="height: 5%;">
 
             </div>
 

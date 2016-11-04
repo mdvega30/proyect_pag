@@ -10,11 +10,7 @@
 <% HttpSession sesion = request.getSession(false);
     String usuario = (String) sesion.getAttribute("usuario");
     String admin = (String) sesion.getAttribute("admin");
-    String nombre = (String) sesion.getAttribute("nombre");
-    String nombre2 = (String) sesion.getAttribute("nombre2");
-    String apellido1 = (String) sesion.getAttribute("apellido1");
-    String apellido2 = (String) sesion.getAttribute("apellido2");
-    String direccion = (String) sesion.getAttribute("direccion");
+
     String correo = (String) sesion.getAttribute("correo");
 
     if (sesion.getAttribute("usuario") == null && sesion.getAttribute("admin") == null) {
@@ -55,8 +51,7 @@
                         </ul>
 
 
-                        <%     
-                            BeanUsuario dao = new BeanUsuario();
+                        <%                            BeanUsuario dao = new BeanUsuario();
                             DaoUsuario daous = new DaoUsuario();
                             dao.setCorreo(correo);
                             daous.contruirObjetoUsuario(dao);
@@ -65,7 +60,7 @@
 
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="#"class="glyphicon glyphicon-user" class="dropdown-toggle"  data-toggle="dropdown"><b> <%= dao.getNombre1()%></b> <span class="caret"></span></a>
+                                <a href="#" class="glyphicon glyphicon-user" class="dropdown-toggle"  data-toggle="dropdown"><b> <%= dao.getNombre1()%></b> <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#" data-target="#myModal" data-toggle="modal">Editar mi cuenta <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
                                     <li class="divider"></li>
@@ -87,7 +82,7 @@
                                     <div class="modal-header">
                                         <div class="modal-body"> 
 
-                                            <form role="form" name="editar" method="post" action="iniciar">         
+                                            <form role="form" id="edit-menu" name="editar" method="post" action="iniciar">         
                                                 <div class="form-group">
 
                                                     <label for="primer_nombre">Primer Nombre:</label>
@@ -128,7 +123,7 @@
 
 
                                                 <br>
-                                                <input type=button class="btn btn-primary" value="Guardar" onclick="pregunta()">
+                                                <button  class="btn btn-primary" >Guardar</button>
                                                 <input type="hidden" name="textOpcion" value="5">
                                                 <input class="btn btn-default" data-dismiss="modal" type="button" value="Cerrar">
                                             </form>
@@ -148,6 +143,23 @@
                     <div class="container-fluid text-center"  >    
                         <div class="container">
                             <div class="row content">
+                                <div id="alerta">
+                                    <%
+
+                                        if (request.getAttribute("acualizado") != null) { %>
+                                    ${acualizado}
+                                    <div class="alert alert-success">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <strong>Felicidades!</strong> Se ha actualizado correctamente.
+                                    </div>
+                                    <%} else if (request.getAttribute("noActualizado") != null) { %>
+                                    ${noActualizado}
+                                    <div class="alert alert-danger">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <strong>Error!</strong> No se ha podido actualizar.
+                                    </div>
+                                    <% }%>
+                                </div>
 
                                 <div class="col-sm-12 text-left"> 
                                     <div class="jumbotron">
@@ -187,7 +199,7 @@
                         <p>Footer ® David Daza</p>
                     </footer>
                     <script src="js/jquery.js" type="text/javascript"></script>
-                    <script src="js/_js.js" type="text/javascript"></script>
+                    <script src="js/_jss.js" type="text/javascript"></script>
                     <script src="js/bootstrap.min.js" type="text/javascript"></script>
                     </body>
                     </html>

@@ -179,6 +179,7 @@ $(document).ready(function () {
             $('#resultado8').addClass('alert-danger');
             $('#resultado8').html('<strong>¡Error!</strong> Este campo es requerido, no debe ir vacío.');
             validacion8 = true;
+            validacion4=false;
         } else {
 
         }
@@ -196,6 +197,7 @@ $(document).ready(function () {
             $('#resultado8').addClass('alert-danger');
             $('#resultado8').html('La contraseña debe ser minimo de 6 caracteres');
             validacion8 = true;
+            validacion4=true;
         } else if (strongRegex.test($(this).val())) {
 
             $('#resultado8').removeClass('alert-danger');
@@ -203,18 +205,21 @@ $(document).ready(function () {
             $('#resultado8').addClass('alert-success');
             $('#resultado8').html('La contraseña es segura!');
             validacion8 = false;
+            validacion4=false;
         } else if (mediumRegex.test($(this).val())) {
             $('#resultado8').removeClass('alert-danger');
             $('#resultado8').removeClass('alert-success');
             $('#resultado8').addClass('alert-warning');
             $('#resultado8').html('La contraseña es medianamente debil! debe llevar numeros y caracteres especiales');
             validacion8 = true;
+            validacion4=true;
         } else {
             $('#resultado8').removeClass('alert-success');
             $('#resultado8').removeClass('alert-warning');
             $('#resultado8').addClass = ('alert-danger');
             $('#resultado8').html('La contraseña es muy debil! Debe llevar mayusculas y minusculas');
             validacion8 = true;
+            validacion4=true;
         }
         return false;
     });
@@ -226,7 +231,7 @@ $(document).ready(function () {
             $('#resultado9').removeClass('alert-success');
             $('#resultado9').addClass('alert-danger');
             $('#resultado9').html('<strong>¡Error!</strong> Este campo es requerido, digite su contraseña de nuevo.');
-
+            validacion2 = false;
             validacion9 = true;
         } else {
 
@@ -242,11 +247,13 @@ $(document).ready(function () {
             $('#resultado9').addClass('alert-danger');
             $('#resultado9').html('<strong>¡Error!</strong> la contraseñas no coinsiden.');
             validacion9 = true;
+             validacion2 = true;
         } else {
             $('#resultado9').removeClass('alert-danger');
             $('#resultado9').addClass('alert-success');
             $('#resultado9').html('<strong>¡Ok!</strong> la contraseñas si coinsiden.');
             validacion9 = false;
+             validacion2 = true;
         }
     });
 
@@ -287,6 +294,49 @@ $(document).ready(function () {
 
 
     });
+    $("#edit-men").submit(function () {
+        if (validacion1) {///nombre1
+            $(location).attr('href', '#nombre1');
+            $('#nom1').focus();
+            return false;
+        } else if (validacion3) {///apellido1
+            $(location).attr('href', '#apellido1');
+            $('#ape1').focus();
+            return false;
+        } else if (validacion5 || error === true) {//correo
+            $(location).attr('hreft', '#correo');
+            $('#email').focus();
+            return false;
+        } else if (validacion6) {//direccion
+            $(location).attr('hreft', '#direccion');
+            $('#direccion').focus();
+            return false;
+        } else if (validacion7) {//documento
+            $(location).attr('hreft', '#documento');
+            $('#documento').focus();
+            return false;
+        }
+
+        return true;
+
+
+    });
 
 });
+///tabla editable del menu AddUniformes.jsp  funcion de seleccion multiple 
+$(document).ready(function(){
+$("#mytable #checkall").click(function () {
+        if ($("#mytable #checkall").is(':checked')) {
+            $("#mytable input[type=checkbox]").each(function () {
+                $(this).prop("checked", true);
+            });
 
+        } else {
+            $("#mytable input[type=checkbox]").each(function () {
+                $(this).prop("checked", false);
+            });
+        }
+    });
+    
+    $("[data-toggle=tooltip]").tooltip();
+});

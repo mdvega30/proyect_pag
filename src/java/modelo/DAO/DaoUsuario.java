@@ -193,39 +193,10 @@ public class DaoUsuario extends Conexion {
 
     }
 
-    public ArrayList<BeanUsuario> listarUsuarios(BeanUsuario usuario) {
-
-        PreparedStatement ps = null;
-        ArrayList<BeanUsuario> listaUsuarios = new ArrayList<>();
-        try {
-            consulta = "call listar(?)";
-            ps = conexion.prepareCall(consulta);
-            ps.setInt(1, 1);
-            /*usuario.getId_rol()*/
-            ResultSet print = ps.executeQuery();
-
-            while (print.next()) {
-                BeanUsuario usuarios = new BeanUsuario();
-
-                usuarios.setNombre1(print.getString("Nombres"));
-                usuarios.setApellido1(print.getString("Apellidos"));
-                usuarios.setCorreo(print.getString("Correo"));
-                usuarios.setDocumento(print.getString("Documento"));
-                usuarios.setDireccion(print.getString("Direccion"));
-
-                listaUsuarios.add(usuarios);
-            }
-
-        } catch (Exception e) {
-        }
-        return listaUsuarios;
-
-    }
-
     public boolean actualizarDatosUsuario(BeanUsuario usuarios) {
 
         PreparedStatement ps = null;
-        if (usuarios.getContraseña()== null||usuarios.getContraseña().contentEquals("") ) {
+        if (usuarios.getContraseña() == null || usuarios.getContraseña().contentEquals("")) {
 
             try {
 
@@ -282,6 +253,55 @@ public class DaoUsuario extends Conexion {
 
     }
 
+    public ArrayList<BeanUsuario> listarUsuarios(int pagina, int numeRegistro) {
+        PreparedStatement ps = null;
+
+        ArrayList<BeanUsuario> listaUsuarios = new ArrayList<>();
+        try {
+            consulta = "SELECT * FROM usuario LIMIT ?,?";
+            ps = conexion.prepareStatement(consulta);
+            ps.setInt(1, pagina);
+            ps.setInt(2, numeRegistro);
+
+            ResultSet print = ps.executeQuery();
+
+            while (print.next()) {
+                BeanUsuario usuarios = new BeanUsuario();
+                usuarios.setNombre1(print.getString("Nombre1"));
+                usuarios.setApellido1(print.getString("Apellido1"));
+                usuarios.setCorreo(print.getString("Correo"));
+                usuarios.setDocumento(print.getString("Documento"));
+                usuarios.setDireccion(print.getString("Direccion"));
+                listaUsuarios.add(usuarios);
+
+            }
+            ps.close();
+        } catch (Exception e) {
+
+            System.out.println("Error " + e);
+
+        }
+        return listaUsuarios;
+    }
+
+    public int verRegistrosTotales() {
+        PreparedStatement ps = null;
+        int contador = 0;
+        try {
+            consulta = "SELECT * FROM usuario";
+            ps = conexion.prepareStatement(consulta);
+            ResultSet print = ps.executeQuery();
+            while (print.next()) {
+                contador++;
+            }
+            ps.close();
+            return contador;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return contador = 1;
+    }
+
 ///*******//////PRUEBA DE CONSULTAS//////********///
     public static void main(String[] args) {
 
@@ -325,23 +345,23 @@ public class DaoUsuario extends Conexion {
 ////        beanUs.setCorreo("falso@xxx.xx");
 ////        System.out.println(daous.validarCorreo(beanUs));
 //        *****///////Listar Usuarios////////*****
-        BeanUsuario beanUs = new BeanUsuario();
-        DaoUsuario daous = new DaoUsuario();
-
-        ArrayList<BeanUsuario> listaUsuarios = new ArrayList<>();
-        beanUs.setId_rol(1);
-        listaUsuarios = daous.listarUsuarios(beanUs);
-        int contador = 1;
-        for (BeanUsuario listaUsuario : listaUsuarios) {
-
-            System.out.println("------Numero° " + contador++ + "-------");
-            System.out.println(listaUsuario.getNombre1());
-            System.out.println(listaUsuario.getApellido1());
-            System.out.println(listaUsuario.getCorreo());
-            System.out.println(listaUsuario.getDireccion());
-            System.out.println(listaUsuario.getDocumento());
-            System.out.println("___________________________");
-        }
+//        BeanUsuario beanUs = new BeanUsuario();
+//        DaoUsuario daous = new DaoUsuario();
+//
+//        ArrayList<BeanUsuario> listaUsuarios = new ArrayList<>();
+//        beanUs.setId_rol(1);
+//        listaUsuarios = daous.listarUsuarios(beanUs);
+//        int contador = 1;
+//        for (BeanUsuario listaUsuario : listaUsuarios) {
+//
+//            System.out.println("------Numero° " + contador++ + "-------");
+//            System.out.println(listaUsuario.getNombre1());
+//            System.out.println(listaUsuario.getApellido1());
+//            System.out.println(listaUsuario.getCorreo());
+//            System.out.println(listaUsuario.getDireccion());
+//            System.out.println(listaUsuario.getDocumento());
+//            System.out.println("___________________________");
+//        }
 //
 //        BeanUsuario beanUs = new BeanUsuario();
 //        DaoUsuario daous = new DaoUsuario();
@@ -355,6 +375,6 @@ public class DaoUsuario extends Conexion {
 //        System.out.println(beanUs.getContraseña());
 //        System.out.println(beanUs.getDireccion());
 //
-////
+////  clave 123 encriptada es: 6116afedcb0bc31083935c1c262ff4c9
     }
 }
