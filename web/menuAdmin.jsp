@@ -19,16 +19,17 @@
 
 %>
 <!DOCTYPE html>
-<html class="ht">
+<html >
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/_css.css" rel="stylesheet" type="text/css"/>
+
         <title>Menu</title>
     </head>
     <body class="bd">
-
+        
         <nav class="navbar navbar-inverse" >
             <div class="container-fluid">
 
@@ -62,13 +63,14 @@
             </div>
         </nav>
         <!--FIN Menu usuario-->
-
+        
         <!--Menu PANEL DE CONTROL-->
         <br>
         <br>
 
         <!-- Main -->
         <div class="container-fluid">
+
             <div class="row">
                 <div class="col-sm-3">
                     <!-- Left column -->
@@ -85,14 +87,14 @@
 
                                 <li><a href="menuA_listar.jsp?pagina=0"><i class="glyphicon glyphicon-user"></i> Lista usuarios</a></li>
                                 <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Pedidods</a></li>
-
+                             
 
                             </ul>
                         </li>
                         <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu2"> Agregar/Editar <i class="glyphicon glyphicon-chevron-right"></i></a>
 
                             <ul class="nav nav-stacked collapse" id="menu2">
-                                    
+
                                 <li><a href="Adduniformes.jsp">Agregar Uniformes</a>
                                 </li>
                                 <li><a href="#">Tela &amp; Cosas</a>
@@ -162,13 +164,14 @@
 
                 </div>
             </div>
-            <!-- /Main -->
+        </div>
+        <!-- /Main -->
 
-            <footer class="container-fluid text-center">
-                <p>Footer ® David Daza</p>
-            </footer>
+        <footer class="container-fluid text-center">
+            <p>Footer ® David Daza</p>
+        </footer>
 
-            <script src="js/jquery.js" type="text/javascript"></script>
-            <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/jquery.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
     </body>
 </html>

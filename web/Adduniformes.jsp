@@ -300,8 +300,8 @@
         <footer class="container-fluid text-center">
             <p>Footer ® David Daza</p>
         </footer>
-        <script src="js/jquery.js" type="text/javascript"></script>
-        <script src="js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="js/_js.js" type="text/javascript"></script>
+        <script src="../js/jquery.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../js/_js.js" type="text/javascript"></script>
     </body>
 </html>

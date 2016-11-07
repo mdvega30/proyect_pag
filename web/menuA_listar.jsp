@@ -8,10 +8,10 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="modelo.DAO.DaoUsuario"%>
 <%@page import="modelo.BEAN.BeanUsuario"%>
-<%@page import="Util.Paginacion"%>
 
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8" errorPage="Error404.jsp"%>
 <% HttpSession sesion = request.getSession(false);
     String admin = (String) sesion.getAttribute("admin");
     String usuario = (String) sesion.getAttribute("usuario");
@@ -28,6 +28,7 @@
 <!DOCTYPE html>
 <html class="ht">
     <head>
+      
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -51,7 +52,7 @@
                     <!--Menu usuario-->
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="glyphicon glyphicon-user" class="dropdown-toggle"  data-toggle="dropdown"><b> <%out.print(nombre);%></b> <span class="caret"></span></a>
+                            <a href="#" class="glyphicon glyphicon-user"  data-toggle="dropdown"><b> <%out.print(nombre);%></b> <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Editar mi cuenta <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
                                 <li class="divider"></li>
@@ -146,8 +147,7 @@
                         } else {
                             pagina = Integer.parseInt(request.getParameter("pagina"));
                         }
-                        Paginacion pag = new Paginacion();
-                        pag.getProductos(pagina);
+                        
 
 
                     %>

@@ -6,7 +6,7 @@
 
 <%@page import="modelo.BEAN.BeanUsuario"%>
 <%@page import="modelo.DAO.DaoUsuario"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" errorPage="Error404.jsp"%>
 <% HttpSession sesion = request.getSession(false);
     String usuario = (String) sesion.getAttribute("usuario");
     String admin = (String) sesion.getAttribute("admin");
@@ -22,7 +22,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
-        <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/_css.css" rel="stylesheet" type="text/css"/>
 
@@ -39,7 +39,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>                        
                         </button>
-                        <a class="navbar-brand" href="menu.jsp"><img src="imagenes/icono.png" alt=""/></a>
+                        <a class="navbar-brand" href="menu.jsp"><img src="../imagenes/icono.png" alt=""/></a>
 
                     </div>
                     <div class="collapse navbar-collapse" id="myNavbar">
@@ -60,7 +60,7 @@
 
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="#" class="glyphicon glyphicon-user" class="dropdown-toggle"  data-toggle="dropdown"><b> <%= dao.getNombre1()%></b> <span class="caret"></span></a>
+                                <a href="#" class="glyphicon glyphicon-user"  data-toggle="dropdown"><b> <%= dao.getNombre1()%></b> <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#" data-target="#myModal" data-toggle="modal">Editar mi cuenta <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
                                     <li class="divider"></li>

@@ -38,8 +38,8 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li ><a href="index.jsp">Inicio</a></li>
-                        <li><a href="#">Productos</a></li>
-                        <li><a href="#">¿Quienes somos?</a></li>
+                        <li><a href="catalogo.jsp">Catálogo</a></li>
+                        <li><a href="QuienesSomos.jsp">¿Quienes somos?</a></li>
                         <li><a href="#">Contactenos</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -130,10 +130,6 @@
                             <input type="text" id="direccion" class="form-control" name="direccion" placeholder="Dirección">
                             <div class="message alert-danger" id="resultado6"></div>
 
-                            <a name="documento"></a>
-                            <label for="documento">Documento:</label>
-                            <input type="text" id="documento" class="form-control" name="doc" placeholder="Docuemento">
-                            <div class="message alert-danger" id="resultado7"></div>
 
                             <label for="tipoDoc" >Tipo de documento:</label>
                             <select class="form-control" id="tipoDoc" name="tipoDoc">
@@ -142,6 +138,10 @@
                                 <option value="3">NIT personas jurídicas</option>
 
                             </select>
+                            <a name="documento"></a>
+                            <label for="documento">Documento:</label>
+                            <input type="text" id="documento" class="form-control" name="doc" placeholder="Docuemento">
+                            <div class="message alert-danger" id="resultado7"></div>
 
                             <a name="contra1"></a>
                             <label for="contraseña">Contraseña:</label>

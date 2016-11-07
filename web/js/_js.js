@@ -155,20 +155,39 @@ $(document).ready(function () {
 
     $('#documento').on('focusout', function () {
         var doc = $('#documento').val();
+        var tipoDoc = $('#tipoDoc').val();
+        var tipo = parseInt(tipoDoc);
         if (doc.trim() === '') {
+
             $('#resultado7').addClass('alert-danger');
             $('#resultado7').html('<strong>¡Error!</strong> Este campo es requerido, no debe ir vacío.');
             validacion7 = true;
-        } else if (isNaN(doc) || doc.length < 5 || doc.length > 20) {
-            $('#resultado7').addClass('alert-danger');
+        } else if (doc.length < 5 || doc.length > 20 || isNaN(doc) && tipo === 1) {
+
             $('#resultado7').html('<strong>¡Error!</strong> ¡Error! Este campo debe contener mínimo 5 caracteres y máximo 20 y el documento debe ser numerico.');
+            $('#resultado7').addClass('alert-danger');
+
             validacion7 = true;
+        } else if (doc.length < 5 || doc.length > 20 && tipo === 2) {
+
+            $('#resultado7').addClass('alert-danger');
+            $('#resultado7').html('<strong>¡Error!</strong> ¡Error! Este campo debe contener mínimo 5 caracteres y máximo 20');
+
+            validacion7 = true;
+        } else if (doc.length < 5 || doc.length > 20 || isNaN(doc) && tipo === 3) {
+            $('#resultado7').html('<strong>¡Error!</strong> ¡Error! Este campo debe contener mínimo 5 caracteres y máximo 20 y el documento debe ser numerico.');
+            $('#resultado7').addClass('alert-danger');
+
+            validacion7 = true;
+
         } else {
             $('#resultado7').removeClass('alert-danger');
             $('#resultado7').addClass('alert-success');
             $('#resultado7').html('Coreecto!');
             validacion7 = false;
+
         }
+        console.log(tipoDoc);
     });
     //validar contraseña
     $('#contra1').on('focusout', function () {
@@ -179,7 +198,7 @@ $(document).ready(function () {
             $('#resultado8').addClass('alert-danger');
             $('#resultado8').html('<strong>¡Error!</strong> Este campo es requerido, no debe ir vacío.');
             validacion8 = true;
-            validacion4=false;
+            validacion4 = false;
         } else {
 
         }
@@ -197,7 +216,7 @@ $(document).ready(function () {
             $('#resultado8').addClass('alert-danger');
             $('#resultado8').html('La contraseña debe ser minimo de 6 caracteres');
             validacion8 = true;
-            validacion4=true;
+            validacion4 = true;
         } else if (strongRegex.test($(this).val())) {
 
             $('#resultado8').removeClass('alert-danger');
@@ -205,21 +224,21 @@ $(document).ready(function () {
             $('#resultado8').addClass('alert-success');
             $('#resultado8').html('La contraseña es segura!');
             validacion8 = false;
-            validacion4=false;
+            validacion4 = false;
         } else if (mediumRegex.test($(this).val())) {
             $('#resultado8').removeClass('alert-danger');
             $('#resultado8').removeClass('alert-success');
             $('#resultado8').addClass('alert-warning');
             $('#resultado8').html('La contraseña es medianamente debil! debe llevar numeros y caracteres especiales');
             validacion8 = true;
-            validacion4=true;
+            validacion4 = true;
         } else {
             $('#resultado8').removeClass('alert-success');
             $('#resultado8').removeClass('alert-warning');
             $('#resultado8').addClass = ('alert-danger');
             $('#resultado8').html('La contraseña es muy debil! Debe llevar mayusculas y minusculas');
             validacion8 = true;
-            validacion4=true;
+            validacion4 = true;
         }
         return false;
     });
@@ -247,13 +266,13 @@ $(document).ready(function () {
             $('#resultado9').addClass('alert-danger');
             $('#resultado9').html('<strong>¡Error!</strong> la contraseñas no coinsiden.');
             validacion9 = true;
-             validacion2 = true;
+            validacion2 = true;
         } else {
             $('#resultado9').removeClass('alert-danger');
             $('#resultado9').addClass('alert-success');
             $('#resultado9').html('<strong>¡Ok!</strong> la contraseñas si coinsiden.');
             validacion9 = false;
-             validacion2 = true;
+            validacion2 = true;
         }
     });
 
@@ -294,6 +313,7 @@ $(document).ready(function () {
 
 
     });
+    //Actualizar cuenta validar campos
     $("#edit-men").submit(function () {
         if (validacion1) {///nombre1
             $(location).attr('href', '#nombre1');
@@ -324,8 +344,8 @@ $(document).ready(function () {
 
 });
 ///tabla editable del menu AddUniformes.jsp  funcion de seleccion multiple 
-$(document).ready(function(){
-$("#mytable #checkall").click(function () {
+$(document).ready(function () {
+    $("#mytable #checkall").click(function () {
         if ($("#mytable #checkall").is(':checked')) {
             $("#mytable input[type=checkbox]").each(function () {
                 $(this).prop("checked", true);
@@ -337,6 +357,6 @@ $("#mytable #checkall").click(function () {
             });
         }
     });
-    
+
     $("[data-toggle=tooltip]").tooltip();
 });

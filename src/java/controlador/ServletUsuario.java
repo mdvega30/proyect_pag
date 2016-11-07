@@ -41,7 +41,7 @@ public class ServletUsuario extends HttpServlet {
         int opcion = Integer.parseInt(request.getParameter("textOpcion"));
         BeanUsuario beanUs = new BeanUsuario();
         DaoUsuario daoUsu = new DaoUsuario();
-        
+
         beanUs.setNombre1(request.getParameter("nombre1"));
         beanUs.setNombre2(request.getParameter("nombre2"));
         beanUs.setApellido1(request.getParameter("apellido1"));
@@ -52,7 +52,7 @@ public class ServletUsuario extends HttpServlet {
         beanUs.setContraseña(request.getParameter("pass"));
         beanUs.setId_rol(1);
         BeanUsuario BeanUsuario = beanUs;
-        
+
         switch (opcion) {
             case 1://Autentica el usuario (Contraseña,correo) y el rol
 
@@ -120,18 +120,17 @@ public class ServletUsuario extends HttpServlet {
                 HttpSession sesiones = request.getSession(false);
                 String correoss = (String) sesiones.getAttribute("correo");
                 beanUs.setCorreo(correoss);
-               
-                      
+
                 if (daoUsu.actualizarDatosUsuario(beanUs)) {
-                    
+
                     request.setAttribute("acualizado", "");
                     request.getRequestDispatcher("menu.jsp").forward(request, response);
-                    
+
                 } else {
-                    
+
                     request.setAttribute("noActualizado", "");
                     request.getRequestDispatcher("menu.jsp").forward(request, response);
-                 
+
                 }
 
                 break;
@@ -153,12 +152,9 @@ public class ServletUsuario extends HttpServlet {
                 out.print(error);
                 break;
             case 7:
-                
-                
-                
+
                 break;
-            
-            
+
             default:
                 throw new AssertionError();
         }
