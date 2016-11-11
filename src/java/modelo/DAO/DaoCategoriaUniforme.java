@@ -27,7 +27,7 @@ public class DaoCategoriaUniforme extends Conexion{
         try {
             consulta="";
             ps = conexion.prepareCall(consulta);
-            ps.setString(1,bnUniforme.getNombreTipoUniforme());
+            ps.setString(1,"");
             
             
         } catch (Exception e) {

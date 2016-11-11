@@ -338,3 +338,47 @@ footer {
          -o-transition: 2s all ease-in-out .1s; 
             transition: 2s all ease-in-out .1s;    
 }
+
+
+
+/* subir acrhivo*/
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+#img-upload{
+    width: 100%;
+ 
+  
+}
+
+#contenedorimg{
+     margin-left: auto; margin-right: auto; margin-bottom: auto; margin-top: auto;
+}
+
+
+
+/*Estilo btn agregar uniforme*/
+.btn-glyphicon { padding:8px; background:#ffffff; margin-right:4px; }
+.icon-btn { padding: 1px 15px 3px 2px; border-radius:50px;}
+
+textarea {
+	resize: none;
+}

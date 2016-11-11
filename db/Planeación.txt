@@ -1,0 +1,22 @@
+generar una consul o varias consultas donde se muestre las prendas, 
+tipo de uniforme, diseño de uniforme, institucion, talla, precio, precio por tallas(para ahcer pedido). 
+
+¿Catalogo que muestre? 
+UrlDiseño
+Nombre del uniforme
+Precio
+Categoria del tipo de uniforme
+**Dar clic "Ver informacion"**
+UrlDiseño
+Descripcion del uniforme 
+Institucion al que pertenece.. si no N/A
+Disponibilidad 
+
+
+
+Consultas 
+
+select 
+from prenda_uniforme_institucion
+
+
