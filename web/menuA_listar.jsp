@@ -29,11 +29,12 @@
 <html class="ht">
     <head>
 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+        <link rel="shortcut icon" href="imagenes/icono.png">  
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/_css.css" rel="stylesheet" type="text/css"/>
-        <title>Menu</title>
+        <title>Lista de Usuarios</title>
     </head>
     <body class="bd">
 

@@ -23,11 +23,12 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="shortcut icon" href="imagenes/icono.png">  
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/_css.css" rel="stylesheet" type="text/css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Agregar Uniforme</title>
     </head>
     <body>
 
