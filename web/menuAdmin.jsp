@@ -72,9 +72,10 @@
                             </li>
                             <!--Menu fin desplegable-->
                             <!--Menu desplegable-->
+                           
+                                
                             <li class="dropdown ">
-
-                                <a href="#" class="glyphicon glyphicon-option-vertical " data-toggle="dropdown" > Agregar/Editar  <span class="caret "></span> </a>
+                                <a href="#" class="glyphicon glyphicon-option-vertical " data-toggle="dropdown"> Agregar/Editar  <span class="caret "></span> </a>
 
                                 <ul class="dropdown-menu ">
 
@@ -87,6 +88,7 @@
 
                                 </ul>
                             </li>
+                           
                             <!--Menu fin desplegable-->
                             <!--Menu desplegable-->
                             <li class="dropdown ">
