@@ -1,3 +1,9 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="modelo.BEAN.BeanUniforme"%>
+<%@page import="modelo.BEAN.BeanUniforme"%>
+<%@page import="modelo.DAO.DaoUniforme"%>
+<%@page import="modelo.DAO.DaoUsuario"%>
+<%@page import="modelo.BEAN.BeanUsuario"%>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
     Document   : Adduniformes
@@ -5,21 +11,8 @@
     Author     : David
 --%>
 
-<%@page import="modelo.DAO.DaoUsuario"%>
-<%@page import="modelo.BEAN.BeanUsuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% HttpSession sesion = request.getSession(false);
-    String usuario1 = (String) sesion.getAttribute("admin");
-    String usuario2 = (String) sesion.getAttribute("usuario");
 
-    if (sesion.getAttribute("usuario") != null) {
-        response.sendRedirect("menu.jsp");
-    } else if (sesion.getAttribute("admin") == null) {
-        response.sendRedirect("login.jsp");
-    }
-
-
-%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,8 +27,7 @@
 
         <%  BeanUsuario dao = new BeanUsuario();
             DaoUsuario daous = new DaoUsuario();
-            dao.setCorreo(usuario1);
-            daous.contruirObjetoUsuario(dao);
+
         %>
 
         <nav class="navbar navbar-inverse" >
@@ -54,60 +46,60 @@
                         <ul class="nav navbar-nav">
 
                             <li><a href="menuAdmin.jsp">Inicio</a></li>
-                            
+
                             <!--Menu desplegable-->
                             <li class="dropdown ">
-                                
+
                                 <a href="#" class="glyphicon glyphicon-wrench " data-toggle="dropdown" > Opciones  <span class="caret "></span> </a>
 
                                 <ul class="dropdown-menu ">
-                                    
+
                                     <li class="col-sm-3">
                                     <li><a href="menuA_listar.jsp?pagina=0"><i class="glyphicon glyphicon-list"></i> Listar de Usuarios </a></li>
-                                    
-                                    
+
+
 
                                 </ul>
                             </li>
                             <!--Menu fin desplegable-->
                             <!--Menu desplegable-->
                             <li class="dropdown ">
-                                
+
                                 <a href="#" class="glyphicon glyphicon-option-vertical " data-toggle="dropdown" > Agregar/Editar  <span class="caret "></span> </a>
 
                                 <ul class="dropdown-menu ">
-                                    
+
                                     <li class="col-sm-3">
                                     <li><a href=""><i class="glyphicon glyphicon-tasks"></i> Uniformes Catalogo </a></li>
                                     <li><a href=""><i class="glyphicon glyphicon-question-sign"></i> Prendas </a></li>
                                     <li><a href=""><i class="glyphicon glyphicon-question-sign"></i> Instituciones </a></li>
-                                    
-                                   
+
+
 
                                 </ul>
                             </li>
                             <!--Menu fin desplegable-->
                             <!--Menu desplegable-->
                             <li class="dropdown ">
-                                
+
                                 <a href="#" class="glyphicon glyphicon-globe " data-toggle="dropdown" > Redes Sociales  <span class="caret "></span> </a>
 
                                 <ul class="dropdown-menu ">
-                                    
+
                                     <li class="col-sm-3">
                                     <li><a href=""><i class="glyphicon glyphicon-question-sign"></i> FaceBook </a></li>
                                     <li><a href=""><i class="glyphicon glyphicon-question-sign"></i> Twitter </a></li>
-                                 
-                                    
-                                   
+
+
+
 
                                 </ul>
                             </li>
                             <!--Menu fin desplegable-->
-                            
-                            
-                            
-                            
+
+
+
+
                         </ul>
 
 
@@ -130,13 +122,30 @@
                 </div>
             </div>
         </nav>
-<!--Fin nav var-->
+        <!--Fin nav var-->
 
         <br>
         <br>
 
         <div class="container">
             <div class="row">
+            <div id="alerta">
+                <%
+
+                    if (request.getAttribute("acualizado") != null) { %>
+                ${acualizado}
+                <div class="alert alert-success">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Felicidades!</strong> La acción ha culminado satisfactoriamente.
+                </div>
+                <%} else if (request.getAttribute("noActualizado") != null) { %>
+                ${noActualizado}
+                <div class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Error!</strong> No se ha podido culminar satisfactoriamente.
+                </div>
+                <% }%>
+            </div>
                 <!--Informacion-->
                 <!--Informacion-->
                 <!--Informacion-->
@@ -159,56 +168,40 @@
                         <h4 class="modal-title">Agregue un Uniforme</h4>
                     </div>
                     <div class="modal-body">
-
-                        <form method="POST">
-
-                            <div class="form-group">
-                                <label>Tipo de uniforme</label>
-                                <select id="optcTipouniforme" name="optcTipouniforme" class="form-control">
-                                    <option value="1">Empresarial</option>
-                                    <option value="2">Option two</option>
-                                </select>
-                            </div>
-
-
+                        <!--Inicio form insertyar datos-->
+                        <form method="POST" action="CrearUniforme" enctype="multipart/form-data" name="formInsert">
 
                             <div class="form-group">
-                                <label>Institución</label>
-                                <select id="optcInstitucion" name="optcInstitucion" class="form-control">
-                                    <option value="1">Colegio falso</option>
-                                    <option value="2">Option two</option>
-                                </select>
-                            </div>
+                                <label>Nombre Uniforme</label>
+                                <input type="text" name="txtnombreU" placeholder="Nombre de Uniforme" value="" class="form-control"/>
 
+                            </div>
 
                             <div class="form-group">
-                                <label>Prenda</label>
-                                <select id="optcPrenda" name="optcPrenda" class="form-control">
-                                    <option value="1">Camisa</option>
-                                    <option value="2">Option two</option>
+                                <label>Tipo uniforme</label>
+                                <select id="opTipoU" name="opTipoU" class="form-control">
+                                    <option value="1">Uniforme Escolar</option>
+                                    <option value="2">Uniformes deportivos</option>
+                                    <option value="3">Uniformes militares y de fuerzas de seguridad</option>
+                                    <option value="4">Uniformes religiosos o hábitos</option>
+                                    <option value="5">Otros</option>
                                 </select>
                             </div>
-
-
                             <div class="form-group">
-                                <label>Talla</label>
-                                <select id="optcTalla" name="optcTalla" class="form-control">
-                                    <option value="1">M</option>
-                                    <option value="2">Option two</option>
-                                </select>
+                                <label>Precio</label>
+                                <input type="number" name="txtPrecio" placeholder="Precio" value="" class="form-control"/>
                             </div>
-
-
-
-
 
                             <div class="form-group">
                                 <label>Descripción</label>
-                                <textarea  name="textareaDescrip" id="textareaDescrip" class="form-control input-sm" placeholder="Escriba una descripción"></textarea>
+                                <textarea  name="textareaDescripU" id="textareaDescrip" class="form-control input-sm" placeholder="Escriba una descripción"></textarea>
                             </div>
                             <div class="form-group">
-                                <label>Activo/Incativo</label><br>
-                                <input type="checkbox" class="activo-inactivo"/>
+                                <label>Estado</label><br>
+                                <select id="opEstadoU" name="opEstadoU" class="form-control">
+                                    <option value="true">En venta</option>
+                                    <option value="False">No está en venta</option>
+                                </select>
                             </div>
 
 
@@ -218,7 +211,7 @@
                                 <div class="input-group">
                                     <span class="input-group-btn">
                                         <span class="btn btn-info btn-file ">
-                                            Subir <input class="btn btn-default btn-file disabled" type="file" id="imgInp">
+                                            Subir <input class="btn btn-default btn-file disabled" type="file" name="file" id="imgInp">
                                         </span>
                                     </span>
                                     <input type="text" class="form-control" readonly>
@@ -226,12 +219,11 @@
                                 <br>
                                 <div id="contenedorimg">
                                     <img id='img-upload'/>
-
                                 </div>
 
                             </div>
-                            <button type="button" class="btn btn-success btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Guardar</button>
-                            <input type="hidden" name="textOpcio" value="">
+                            <button class="btn btn-success btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Guardar</button>
+
 
                         </form>
                         <!--Fin formulario agregar-->
@@ -259,109 +251,57 @@
                     <h4>Uniformes en catalogo para la venta</h4>
                     <div class="table-responsive">
 
-
+                        <%int pagina = 0; //pagina a mostrar
+                            if (request.getParameter("pagina") == null) {
+                                pagina = 0;
+                            } else {
+                                pagina = Integer.valueOf(request.getParameter("pagina"));
+                            }
+                        %>
                         <table id="mytable" class="table table-bordred table-striped">
 
                             <thead>
 
                             <th><input type="checkbox" id="checkall" /></th>
-                            <th>Tipo Uniforme</th>
-                            <th>Institucion</th>
-                            <th>Prenda</th>
-                            <th>Talla</th>
+                            <th>N°</th>
+                            <th>Nombre Uniforme</th>
+                            <th>Tipo uniforme</th>
+                            <th>Precio</th>
                             <th>Imagen</th>
                             <th>Descripcion</th>
-                            <th>Activo</th>
+                            <th>Activo/Inactivo</th>
                             <th>Editar</th>
 
                             <th>Eliminar</th>
                             </thead>
                             <tbody>
+                                <%
+                                    DaoUniforme daoUniforme = new DaoUniforme();
+                                    ArrayList<BeanUniforme> listaUniforme = daoUniforme.listarUniforme(pagina * 10, 10);
+                                    int cont = pagina * 10;
+                                    int contador2 = 0;
 
+                                    for (BeanUniforme bnUnifor : listaUniforme) {%>
                                 <tr>
                                     <td><input type="checkbox" class="checkthis" /></td>
-                                    <td>Colegial</td>
-                                    <td>Hogwarts de Magia y Hechicería</td>
-                                    <td>Camisa</td>
-                                    <td>M</td>
-                                    <td>imagen/imagen.png</td>
-                                    <td>Contra Hechizos</td>
-                                    <td><input type="checkbox" class="activo-inactivo"/></td>
-                                    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                                    <td><%=cont + 1%></td>
+                                    <td><%=bnUnifor.getNombre_uniforme()%></td>
+                                    <td><%=bnUnifor.getNombreTipo()%></td>
+                                    <td>$ <%=bnUnifor.getPrecio()%></td> 
+                                    <td><%=bnUnifor.getUrl_diseño_Uniforme()%></td>
+                                    <td><%=bnUnifor.getDescripcion_uniforme()%></td>
+                                    <% if (bnUnifor.isEstadoUniforme()) {%>
+                                    <td ><input checked="" type="checkbox" class="checkthis" disabled="" /></td>                                                               
+                                        <%} else {%>
+                                    <td><input type="checkbox" class="checkthis" disabled=""/></td>                                                               
+                                        <%}%>
+                                    <td><a data-placement="top" data-toggle="tooltip" title="Edit" ><button class="btn btn-primary btn-xs editar" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></a></td>
+                                    <td><a data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs elimina"  value="<%= bnUnifor.getId_uniforme()%>" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></a></td>
                                 </tr>
-                                <tr>
-                                    <td><input type="checkbox" class="checkthis" /></td>
-                                    <td>Colegial</td>
-                                    <td>Hogwarts de Magia y Hechicería</td>
-                                    <td>Camisa</td>
-                                    <td>M</td>
-                                    <td>imagen/imagen.png</td>
-                                    <td>Contra Hechizos</td>
-                                    <td><input type="checkbox" class="activo-inactivo"/></td>
-                                    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" class="checkthis" /></td>
-                                    <td>Colegial</td>
-                                    <td>Hogwarts de Magia y Hechicería</td>
-                                    <td>Camisa</td>
-                                    <td>M</td>
-                                    <td>imagen/imagen.png</td>
-                                    <td>Contra Hechizos</td>
-                                    <td><input type="checkbox" class="activo-inactivo"/></td>
-                                    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" class="checkthis" /></td>
-                                    <td>Colegial</td>
-                                    <td>Hogwarts de Magia y Hechicería</td>
-                                    <td>Camisa</td>
-                                    <td>M</td>
-                                    <td>imagen/imagen.png</td>
-                                    <td>Contra Hechizos</td>
-                                    <td><input type="checkbox" class="activo-inactivo"/></td>
-                                    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" class="checkthis" /></td>
-                                    <td>Colegial</td>
-                                    <td>Hogwarts de Magia y Hechicería</td>
-                                    <td>Camisa</td>
-                                    <td>M</td>
-                                    <td>imagen/imagen.png</td>
-                                    <td>Contra Hechizos</td>
-                                    <td><input type="checkbox" class="activo-inactivo"/></td>
-                                    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" class="checkthis" /></td>
-                                    <td>Colegial</td>
-                                    <td>Hogwarts de Magia y Hechicería</td>
-                                    <td>Camisa</td>
-                                    <td>M</td>
-                                    <td>imagen/imagen.png</td>
-                                    <td>Contra Hechizos</td>
-                                    <td><input type="checkbox" class="activo-inactivo"/></td>
-                                    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" class="checkthis" /></td>
-                                    <td>Colegial</td>
-                                    <td>Hogwarts de Magia y Hechicería</td>
-                                    <td>Camisa</td>
-                                    <td>M</td>
-                                    <td>imagen/imagen.png</td>
-                                    <td>Contra Hechizos</td>
-                                    <td><input type="checkbox" class="activo-inactivo"/></td>
-                                    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                                </tr>
+
+                                <%cont++;
+                                    }%>
+
 
 
 
@@ -375,14 +315,38 @@
                         </table>
 
                         <div class="clearfix"></div>
-                        <ul class="pagination pull-right">
-                            <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                        <ul class="pagination pull-left">
+
+
+
+                            <%if (pagina > 1) {%> 
+                            <li class=""><a href="?pagina=<%=pagina - 1%>"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                                    <%} else {%>
+                            <li class="disabled"><a ><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                                    <%}%>
+                                    <%
+                                        int numeroRegistros = daoUniforme.verRegistrosTotales();
+                                        int numerPagina = numeroRegistros / 10;
+
+                                        for (int i = 0; i <= numerPagina; i++) {
+
+                                            if (i == pagina) {
+                                    %>
+                            <li class="active"><a href="?pagina=<%=(i)%>"><%=i + 1%></a></li> 
+
+                            <%} else {
+                            %>
+                            <li class=""><a href="?pagina=<%=(i)%>"><%=i + 1%></a></li> 
+
+                            <%}
+                                }%>
+                            <%if (pagina < numerPagina) {%> 
+                            <li><a href="?pagina=<%=pagina + 1%>"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+
+                            <%} else {%>
+                            <li class="disabled" ><a><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+
+                            <%}%>
                         </ul>
 
                     </div>
@@ -401,30 +365,69 @@
                     </div>
 
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label>Tipo Uniforme</label>
-                            <input class="form-control " type="text" placeholder="Tipo Uniforme">
-                        </div>
-                        <div class="form-group">
-                            <label>Institucion</label>
-                            <input class="form-control " type="text" placeholder="Institucion">
-                        </div>
-                        <div class="form-group">
-                            <label>Prenda</label>
-                            <input class="form-control " type="text" placeholder="Prenda">
-                        </div>
-                        <div class="form-group">
-                            <label>Tallas</label>
-                            <input class="form-control " type="text" placeholder="Tallas">
-                        </div>
-                        <label>Descripción</label>
-                        <div class="form-group">
-                            <textarea rows="2" class="form-control" placeholder="Descripción"></textarea>
-                        </div>
+                        <!--Inicio form insertyar datos-->
+                        <form method="POST" action="CrearUniforme" enctype="multipart/form-data" name="formInsert">
+
+                            <div class="form-group">
+                                <label>Nombre Uniforme</label>
+                                <input type="text" name="txtnombreU" placeholder="Nombre de Uniforme" value="" class="form-control"/>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tipo uniforme</label>
+                                <select id="opTipoU" name="opTipoU" class="form-control">
+                                    <option value="1">Uniforme Escolar</option>
+                                    <option value="2">Uniformes deportivos</option>
+                                    <option value="3">Uniformes militares y de fuerzas de seguridad</option>
+                                    <option value="4">Uniformes religiosos o hábitos</option>
+                                    <option value="5">Otros</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Precio</label>
+                                <input type="number" name="txtPrecio" placeholder="Precio" value="" class="form-control"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Descripción</label>
+                                <textarea  name="textareaDescripU" id="textareaDescrip" class="form-control input-sm" placeholder="Escriba una descripción"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Estado</label><br>
+                                <select id="opEstadoU" name="opEstadoU" class="form-control">
+                                    <option value="true">En venta</option>
+                                    <option value="False">No está en venta</option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Cambiar Imagen</label>
+
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <span class="btn btn-info btn-file ">
+                                            Subir <input class="btn btn-default btn-file disabled" type="file" name="file"  id="imgInp">
+                                        </span>
+                                    </span>
+                                    <input type="text" class="form-control" readonly value="hol">
+                                </div>
+                                <br>
+                                <div id="contenedorimg">
+                                    <img id='img-upload'/>
+                                </div>
+
+                            </div>
+                            
+                            <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Actualizar</button>
+
+
+                        </form>
+                        <!--Fin formulario agregar-->
 
                     </div>
                     <div class="modal-footer ">
-                        <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Actualizar</button>
                     </div>
                 </div>
                 <!-- /.modal-content --> 
@@ -434,27 +437,36 @@
 
 
 
-        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                        <h4 class="modal-title custom_align" id="Heading">Borrar este articulo</h4>
-                    </div>
-                    <div class="modal-body">
+        <form method="POST" action="CrearUniforme" name="formEliminar">
+            <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+                <div class="modal-dialog">
 
-                        <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Esta usted seguro de eliminar este articulo?</div>
+                    <div class="build-list">
 
                     </div>
-                    <div class="modal-footer ">
-                        <button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> SI</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <input type="hidden" class="idDelete" value="" name="idEliminar"/>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                            <h4 class="modal-title custom_align" id="Heading">Borrar este articulo</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Esta usted seguro de eliminar este articulo?</div>
+
+                        </div>
+                        <div class="modal-footer ">
+                            <button  class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> SI</button>
+                            <input type="hidden" name="txtOpc" value="2">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+
+                        </div>
                     </div>
+                    <!-- /.modal-content --> 
                 </div>
-                <!-- /.modal-content --> 
+                <!-- /.modal-dialog --> 
             </div>
-            <!-- /.modal-dialog --> 
-        </div>
+        </form>
 
         <footer class="container-fluid text-center">
             <p>Footer ® David Daza</p>

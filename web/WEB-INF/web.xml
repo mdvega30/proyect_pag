@@ -4,9 +4,17 @@
         <servlet-name>ServletUsuario</servlet-name>
         <servlet-class>controlador.ServletUsuario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletUniforme</servlet-name>
+        <servlet-class>controlador.ServletUniforme</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletUsuario</servlet-name>
         <url-pattern>/iniciar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletUniforme</servlet-name>
+        <url-pattern>/CrearUniforme</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

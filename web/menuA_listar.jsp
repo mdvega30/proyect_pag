@@ -17,7 +17,7 @@
     String usuario = (String) sesion.getAttribute("usuario");
     String nombre = (String) sesion.getAttribute("nombre");
 
-    if (sesion.getAttribute("usuario") != null) {
+   if (sesion.getAttribute("usuario") != null) {
         response.sendRedirect("menu.jsp");
     } else if (sesion.getAttribute("admin") == null) {
         response.sendRedirect("login.jsp");
@@ -157,7 +157,7 @@
 
                 <%int pagina = 0; //pagina a mostrar
                     if (request.getParameter("pagina") == null) {
-                        pagina = 1;
+                        pagina = 0;
                     } else {
                         pagina = Integer.parseInt(request.getParameter("pagina"));
                     }
@@ -213,7 +213,7 @@
 
                                 for (int i = 0; i <= numerPagina; i++) {
 
-                                    if (i == Integer.valueOf(request.getParameter("pagina"))) {
+                                    if (i == pagina) {
                             %>
                     <li class="active"><a href="?pagina=<%=(i)%>"><%=i + 1%></a></li> 
 

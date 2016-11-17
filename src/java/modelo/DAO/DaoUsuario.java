@@ -174,8 +174,8 @@ public class DaoUsuario extends Conexion {
 
             while (print.next()) {
 
-                usuario.setId_Usuario(print.getInt("Id_usuario"));
-                usuario.setId_rol(print.getInt("Id_rol"));
+                usuario.setId_Usuario(print.getInt("IdUsuario"));
+                usuario.setId_rol(print.getInt("IdRol"));
                 usuario.setNombre1(print.getString("Nombre1"));
                 usuario.setNombre2(print.getString("Nombre2"));
                 usuario.setApellido1(print.getString("Apellido1"));
@@ -312,17 +312,17 @@ public class DaoUsuario extends Conexion {
 //        beanUs.setNombre2("Andres");
 //        beanUs.setApellido1("Daza");
 //        beanUs.setApellido2("Diaz");
-//        beanUs.setCorreo("falso@xxx.xx");
+//        beanUs.setCorreo("no@x.123");
 //        beanUs.setDireccion("Crea 105 n°154a-36");
 //        beanUs.setDocumento("1026580077");
-//        beanUs.setContraseña("123");
+//        beanUs.setContraseña("1234");
 //        beanUs.setId_tipodocumento(1);
 //        beanUs.setId_rol(2);
 //        System.out.println(daoUs.crearUsuario(beanUs));
 //        *****///////Verificar Usuario////////*****
 //        DaoUsuario daoUs = new DaoUsuario();
 //        BeanUsuario beanUs = new BeanUsuario();
-//        beanUs.setCorreo("david.d.08@hooo");
+//        beanUs.setCorreo("admin@admin.co");
 //        beanUs.setContraseña("123");
 //        System.out.println(daoUs.autenticarUsuario(beanUs));
 //        *****///////Verificar Admin////////*****       

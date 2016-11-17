@@ -365,55 +365,124 @@ $(document).ready(function () {
 
 /*subir archivo*/
 
-$(document).ready( function() {
-    	$(document).on('change', '.btn-file :file', function() {
-		var input = $(this),
-			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-		input.trigger('fileselect', [label]);
-		});
+$(document).ready(function () {
+    $(document).on('change', '.btn-file :file', function () {
+        var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [label]);
+    });
 
-		$('.btn-file :file').on('fileselect', function(event, label) {
-		    
-		    var input = $(this).parents('.input-group').find(':text'),
-		        log = label;
-		    
-		    if( input.length ) {
-		        input.val(log);
-		    } else {
-		        if( log ) alert(log);
-		    }
-	    
-		});
-		function readURL(input) {
-		    if (input.files && input.files[0]) {
-		        var reader = new FileReader();
-		        
-		        reader.onload = function (e) {
-		            $('#img-upload').attr('src', e.target.result);
-		        }
-		        
-		        reader.readAsDataURL(input.files[0]);
-		    }
-		}
+    $('.btn-file :file').on('fileselect', function (event, label) {
 
-		$("#imgInp").change(function(){
-		    readURL(this);
-		}); 	
-	});
-        
-        
-        
-        
-        
-        $(document).ready(function(){
-    $(".dropdown").hover(            
-        function() {
-            $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideDown("400");
-            $(this).toggleClass('open');        
-        },
-        function() {
-            $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideUp("400");
-            $(this).toggleClass('open');       
+        var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+        if (input.length) {
+            input.val(log);
+        } else {
+            if (log)
+                alert(log);
         }
+
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img-upload').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#imgInp").change(function () {
+        readURL(this);
+    });
+});
+
+
+
+
+
+$(document).ready(function () {
+    $(".dropdown").hover(
+            function () {
+                $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideDown("400");
+                $(this).toggleClass('open');
+            },
+            function () {
+                $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideUp("400");
+                $(this).toggleClass('open');
+            }
     );
 });/*AMenu*/
+
+
+
+/*Form eliminar de adduniforme.jsp enviar datos */
+$(document).ready(function () {
+   
+
+    $(document).on('click', '.elimina', function (e) {
+        e.preventDefault();
+        var mostrar = $(this).attr('value');
+        $('.idDelete').val(mostrar);
+
+//        $.ajax({
+//            url: '',
+//            dataType: 'html',
+//        }).done(function (data) {
+//            $('.build-list').html(data);
+    });
+    
+    
+    $(document).on('click', '.elimina', function (e) {
+        e.preventDefault();
+        var mostrar = $(this).attr('value');
+        $('.idDelete').val(mostrar);
+         $.ajax({//pasar por post datos al controlador
+            url: 'CrearUniforme',
+            dataType: 'html',
+            method: 'POST',
+            data: {'accion':3, id: mostrar},
+        }).done(function (data) {
+            $('.build-list').html(data);
+        });
+
+    });
+
+//    $(document).on('click', '.agregar', function (e) {
+//        e.preventDefault();
+//
+//
+//        $.ajax({
+//            url: 'insertarUniforme.jsp',
+//            dataType: 'html',
+//        }).done(function (data) {
+//            $('.insert').html(data);
+//        });
+//    });
+//        
+//        
+//        $.ajax({
+//            url: 'editarUniforme.jsp?accion=2&id=+'+mostrar,
+//            dataType: 'html',
+//        }).done(function (data) {
+//            $('.build-list').html(data);
+//        });
+
+
+//        $.ajax({//pasar por post datos al controlador
+//            url: 'editarUniforme.jsp',
+//            dataType: 'html',
+//            method: 'POST',
+//            data: {'accion':3, id: mostrar},
+//        }).done(function (data) {
+//            $('.build-list').html(data);
+//        });
+});
+
+
+
