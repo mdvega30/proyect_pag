@@ -423,12 +423,24 @@ $(document).ready(function () {
 
 /*Form eliminar de adduniforme.jsp enviar datos */
 $(document).ready(function () {
-   
+
 
     $(document).on('click', '.elimina', function (e) {
         e.preventDefault();
         var mostrar = $(this).attr('value');
         $('.idDelete').val(mostrar);
+
+
+//        $.ajax({//pasar por post datos al controlador
+//            url: 'CrearUniforme',
+//            dataType: 'html',
+//            method: 'POST',
+//            data: {'txtOpc': 4},
+//        }).done(function (data) {
+//
+//
+//        });
+
 
 //        $.ajax({
 //            url: '',
@@ -436,22 +448,26 @@ $(document).ready(function () {
 //        }).done(function (data) {
 //            $('.build-list').html(data);
     });
-    
-    
-    $(document).on('click', '.elimina', function (e) {
-        e.preventDefault();
-        var mostrar = $(this).attr('value');
-        $('.idDelete').val(mostrar);
-         $.ajax({//pasar por post datos al controlador
-            url: 'CrearUniforme',
-            dataType: 'html',
-            method: 'POST',
-            data: {'accion':3, id: mostrar},
-        }).done(function (data) {
-            $('.build-list').html(data);
-        });
 
-    });
+
+//    $(document).on('click', '.mandaredit', function (e) {
+//        
+//        var mostrar = $(this).attr('value');
+//
+//
+//        $.ajax({//pasar por post datos al controlador
+//            url: 'CrearUniforme',
+//            dataType: 'html',
+//            method: 'POST',
+//            data: {'txtOpc': 3},
+//        }).done(function (data) {
+//
+//
+//        });
+//
+//
+//
+//    });
 
 //    $(document).on('click', '.agregar', function (e) {
 //        e.preventDefault();
@@ -486,3 +502,52 @@ $(document).ready(function () {
 
 
 
+$(document).on('click', '.editar', function (e) {
+    e.preventDefault();
+    var mostrar = $(this).attr('value');
+//    $('.idEdit').val(mostrar);
+
+    $.ajax({//pasar por post datos al controlador
+        url: 'editaruniforme.jsp',
+        dataType: 'html',
+        data: {'idUni': mostrar},
+    }).done(function (data) {
+
+        $('.formulario').html(data);
+
+    });
+
+});
+
+//$(document).ready(function () {
+//
+//    var valor = $('.sel').val().attr('value');
+//    $("#opTipoU > option[value=" + valor + "]").attr('selected', 'selected');
+////    var valor = $('.sel').val().attr('value');
+////    $("#opTipoU option[value=" + valor + "]").attr("selected", true);
+//////    $('#paises > option[value="valor"]').attr('selected', 'selected');
+//});
+
+
+
+//
+//$(".btn").click(function (e) {
+//
+//    var file = $("#imgInp").val();  //Fetch the filename of the submitted file
+//    //Check file extension
+//    var ext = file.split('.').pop().toLowerCase();   //Check file extension if valid or expected
+//    if (file == '') {    //Check if a file was selected
+//        //Place warning text below the upload control
+//        $("#answereJs2").html("Please select a file first.");
+//        e.preventDefault();
+//
+//    } else {
+//
+//        if ($.inArray(ext, ['jpeg', 'jpg', 'png']) === -1) {
+//            $("#answereJs2").html("Seleccione una imagen (jpeg,jpg,png).");
+////        e.preventDefault(); //Prevent submission of form
+//        }
+//    }
+//
+//
+//});

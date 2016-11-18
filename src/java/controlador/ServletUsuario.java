@@ -38,7 +38,10 @@ public class ServletUsuario extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+
+        if (request.getParameter("textOpcion") == null) {
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
         int opcion = Integer.parseInt(request.getParameter("textOpcion"));
         BeanUsuario beanUs = new BeanUsuario();
         DaoUsuario daoUsu = new DaoUsuario();

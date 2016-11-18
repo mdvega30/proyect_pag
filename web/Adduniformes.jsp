@@ -1,3 +1,4 @@
+
 <%@page import="java.util.ArrayList"%>
 <%@page import="modelo.BEAN.BeanUniforme"%>
 <%@page import="modelo.BEAN.BeanUniforme"%>
@@ -12,7 +13,19 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% HttpSession sesion = request.getSession(false);
+    String usuario1 = (String) sesion.getAttribute("admin");
+    String usuario2 = (String) sesion.getAttribute("usuario");
+    String nombre = (String) sesion.getAttribute("nombre");
 
+    if (sesion.getAttribute("usuario") != null) {
+        response.sendRedirect("menu.jsp");
+    } else if (sesion.getAttribute("admin") == null) {
+        response.sendRedirect("login.jsp");
+    }
+
+
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,10 +38,16 @@
     </head>
     <body>
 
-        <%  BeanUsuario dao = new BeanUsuario();
-            DaoUsuario daous = new DaoUsuario();
+        <%  BeanUsuario beanUs = new BeanUsuario();
+            DaoUsuario daoUs = new DaoUsuario();
+            beanUs.setCorreo(usuario1);
+            daoUs.contruirObjetoUsuario(beanUs);
+            BeanUniforme beanUnif = new BeanUniforme();
+
 
         %>
+        
+
 
         <nav class="navbar navbar-inverse" >
             <div class="container">
@@ -106,7 +125,7 @@
 
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="#" class="glyphicon glyphicon-user"   data-toggle="dropdown"><b> <%= dao.getNombre1()%></b> <span class="caret"></span></a>
+                                <a href="#" class="glyphicon glyphicon-user"   data-toggle="dropdown"><b> <%= beanUs.getNombre1()%></b> <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#"><i class="icon-envelope"></i> Mensajes <span class="badge badge-info">4</span></a></li>
                                     <li><a href="iniciar?textOpcion=3">Salir<span class="glyphicon glyphicon-log-out pull-right"></span></a></li>  
@@ -129,23 +148,23 @@
 
         <div class="container">
             <div class="row">
-            <div id="alerta">
-                <%
+                <div id="alerta">
+                    <%
 
-                    if (request.getAttribute("acualizado") != null) { %>
-                ${acualizado}
-                <div class="alert alert-success">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Felicidades!</strong> La acción ha culminado satisfactoriamente.
+                        if (request.getAttribute("acualizado") != null) { %>
+                    ${acualizado}
+                    <div class="alert alert-success">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Felicidades!</strong> La acción ha culminado satisfactoriamente.
+                    </div>
+                    <%} else if (request.getAttribute("noActualizado") != null) { %>
+                    ${noActualizado}
+                    <div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Error!</strong> No se ha podido culminar satisfactoriamente.
+                    </div>
+                    <% }%>
                 </div>
-                <%} else if (request.getAttribute("noActualizado") != null) { %>
-                ${noActualizado}
-                <div class="alert alert-danger">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Error!</strong> No se ha podido culminar satisfactoriamente.
-                </div>
-                <% }%>
-            </div>
                 <!--Informacion-->
                 <!--Informacion-->
                 <!--Informacion-->
@@ -211,9 +230,10 @@
                                 <div class="input-group">
                                     <span class="input-group-btn">
                                         <span class="btn btn-info btn-file ">
-                                            Subir <input class="btn btn-default btn-file disabled" type="file" name="file" id="imgInp">
+                                            Subir <input class="btn btn-default btn-file disabled btnfi" type="file" name="file" id="imgInp"  accept="image/x-png,image/gif,image/jpeg" >
                                         </span>
                                     </span>
+                                    <div id="answereJs2" ></div>
                                     <input type="text" class="form-control" readonly>
                                 </div>
                                 <br>
@@ -295,7 +315,7 @@
                                         <%} else {%>
                                     <td><input type="checkbox" class="checkthis" disabled=""/></td>                                                               
                                         <%}%>
-                                    <td><a data-placement="top" data-toggle="tooltip" title="Edit" ><button class="btn btn-primary btn-xs editar" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></a></td>
+                                    <td><a data-placement="top" data-toggle="tooltip" title="Edit"  ><button class="btn btn-primary btn-xs editar" data-title="Edit" value="<%= bnUnifor.getId_uniforme()%>" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></a></td>
                                     <td><a data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs elimina"  value="<%= bnUnifor.getId_uniforme()%>" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></a></td>
                                 </tr>
 
@@ -354,7 +374,7 @@
                 </div>
             </div>
         </div>
-
+       
 
         <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
             <div class="modal-dialog">
@@ -365,66 +385,8 @@
                     </div>
 
                     <div class="modal-body">
-                        <!--Inicio form insertyar datos-->
-                        <form method="POST" action="CrearUniforme" enctype="multipart/form-data" name="formInsert">
-
-                            <div class="form-group">
-                                <label>Nombre Uniforme</label>
-                                <input type="text" name="txtnombreU" placeholder="Nombre de Uniforme" value="" class="form-control"/>
-
-                            </div>
-
-                            <div class="form-group">
-                                <label>Tipo uniforme</label>
-                                <select id="opTipoU" name="opTipoU" class="form-control">
-                                    <option value="1">Uniforme Escolar</option>
-                                    <option value="2">Uniformes deportivos</option>
-                                    <option value="3">Uniformes militares y de fuerzas de seguridad</option>
-                                    <option value="4">Uniformes religiosos o hábitos</option>
-                                    <option value="5">Otros</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Precio</label>
-                                <input type="number" name="txtPrecio" placeholder="Precio" value="" class="form-control"/>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Descripción</label>
-                                <textarea  name="textareaDescripU" id="textareaDescrip" class="form-control input-sm" placeholder="Escriba una descripción"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Estado</label><br>
-                                <select id="opEstadoU" name="opEstadoU" class="form-control">
-                                    <option value="true">En venta</option>
-                                    <option value="False">No está en venta</option>
-                                </select>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label>Cambiar Imagen</label>
-
-                                <div class="input-group">
-                                    <span class="input-group-btn">
-                                        <span class="btn btn-info btn-file ">
-                                            Subir <input class="btn btn-default btn-file disabled" type="file" name="file"  id="imgInp">
-                                        </span>
-                                    </span>
-                                    <input type="text" class="form-control" readonly value="hol">
-                                </div>
-                                <br>
-                                <div id="contenedorimg">
-                                    <img id='img-upload'/>
-                                </div>
-
-                            </div>
-                            
-                            <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Actualizar</button>
-
-
-                        </form>
-                        <!--Fin formulario agregar-->
+                         <input type="hidden" name="txtOpc" value="3">
+                        <div class="formulario"></div>
 
                     </div>
                     <div class="modal-footer ">

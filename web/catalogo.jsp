@@ -4,6 +4,10 @@
     Author     : David
 --%>
 
+<%@page import="modelo.DAO.DaoUniforme"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="modelo.BEAN.BeanUniforme"%>
+<%@page import="modelo.BEAN.BeanUniforme"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
@@ -85,7 +89,13 @@
                             <br>
                             <br>
                             <br>
-
+                            <%int pagina = 0; //pagina a mostrar
+                                if (request.getParameter("pagina") == null) {
+                                    pagina = 0;
+                                } else {
+                                    pagina = Integer.valueOf(request.getParameter("pagina"));
+                                }
+                            %>
 
                             <div class="container">
 
@@ -135,97 +145,21 @@
 
                                 <!-- Page Features -->
                                 <div class="row text-center">
+                                    <%
+                                        DaoUniforme daoUniforme = new DaoUniforme();
+                                        ArrayList<BeanUniforme> listaUniforme = daoUniforme.listarUniformeCatalog(pagina * 10, 10);
+
+                                        int cont = pagina * 10;
+                                        int contador2 = 0;
+                                        for (BeanUniforme bnUnifor : listaUniforme) {%>
 
                                     <div class="col-md-3 col-sm-6 hero-feature">
                                         <div class="thumbnail">
-                                            <img src="http://placehold.it/800x500" alt="">
+                                            <img src="images/<%=bnUnifor.getUrl_diseño_Uniforme()%>" alt="">
                                             <div class="caption">
-                                                <h3>Feature Label</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                <p>
-                                                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 hero-feature">
-                                        <div class="thumbnail">
-                                            <img src="http://placehold.it/800x500" alt="">
-                                            <div class="caption">
-                                                <h3>Feature Label</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                <p>
-                                                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 hero-feature">
-                                        <div class="thumbnail">
-                                            <img src="http://placehold.it/800x500" alt="">
-                                            <div class="caption">
-                                                <h3>Feature Label</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                <p>
-                                                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 hero-feature">
-                                        <div class="thumbnail">
-                                            <img src="http://placehold.it/800x500" alt="">
-                                            <div class="caption">
-                                                <h3>Feature Label</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                <p>
-                                                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 hero-feature">
-                                        <div class="thumbnail">
-                                            <img src="http://placehold.it/800x500" alt="">
-                                            <div class="caption">
-                                                <h3>Feature Label</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                <p>
-                                                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 hero-feature">
-                                        <div class="thumbnail">
-                                            <img src="http://placehold.it/800x500" alt="">
-                                            <div class="caption">
-                                                <h3>Feature Label</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                <p>
-                                                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 hero-feature">
-                                        <div class="thumbnail">
-                                            <img src="http://placehold.it/800x500" alt="">
-                                            <div class="caption">
-                                                <h3>Feature Label</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                <p>
-                                                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 hero-feature">
-                                        <div class="thumbnail">
-                                            <img src="http://placehold.it/800x500" alt="">
-                                            <div class="caption">
-                                                <h3>Feature Label</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                                <h3><%=bnUnifor.getNombre_uniforme()%></h3>
+                                                <p><%=bnUnifor.getDescripcion_uniforme()%></p>
+                                                <p>$<%=bnUnifor.getPrecio()%></p>
                                                 <p>
                                                     <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
                                                 </p>
@@ -233,81 +167,54 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3 col-sm-6 hero-feature">
-                                        <div class="thumbnail">
-                                            <img src="http://placehold.it/800x500" alt="">
-                                            <div class="caption">
-                                                <h3>Feature Label</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                <p>
-                                                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <%cont++;
+                                        }%>
 
-                                    <div class="col-md-3 col-sm-6 hero-feature">
-                                        <div class="thumbnail">
-                                            <img src="http://placehold.it/800x500" alt="">
-                                            <div class="caption">
-                                                <h3>Feature Label</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                <p>
-                                                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3 col-sm-6 hero-feature">
-                                        <div class="thumbnail">
-                                            <img src="http://placehold.it/800x500" alt="">
-                                            <div class="caption">
-                                                <h3>Feature Label</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                <p>
-                                                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    <!-- /.row -->
                                 </div>
-                                <!-- /.row -->
-
 
 
 
                                 <!-- Pagination -->
                                 <div class="row text-center">
                                     <div class="col-lg-12">
-                                        <ul class="pagination">
-                                            <li>
-                                                <a href="#">&laquo;</a>
-                                            </li>
-                                            <li class="active">
-                                                <a href="#">1</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">2</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">3</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">4</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">5</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">&raquo;</a>
-                                            </li>
+                                        <ul class="pagination pull-left">
+
+
+
+                                            <%if (pagina > 1) {%> 
+                                            <li class=""><a href="?pagina=<%=pagina - 1%>"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                                                    <%} else {%>
+                                            <li class="disabled"><a ><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                                                    <%}%>
+                                                    <%
+                                                        int numeroRegistros = daoUniforme.verRegistrosTotales();
+                                                        int numerPagina = numeroRegistros / 10;
+
+                                                        for (int i = 0; i <= numerPagina; i++) {
+
+                                                            if (i == pagina) {
+                                                    %>
+                                            <li class="active"><a href="?pagina=<%=(i)%>"><%=i + 1%></a></li> 
+
+                                            <%} else {
+                                            %>
+                                            <li class=""><a href="?pagina=<%=(i)%>"><%=i + 1%></a></li> 
+
+                                            <%}
+                                                    }%>
+                                            <%if (pagina < numerPagina) {%> 
+                                            <li><a href="?pagina=<%=pagina + 1%>"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+
+                                            <%} else {%>
+                                            <li class="disabled" ><a><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+
+                                            <%}%>
                                         </ul>
                                     </div>
                                 </div>
                                 <!-- /.row -->
-                            </div>
+
                             </div>
 
                             <!-- /.Container -->
