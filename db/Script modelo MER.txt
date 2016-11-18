@@ -1,0 +1,441 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema db_tuniformevf
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema db_tuniformevf
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `db_tuniformevf` DEFAULT CHARACTER SET utf8 ;
+USE `db_tuniformevf` ;
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`tipo_documento`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`tipo_documento` (
+  `Idtipo_documento` INT NOT NULL AUTO_INCREMENT,
+  `Tipo_doc` VARCHAR(30) NULL,
+  PRIMARY KEY (`Idtipo_documento`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Rol`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Rol` (
+  `IdRol` INT NOT NULL AUTO_INCREMENT,
+  `Tipo_rol` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`IdRol`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Usuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Usuario` (
+  `idUsuario` INT NOT NULL AUTO_INCREMENT,
+  `Id_tipodocumento` INT NOT NULL,
+  `IdRol` INT NOT NULL,
+  `Nombre1` VARCHAR(30) NOT NULL,
+  `Nombre2` VARCHAR(30) NULL,
+  `Apellido1` VARCHAR(30) NOT NULL,
+  `Apellido2` VARCHAR(30) NULL,
+  `Documento` VARCHAR(20) NOT NULL,
+  `Correo` VARCHAR(45) NOT NULL,
+  `Direccion` VARCHAR(45) NULL,
+  `Contraseña` VARCHAR(300) NOT NULL,
+  PRIMARY KEY (`idUsuario`, `Id_tipodocumento`, `IdRol`),
+  UNIQUE INDEX `Correo_UNIQUE` (`Correo` ASC),
+  INDEX `fk_Usuario_tipo_documento1_idx` (`Id_tipodocumento` ASC),
+  INDEX `fk_Usuario_Rol1_idx` (`IdRol` ASC),
+  CONSTRAINT `fk_Usuario_tipo_documento1`
+    FOREIGN KEY (`Id_tipodocumento`)
+    REFERENCES `db_tuniformevf`.`tipo_documento` (`Idtipo_documento`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Usuario_Rol1`
+    FOREIGN KEY (`IdRol`)
+    REFERENCES `db_tuniformevf`.`Rol` (`IdRol`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Estado_pedido`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Estado_pedido` (
+  `idEstado_pedido` INT NOT NULL AUTO_INCREMENT,
+  `Tipo_estado` VARCHAR(45) NOT NULL,
+  `Descripcion_estado` VARCHAR(45) NULL,
+  PRIMARY KEY (`idEstado_pedido`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Ciudad`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Ciudad` (
+  `idCiudad` INT NOT NULL AUTO_INCREMENT,
+  `Nombre_ciudad` VARCHAR(45) NOT NULL,
+  `Descripcion_ciudad` VARCHAR(45) NULL,
+  PRIMARY KEY (`idCiudad`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Pedido`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Pedido` (
+  `idPedido` INT NOT NULL AUTO_INCREMENT,
+  `Fecha_pedido` DATE NOT NULL,
+  `Fecha_envio` DATE NULL,
+  `Fecha_entrega` DATE NULL,
+  `Direccion_entrega` VARCHAR(45) NOT NULL,
+  `Codigo_postal` VARCHAR(45) NULL,
+  `Usuario_idUsuario` INT NOT NULL,
+  `Estado_pedido_idEstado_pedido` INT NOT NULL,
+  `Ciudad_idCiudad` INT NOT NULL,
+  PRIMARY KEY (`idPedido`, `Usuario_idUsuario`, `Estado_pedido_idEstado_pedido`, `Ciudad_idCiudad`),
+  INDEX `fk_Pedido_Usuario1_idx` (`Usuario_idUsuario` ASC),
+  INDEX `fk_Pedido_Estado_pedido1_idx` (`Estado_pedido_idEstado_pedido` ASC),
+  INDEX `fk_Pedido_Ciudad1_idx` (`Ciudad_idCiudad` ASC),
+  CONSTRAINT `fk_Pedido_Usuario1`
+    FOREIGN KEY (`Usuario_idUsuario`)
+    REFERENCES `db_tuniformevf`.`Usuario` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Pedido_Estado_pedido1`
+    FOREIGN KEY (`Estado_pedido_idEstado_pedido`)
+    REFERENCES `db_tuniformevf`.`Estado_pedido` (`idEstado_pedido`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Pedido_Ciudad1`
+    FOREIGN KEY (`Ciudad_idCiudad`)
+    REFERENCES `db_tuniformevf`.`Ciudad` (`idCiudad`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Tipo_novedad`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Tipo_novedad` (
+  `idTipo_novedad` INT NOT NULL AUTO_INCREMENT,
+  `Tipo_de_novedad` VARCHAR(45) NOT NULL,
+  `Descripcion_novedad` VARCHAR(205) NULL,
+  PRIMARY KEY (`idTipo_novedad`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Novedad_pedido`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Novedad_pedido` (
+  `idNovedad_pedido` INT NOT NULL AUTO_INCREMENT,
+  `Descripcion_novedad` VARCHAR(500) NULL,
+  `Precio_incremento_novedad` DECIMAL NULL,
+  `Id_prenda` VARCHAR(45) NULL,
+  `Cantidad` VARCHAR(45) NULL,
+  `Pedido_idPedido` INT NOT NULL,
+  `Tipo_novedad_idTipo_novedad` INT NOT NULL,
+  PRIMARY KEY (`idNovedad_pedido`, `Pedido_idPedido`, `Tipo_novedad_idTipo_novedad`),
+  INDEX `fk_Novedad_pedido_Pedido1_idx` (`Pedido_idPedido` ASC),
+  INDEX `fk_Novedad_pedido_Tipo_novedad1_idx` (`Tipo_novedad_idTipo_novedad` ASC),
+  CONSTRAINT `fk_Novedad_pedido_Pedido1`
+    FOREIGN KEY (`Pedido_idPedido`)
+    REFERENCES `db_tuniformevf`.`Pedido` (`idPedido`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Novedad_pedido_Tipo_novedad1`
+    FOREIGN KEY (`Tipo_novedad_idTipo_novedad`)
+    REFERENCES `db_tuniformevf`.`Tipo_novedad` (`idTipo_novedad`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Tipo_institucion`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Tipo_institucion` (
+  `idTipo_institucion` INT NOT NULL AUTO_INCREMENT,
+  `Nombre_tipo_institucion` VARCHAR(45) NOT NULL,
+  `Descripcion_tipo_institucion` VARCHAR(300) NULL,
+  PRIMARY KEY (`idTipo_institucion`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Institucion`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Institucion` (
+  `idInstitucion` INT NOT NULL AUTO_INCREMENT,
+  `Nombre_institucion` VARCHAR(45) NOT NULL,
+  `Descripcion_institucion` VARCHAR(300) NULL,
+  `Url_logo_institucion` VARCHAR(100) NULL,
+  `Tipo_institucion_idTipo_institucion` INT NOT NULL,
+  PRIMARY KEY (`idInstitucion`, `Tipo_institucion_idTipo_institucion`),
+  INDEX `fk_Institucion_Tipo_institucion1_idx` (`Tipo_institucion_idTipo_institucion` ASC),
+  UNIQUE INDEX `Url_logo_institucion_UNIQUE` (`Url_logo_institucion` ASC),
+  CONSTRAINT `fk_Institucion_Tipo_institucion1`
+    FOREIGN KEY (`Tipo_institucion_idTipo_institucion`)
+    REFERENCES `db_tuniformevf`.`Tipo_institucion` (`idTipo_institucion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Prenda`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Prenda` (
+  `idPrenda` INT NOT NULL AUTO_INCREMENT,
+  `Nombre_Prenda` VARCHAR(45) NOT NULL,
+  `Descripcion_prenda` VARCHAR(300) NULL,
+  `Url_Diseño` VARCHAR(100) NULL,
+  PRIMARY KEY (`idPrenda`),
+  UNIQUE INDEX `Url_Diseño_UNIQUE` (`Url_Diseño` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Tipo_Uniforme`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Tipo_Uniforme` (
+  `idTipo_Uniforme` INT NOT NULL AUTO_INCREMENT,
+  `Nombre_Tipo` VARCHAR(45) NOT NULL,
+  `Descripcion_tipo_uniforme` VARCHAR(400) NULL,
+  PRIMARY KEY (`idTipo_Uniforme`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Uniforme`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Uniforme` (
+  `idUniforme` INT NOT NULL AUTO_INCREMENT,
+  `Nombre_Uniforme` VARCHAR(45) NOT NULL,
+  `Descripcion_Uniforme` VARCHAR(400) NULL,
+  `Url_Diseño_Uniforme` VARCHAR(100) NULL,
+  `Precio` DECIMAL NULL,
+  `EstadoUniforme` TINYINT(1) NOT NULL,
+  `Tipo_Uniforme_idTipo_Uniforme` INT NOT NULL,
+  PRIMARY KEY (`idUniforme`, `Tipo_Uniforme_idTipo_Uniforme`),
+  INDEX `fk_Uniforme_Tipo_Uniforme1_idx` (`Tipo_Uniforme_idTipo_Uniforme` ASC),
+  UNIQUE INDEX `Url_Diseño_Uniforme_UNIQUE` (`Url_Diseño_Uniforme` ASC),
+  CONSTRAINT `fk_Uniforme_Tipo_Uniforme1`
+    FOREIGN KEY (`Tipo_Uniforme_idTipo_Uniforme`)
+    REFERENCES `db_tuniformevf`.`Tipo_Uniforme` (`idTipo_Uniforme`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Prenda_Uniforme_Institucion`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Prenda_Uniforme_Institucion` (
+  `idPrenda_Uniforme_Institucion` INT NOT NULL AUTO_INCREMENT,
+  `Institucion_idInstitucion` INT NOT NULL,
+  `Prenda_idPrenda` INT NOT NULL,
+  `Uniforme_idUniforme` INT NOT NULL,
+  PRIMARY KEY (`idPrenda_Uniforme_Institucion`, `Institucion_idInstitucion`, `Prenda_idPrenda`, `Uniforme_idUniforme`),
+  INDEX `fk_Prenda_Uniforme_Institucion_Institucion1_idx` (`Institucion_idInstitucion` ASC),
+  INDEX `fk_Prenda_Uniforme_Institucion_Prenda1_idx` (`Prenda_idPrenda` ASC),
+  INDEX `fk_Prenda_Uniforme_Institucion_Uniforme1_idx` (`Uniforme_idUniforme` ASC),
+  CONSTRAINT `fk_Prenda_Uniforme_Institucion_Institucion1`
+    FOREIGN KEY (`Institucion_idInstitucion`)
+    REFERENCES `db_tuniformevf`.`Institucion` (`idInstitucion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Prenda_Uniforme_Institucion_Prenda1`
+    FOREIGN KEY (`Prenda_idPrenda`)
+    REFERENCES `db_tuniformevf`.`Prenda` (`idPrenda`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Prenda_Uniforme_Institucion_Uniforme1`
+    FOREIGN KEY (`Uniforme_idUniforme`)
+    REFERENCES `db_tuniformevf`.`Uniforme` (`idUniforme`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Insumo`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Insumo` (
+  `idInsumo` INT NOT NULL AUTO_INCREMENT,
+  `Nombre_Insumo` VARCHAR(45) NOT NULL,
+  `Descripcion_Insumo` VARCHAR(300) NULL,
+  PRIMARY KEY (`idInsumo`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Unidad_medida`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Unidad_medida` (
+  `idUnidad_medida` INT NOT NULL AUTO_INCREMENT,
+  `Nombre_unidad` VARCHAR(45) NULL,
+  `Descripcion_media` VARCHAR(300) NULL,
+  PRIMARY KEY (`idUnidad_medida`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Talla_Insumo`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Talla_Insumo` (
+  `idTalla_Insumo` INT NOT NULL AUTO_INCREMENT,
+  `Cantidad` DECIMAL NOT NULL,
+  `Insumo_idInsumo` INT NOT NULL,
+  `Unidad_medida_idUnidad_medida` INT NOT NULL,
+  PRIMARY KEY (`idTalla_Insumo`, `Insumo_idInsumo`, `Unidad_medida_idUnidad_medida`),
+  INDEX `fk_Talla_Insumo_Insumo1_idx` (`Insumo_idInsumo` ASC),
+  INDEX `fk_Talla_Insumo_Unidad_medida1_idx` (`Unidad_medida_idUnidad_medida` ASC),
+  CONSTRAINT `fk_Talla_Insumo_Insumo1`
+    FOREIGN KEY (`Insumo_idInsumo`)
+    REFERENCES `db_tuniformevf`.`Insumo` (`idInsumo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Talla_Insumo_Unidad_medida1`
+    FOREIGN KEY (`Unidad_medida_idUnidad_medida`)
+    REFERENCES `db_tuniformevf`.`Unidad_medida` (`idUnidad_medida`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Talla`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Talla` (
+  `idTalla` INT NOT NULL AUTO_INCREMENT,
+  `Precio_talla` DECIMAL NOT NULL,
+  `Talla_nombre` NVARCHAR(5) NOT NULL,
+  `Prenda_Uniforme_Institucion_idPrenda_Uniforme_Institucion` INT NOT NULL,
+  `Talla_Insumo_idTalla_Insumo` INT NOT NULL,
+  PRIMARY KEY (`idTalla`, `Prenda_Uniforme_Institucion_idPrenda_Uniforme_Institucion`, `Talla_Insumo_idTalla_Insumo`),
+  INDEX `fk_Talla_Prenda_Uniforme_Institucion1_idx` (`Prenda_Uniforme_Institucion_idPrenda_Uniforme_Institucion` ASC),
+  INDEX `fk_Talla_Talla_Insumo1_idx` (`Talla_Insumo_idTalla_Insumo` ASC),
+  CONSTRAINT `fk_Talla_Prenda_Uniforme_Institucion1`
+    FOREIGN KEY (`Prenda_Uniforme_Institucion_idPrenda_Uniforme_Institucion`)
+    REFERENCES `db_tuniformevf`.`Prenda_Uniforme_Institucion` (`idPrenda_Uniforme_Institucion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Talla_Talla_Insumo1`
+    FOREIGN KEY (`Talla_Insumo_idTalla_Insumo`)
+    REFERENCES `db_tuniformevf`.`Talla_Insumo` (`idTalla_Insumo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Estado_Pedido_Talla`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Estado_Pedido_Talla` (
+  `idEstado_Pedido_Talla` INT NOT NULL AUTO_INCREMENT,
+  `Tipo_Estado_Pedido_Talla` VARCHAR(50) NOT NULL,
+  `Descripcion_estado` VARCHAR(300) NULL,
+  PRIMARY KEY (`idEstado_Pedido_Talla`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Pedido_Talla`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Pedido_Talla` (
+  `idPedido_Talla` INT NOT NULL AUTO_INCREMENT,
+  `Cantidad` INT NULL,
+  `Pedido_idPedido` INT NOT NULL,
+  `Talla_idTalla` INT NOT NULL,
+  `Estado_Pedido_Talla_idEstado_Pedido_Talla` INT NULL,
+  PRIMARY KEY (`idPedido_Talla`, `Pedido_idPedido`, `Talla_idTalla`, `Estado_Pedido_Talla_idEstado_Pedido_Talla`),
+  INDEX `fk_Pedido_Talla_Pedido1_idx` (`Pedido_idPedido` ASC),
+  INDEX `fk_Pedido_Talla_Talla1_idx` (`Talla_idTalla` ASC),
+  INDEX `fk_Pedido_Talla_Estado_Pedido_Talla1_idx` (`Estado_Pedido_Talla_idEstado_Pedido_Talla` ASC),
+  CONSTRAINT `fk_Pedido_Talla_Pedido1`
+    FOREIGN KEY (`Pedido_idPedido`)
+    REFERENCES `db_tuniformevf`.`Pedido` (`idPedido`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Pedido_Talla_Talla1`
+    FOREIGN KEY (`Talla_idTalla`)
+    REFERENCES `db_tuniformevf`.`Talla` (`idTalla`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Pedido_Talla_Estado_Pedido_Talla1`
+    FOREIGN KEY (`Estado_Pedido_Talla_idEstado_Pedido_Talla`)
+    REFERENCES `db_tuniformevf`.`Estado_Pedido_Talla` (`idEstado_Pedido_Talla`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Forma_de_pago`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Forma_de_pago` (
+  `idForma_de_pago` INT NOT NULL AUTO_INCREMENT,
+  `Nombre_forma_de_pago` VARCHAR(45) NOT NULL,
+  `Descripcion` VARCHAR(45) NULL,
+  PRIMARY KEY (`idForma_de_pago`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Abono`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Abono` (
+  `idAbono` INT NOT NULL AUTO_INCREMENT,
+  `Cantidad_abono` DECIMAL NULL,
+  `Fecha` DATE NULL,
+  `Forma_de_pago_idForma_de_pago` INT NOT NULL,
+  `Pedido_idPedido` INT NOT NULL,
+  PRIMARY KEY (`idAbono`, `Forma_de_pago_idForma_de_pago`, `Pedido_idPedido`),
+  INDEX `fk_Abono_Forma_de_pago1_idx` (`Forma_de_pago_idForma_de_pago` ASC),
+  INDEX `fk_Abono_Pedido1_idx` (`Pedido_idPedido` ASC),
+  CONSTRAINT `fk_Abono_Forma_de_pago1`
+    FOREIGN KEY (`Forma_de_pago_idForma_de_pago`)
+    REFERENCES `db_tuniformevf`.`Forma_de_pago` (`idForma_de_pago`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Abono_Pedido1`
+    FOREIGN KEY (`Pedido_idPedido`)
+    REFERENCES `db_tuniformevf`.`Pedido` (`idPedido`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_tuniformevf`.`Mensajes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_tuniformevf`.`Mensajes` (
+  `idMensajes` INT NOT NULL AUTO_INCREMENT,
+  `Mensaje` VARCHAR(600) NOT NULL,
+  `Fecha` VARCHAR(45) NULL,
+  `Estado_mensaje` VARCHAR(45) NULL,
+  `Usuario_idUsuario` INT NOT NULL,
+  PRIMARY KEY (`idMensajes`, `Usuario_idUsuario`),
+  INDEX `fk_Mensajes_Usuario1_idx` (`Usuario_idUsuario` ASC),
+  CONSTRAINT `fk_Mensajes_Usuario1`
+    FOREIGN KEY (`Usuario_idUsuario`)
+    REFERENCES `db_tuniformevf`.`Usuario` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
