@@ -430,6 +430,7 @@ $(document).ready(function () {
         var mostrar = $(this).attr('value');
         $('.idDelete').val(mostrar);
 
+    });
 
 //        $.ajax({//pasar por post datos al controlador
 //            url: 'CrearUniforme',
@@ -447,7 +448,6 @@ $(document).ready(function () {
 //            dataType: 'html',
 //        }).done(function (data) {
 //            $('.build-list').html(data);
-    });
 
 
 //    $(document).on('click', '.mandaredit', function (e) {

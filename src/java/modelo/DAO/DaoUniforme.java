@@ -309,9 +309,9 @@ public class DaoUniforme extends Conexion {
        
       
         bnUniforme.setNombre_uniforme("no se");
-        bnUniforme.setDescripcion_uniforme("Prueba descrip");
-        bnUniforme.setUrl_diseño_Uniforme("imgimf.png");
-        bnUniforme.setPrecio(Double.parseDouble("10.2"));
+//        bnUniforme.setDescripcion_uniforme("Prueba descrip");
+//        bnUniforme.setUrl_diseño_Uniforme("imgimf.png");
+//        bnUniforme.setPrecio(Double.parseDouble("10.2"));
         bnUniforme.setEstadoUniforme(Boolean.parseBoolean("false"));
         bnUniforme.setId_tipoUniforme(1);
         

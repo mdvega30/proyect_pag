@@ -152,16 +152,16 @@
                     <%
 
                         if (request.getAttribute("acualizado") != null) { %>
-                    ${acualizado}
                     <div class="alert alert-success">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>Felicidades!</strong> La acción ha culminado satisfactoriamente.
+                    ${acualizado}
                     </div>
                     <%} else if (request.getAttribute("noActualizado") != null) { %>
-                    ${noActualizado}
                     <div class="alert alert-danger">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>Error!</strong> No se ha podido culminar satisfactoriamente.
+                        <strong>!</strong>${noActualizado}
                     </div>
                     <% }%>
                 </div>

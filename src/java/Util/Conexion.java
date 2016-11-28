@@ -3,16 +3,14 @@ package Util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+
 
 
 public class Conexion {
     public  String driver, urldb, passbd, userbd,bd;
     public Connection conexion;
-    private Statement consulta=null;
-    private ResultSet   data = null;
+   
     public Conexion(){
         
         driver="com.mysql.jdbc.Driver";
