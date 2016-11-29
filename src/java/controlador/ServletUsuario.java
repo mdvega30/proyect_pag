@@ -5,6 +5,8 @@
  */
 package controlador;
 
+import Negocio.Correo;
+import Negocio.GeneraToken;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -89,10 +91,21 @@ public class ServletUsuario extends HttpServlet {
                 break;
 
             case 2://Registra el ususario
+
                 beanUs.setId_tipodocumento(Integer.parseInt(request.getParameter("tipoDoc")));
+                //primer paso registro y guarda en la base de datos con su token 
+                //cuando el token es verdadero se le quita de la base de datos 
+                /**/
+
+                GeneraToken token = new GeneraToken();
+                String tokenGenerado = token.generarToken();
+                beanUs.setToken(tokenGenerado);
+                
                 if (daoUsu.crearUsuario(beanUs)) {
+                    Correo c = new Correo();
+                    c.envirCorreeoDeVerificacion(beanUs);
                     request.setAttribute("registro", "");
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                    request.getRequestDispatcher("verificarCorreo.jsp").forward(request, response);
 
                 } else {
                     request.setAttribute("error", "");

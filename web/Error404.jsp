@@ -32,7 +32,7 @@
     <br>                        
     <br>                        
     <br>                        
-    <br>s                        
+    <br>                       
     <div class="container">
         <div class="row">
             <div class="span12">
@@ -46,7 +46,12 @@
             </div>
         </div>
     </div>
-
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <footer class="container-fluid text-center" id="fotter">
         <p>Footer ® David Daza</p>
     </footer>

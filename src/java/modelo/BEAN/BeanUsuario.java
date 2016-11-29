@@ -12,13 +12,10 @@ public class BeanUsuario {
     private String Documento;
     private String Correo;
     private String Direccion;
+    private String token;
 
-   
 
-    public BeanUsuario() {
-    }
-
-    public BeanUsuario(int Id_Usuario, int Id_tipodocumento, int id_rol, String Nombre1, String Nombre2, String Apellido1, String Apellido2, String Documento, String Correo, String Direccion, String Contraseña) {
+    public BeanUsuario(int Id_Usuario, int Id_tipodocumento, int id_rol, String Nombre1, String Nombre2, String Apellido1, String Apellido2, String Documento, String Correo, String Direccion, String token, String Contraseña) {
         this.Id_Usuario = Id_Usuario;
         this.Id_tipodocumento = Id_tipodocumento;
         this.id_rol = id_rol;
@@ -29,10 +26,25 @@ public class BeanUsuario {
         this.Documento = Documento;
         this.Correo = Correo;
         this.Direccion = Direccion;
+        this.token = token;
         this.Contraseña = Contraseña;
     }
+
+   
+
+    public BeanUsuario() {
+    }
+
+    
     
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
     
  public String getDireccion() {
         return Direccion;

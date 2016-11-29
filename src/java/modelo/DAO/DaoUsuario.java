@@ -46,7 +46,7 @@ public class DaoUsuario extends Conexion {
         PreparedStatement ps = null;
         String encriptado = DigestUtils.md5Hex(DigestUtils.sha1Hex(beanUs.getContraseña()));
         try {
-            consulta = "call insertarUsuario(?,?,?,?,?,?,?,?,?,?)";
+            consulta = "call insertarUsuario(?,?,?,?,?,?,?,?,?,?,?)";
             ps = conexion.prepareCall(consulta);
 
             ps.setInt(1, beanUs.getId_rol());
@@ -59,6 +59,7 @@ public class DaoUsuario extends Conexion {
             ps.setString(8, beanUs.getCorreo());
             ps.setString(9, beanUs.getDireccion());
             ps.setString(10, encriptado);
+            ps.setString(11, beanUs.getToken());
 
             if (ps.executeUpdate() == 1) {
                 return true;
@@ -302,6 +303,51 @@ public class DaoUsuario extends Conexion {
         return contador = 1;
     }
 
+    public boolean revisarToken(String token) {
+
+        PreparedStatement ps = null;
+
+        try {
+            consulta = "call verificarToken(?)";
+            ps = conexion.prepareStatement(consulta);
+            ps.setString(1, token);
+            ResultSet print = ps.executeQuery();
+            if (print.absolute(1)) {
+                return true;
+            }
+            ps.close();
+
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
+        return false;
+    }
+
+    public boolean actualizarToken(String token) {
+
+        PreparedStatement ps = null;
+
+        try {
+            consulta = "call actualizarToken(?)";
+            ps = conexion.prepareStatement(consulta);
+            ps.setString(1, token);
+
+            if (ps.executeUpdate() > 0) {
+
+                return true;
+
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.getMessage();
+            return false;
+        }
+
+    }
+
 ///*******//////PRUEBA DE CONSULTAS//////********///
     public static void main(String[] args) {
 
@@ -376,5 +422,11 @@ public class DaoUsuario extends Conexion {
 //        System.out.println(beanUs.getDireccion());
 //
 ////  clave 123 encriptada es: 6116afedcb0bc31083935c1c262ff4c9
+        DaoUsuario daous = new DaoUsuario();
+
+        
+        if (daous.actualizarToken("1")) {
+            System.out.println("Actualizo");
+        }
     }
 }
