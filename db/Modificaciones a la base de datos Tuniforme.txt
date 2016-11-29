@@ -1,0 +1,30 @@
+Agrega token  
+alter table usuario
+  add token varchar(50)  null;
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `verificarToken`(IN tok varchar(50))
+BEGIN
+select token
+from usuario
+where token=tok;
+end$$
+DELIMITER ;
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizarToken`(IN tok varchar(50))
+BEGIN
+update usuario
+set token=null
+where token=tok;
+end
+
+
+DROP PROCEDURE `autenticacionUsu`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `autenticacionUsu` (IN `email` VARCHAR(45), IN `pass` VARCHAR(300))  BEGIN
+select *
+from usuario
+where  Correo = email and Contraseña= pass and token is null;
+END$$

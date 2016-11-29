@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-11-2016 a las 07:48:52
+-- Tiempo de generación: 29-11-2016 a las 00:55:04
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -24,6 +24,12 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizarToken` (IN `tok` VARCHAR(50))  BEGIN
+update usuario
+set token=null
+where token=tok;
+end$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizarUsuario` (IN `nom1` VARCHAR(30), IN `nom2` VARCHAR(30), IN `ape1` VARCHAR(30), IN `ape2` VARCHAR(30), IN `direc` VARCHAR(45), IN `pass` VARCHAR(50), IN `email` VARCHAR(45))  BEGIN
 UPDATE usuario 
 set Nombre1=nom1, Nombre2=nom2,Apellido1=ape1,Apellido2=ape2,Direccion=direc,Contraseña=pass
@@ -49,7 +55,7 @@ end$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `autenticacionUsu` (IN `email` VARCHAR(45), IN `pass` VARCHAR(300))  BEGIN
 select *
 from usuario
-where  Correo = email and Contraseña= pass;
+where  Correo = email and Contraseña= pass and token is null;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `datosObjUsuario` (IN `email` VARCHAR(45))  BEGIN
@@ -62,9 +68,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminarUniformes` (IN `id` INT)  B
 DELETE FROM Uniforme where idUniforme = id;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarUsuario` (IN `tpdoc` INT, IN `roll` INT, IN `nom1` VARCHAR(30), IN `nom2` VARCHAR(30), IN `ape1` VARCHAR(30), IN `ape2` VARCHAR(30), IN `doc` VARCHAR(20), IN `email` VARCHAR(45), IN `direc` VARCHAR(45), IN `pass` VARCHAR(60))  BEGIN
-INSERT INTO `usuario` (`idUsuario`, `Id_tipodocumento`, `IdRol`, `Nombre1`, `Nombre2`, `Apellido1`, `Apellido2`, `Documento`, `Correo`, `Direccion`, `Contraseña`) 
-values(null,tpdoc,roll,nom1,nom2,ape1,ape2,doc,email,direc,pass);
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarUsuario` (IN `tpdoc` INT, IN `roll` INT, IN `nom1` VARCHAR(30), IN `nom2` VARCHAR(30), IN `ape1` VARCHAR(30), IN `ape2` VARCHAR(30), IN `doc` VARCHAR(20), IN `email` VARCHAR(45), IN `direc` VARCHAR(45), IN `pass` VARCHAR(60), IN `tok` INT(50))  BEGIN
+INSERT INTO `usuario` (`idUsuario`, `Id_tipodocumento`, `IdRol`, `Nombre1`, `Nombre2`, `Apellido1`, `Apellido2`, `Documento`, `Correo`, `Direccion`, `Contraseña`,`token`) 
+values(null,tpdoc,roll,nom1,nom2,ape1,ape2,doc,email,direc,pass,tok);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_uniforme` (IN `NombreUniforme` VARCHAR(45), IN `Descripcion` VARCHAR(300), IN `ImagenDiseño` VARCHAR(100), IN `precio` DECIMAL, `EstadoUniforme` BOOLEAN, IN `TipoUniforme` INT)  BEGIN
@@ -94,6 +100,12 @@ INNER JOIN tipo_uniforme t on u.Tipo_Uniforme_idTipo_Uniforme= t.idTipo_Uniforme
 where u.EstadoUniforme=1
 limit pagina,numrRegistros;
 END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `verificarToken` (IN `tok` VARCHAR(50))  BEGIN
+select token
+from usuario
+where token=tok;
+end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `verImg_Uniforme` (IN `id` INT)  BEGIN
 SELECT Url_Diseño_Uniforme FROM uniforme WHERE idUniforme = id;
@@ -448,7 +460,13 @@ CREATE TABLE `uniforme` (
 INSERT INTO `uniforme` (`idUniforme`, `Nombre_Uniforme`, `Descripcion_Uniforme`, `Url_Diseño_Uniforme`, `Precio`, `EstadoUniforme`, `Tipo_Uniforme_idTipo_Uniforme`) VALUES
 (46, 'Prueba edit', 'prueba edita ', 'hada-de-los-arboles.jpg', '100003', 1, 5),
 (47, 'prueba editar uniforme', 'Prueba 2 acrtu', 'folder.jpg', '500000', 1, 1),
-(48, 'prueba 3', 'prueba 3,prueba 3', '09e098ac21fa017c32763e71cf653995.jpg', '200000', 1, 1);
+(48, 'prueba 3', 'prueba 3,prueba 3', '09e098ac21fa017c32763e71cf653995.jpg', '200000', 1, 1),
+(52, 'daaddas', 'asdasdsda', 'driada_raices_Totusik_Kolekie.jpg', '4', 1, 1),
+(54, '', '', '74dfbfd91cc78d33d6c1a2f1fc3226da.jpg', '0', 1, 1),
+(55, 'Prueba', '', '', '0', 1, 1),
+(71, 'nombre', '', NULL, '0', 0, 1),
+(73, 'czzxc', '', 'null', '0', 1, 1),
+(74, 'aaaaaa', '8458', NULL, '123', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -467,25 +485,27 @@ CREATE TABLE `usuario` (
   `Documento` varchar(20) NOT NULL,
   `Correo` varchar(45) NOT NULL,
   `Direccion` varchar(45) DEFAULT NULL,
-  `Contraseña` varchar(300) NOT NULL
+  `Contraseña` varchar(300) NOT NULL,
+  `token` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`idUsuario`, `Id_tipodocumento`, `IdRol`, `Nombre1`, `Nombre2`, `Apellido1`, `Apellido2`, `Documento`, `Correo`, `Direccion`, `Contraseña`) VALUES
-(1, 1, 2, 'david', 'Andres', 'Daza', 'Diaz', '123', 'admin@admin.co', '123', '6116afedcb0bc31083935c1c262ff4c9'),
-(2, 1, 1, 'Davis', 'Diaz', 'Diaz', 'Pedrin', '123', 'user@user.co', 'cra falsa', '6116afedcb0bc31083935c1c262ff4c9'),
-(4, 2, 1, 'Pedro', 'Daza', '123', '123', '123456789', '123', '123', 'saaaa'),
-(5, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'falso@xxx.xxs', 'Crea 105 n°154a-36', '6116afedcb0bc31083935c1c262ff4c9'),
-(7, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'falso@xxx.123', 'Crea 105 n°154a-36', '700c8b805a3e2a265b01c77614cd8b21'),
-(8, 1, 2, 'david', 'diaz', 'aaaaaaa', 'diaz', '1241564AAA', 'david@david.co', 'cra172n 7-52', 'b989dd5dfa9cbaa88266944ba129880e'),
-(9, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'nose@xxx.123', 'Crea 105 n°154a-36', '700c8b805a3e2a265b01c77614cd8b21'),
-(10, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'noe@xxx.123', 'Crea 105 n°154a-36', '700c8b805a3e2a265b01c77614cd8b21'),
-(11, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'noe@xx.123', 'Crea 105 n°154a-36', '700c8b805a3e2a265b01c77614cd8b21'),
-(12, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'no@xx.123', 'Crea 105 n°154a-36', '700c8b805a3e2a265b01c77614cd8b21'),
-(13, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'no@x.123', 'Crea 105 n°154a-36', '700c8b805a3e2a265b01c77614cd8b21');
+INSERT INTO `usuario` (`idUsuario`, `Id_tipodocumento`, `IdRol`, `Nombre1`, `Nombre2`, `Apellido1`, `Apellido2`, `Documento`, `Correo`, `Direccion`, `Contraseña`, `token`) VALUES
+(1, 1, 2, 'david', 'Andres', 'Daza', 'Diaz', '123', 'admin@admin.co', '123', '6116afedcb0bc31083935c1c262ff4c9', NULL),
+(2, 1, 1, 'Davis', 'Diaz', 'Diaz', 'Pedrin', '123', 'user@user.co', 'cra falsa', '6116afedcb0bc31083935c1c262ff4c9', NULL),
+(4, 2, 1, 'Pedro', 'Daza', '123', '123', '123456789', '123', '123', 'saaaa', NULL),
+(5, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'falso@xxx.xxs', 'Crea 105 n°154a-36', '6116afedcb0bc31083935c1c262ff4c9', NULL),
+(7, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'falso@xxx.123', 'Crea 105 n°154a-36', '700c8b805a3e2a265b01c77614cd8b21', NULL),
+(8, 1, 2, 'david', 'diaz', 'aaaaaaa', 'diaz', '1241564AAA', 'david@david.co', 'cra172n 7-52', 'b989dd5dfa9cbaa88266944ba129880e', NULL),
+(9, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'nose@xxx.123', 'Crea 105 n°154a-36', '700c8b805a3e2a265b01c77614cd8b21', NULL),
+(10, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'noe@xxx.123', 'Crea 105 n°154a-36', '700c8b805a3e2a265b01c77614cd8b21', NULL),
+(11, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'noe@xx.123', 'Crea 105 n°154a-36', '700c8b805a3e2a265b01c77614cd8b21', NULL),
+(12, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'no@xx.123', 'Crea 105 n°154a-36', '700c8b805a3e2a265b01c77614cd8b21', NULL),
+(13, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'no@x.123', 'Crea 105 n°154a-36', '700c8b805a3e2a265b01c77614cd8b21', NULL),
+(28, 1, 1, 'david', '', 'Andres', '', '15544554', 'dadaza770@misena.edu.co', '312345', '3889d5ce28fe61efc68a54b280028995', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -768,12 +788,12 @@ ALTER TABLE `unidad_medida`
 -- AUTO_INCREMENT de la tabla `uniforme`
 --
 ALTER TABLE `uniforme`
-  MODIFY `idUniforme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `idUniforme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- Restricciones para tablas volcadas
 --
