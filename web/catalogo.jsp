@@ -155,7 +155,7 @@
 
                                     <div class="col-md-3 col-sm-6 hero-feature">
                                         <div class="thumbnail">
-                                            <img src="images/<%=bnUnifor.getUrl_diseño_Uniforme()%>" alt="">
+                                            <img src="images/uniformes/<%=bnUnifor.getUrl_diseño_Uniforme()%>" alt="">
                                             <div class="caption">
                                                 <h3><%=bnUnifor.getNombre_uniforme()%></h3>
                                                 <p><%=bnUnifor.getDescripcion_uniforme()%></p>
@@ -226,5 +226,6 @@
                         </footer>
                         <script src="js/jquery.js" type="text/javascript"></script>
                         <script src="js/bootstrap.min.js" type="text/javascript"></script>
+                        <script src="js/_js.js" type="text/javascript"></script>
                         </body>
                         </html>

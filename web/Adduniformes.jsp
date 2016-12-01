@@ -46,7 +46,7 @@
 
 
         %>
-        
+
 
 
         <nav class="navbar navbar-inverse" >
@@ -155,7 +155,7 @@
                     <div class="alert alert-success">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>Felicidades!</strong> La acción ha culminado satisfactoriamente.
-                    ${acualizado}
+                        ${acualizado}
                     </div>
                     <%} else if (request.getAttribute("noActualizado") != null) { %>
                     <div class="alert alert-danger">
@@ -173,7 +173,8 @@
                     <strong>Buen dia aqui podra agregar los uniformes</strong> <br>Esto se vera en el catalogo de inicio para la posterior compra.
                 </div>
 
-                <button type="button" class="btn icon-btn btn-success" data-toggle="modal" data-target="#myModal"><a class="btn icon-btn btn-success" href="#"><span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>Agergar</a></button>
+                <button type="button" class="btn icon-btn btn-success nt" data-toggle="modal" data-target="#myModal"><a class="btn icon-btn btn-success"><span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>Agergar</a></button>
+                <button type="button" class="btn icon-btn btn-info"><a class="btn icon-btn btn-info" href="catalogo.jsp"><span class="glyphicon btn-glyphicon glyphicon-link img-circle text-success"></span>Ver Catalogo</a></button>
             </div>
         </div>
         <!-- Modal-->
@@ -230,19 +231,19 @@
                                 <div class="input-group">
                                     <span class="input-group-btn">
                                         <span class="btn btn-info btn-file ">
-                                            Subir <input class="btn btn-default btn-file disabled btnfi" type="file" name="file" id="imgInp"  accept="image/x-png,image/gif,image/jpeg" >
+                                            Subir <input class="btn btn-default btn-file disabled btnfi" type="file" name="file" id="imgInp"  accept="image/*" >
                                         </span>
                                     </span>
-                                    <div id="answereJs2" ></div>
-                                    <input type="text" class="form-control" readonly>
+                                    <input type="text" class="form-control imgsubir" readonly>
                                 </div>
+                                <div id="respuesta1" class="  alert-danger" ></div>
                                 <br>
                                 <div id="contenedorimg">
                                     <img id='img-upload'/>
                                 </div>
 
                             </div>
-                            <button class="btn btn-success btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Guardar</button>
+                            <button class="btn btn-success btn-lg btnsubir" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Guardar</button>
 
 
                         </form>
@@ -278,7 +279,7 @@
                                 pagina = Integer.valueOf(request.getParameter("pagina"));
                             }
                         %>
-                        <table id="mytable" class="table table-bordred table-striped">
+                        <table id="mytable" class="table table-bordred table-striped "  >
 
                             <thead>
 
@@ -287,8 +288,8 @@
                             <th>Nombre Uniforme</th>
                             <th>Tipo uniforme</th>
                             <th>Precio</th>
-                            <th>Imagen</th>
-                            <th>Descripcion</th>
+                            <th class="tx">Imagen</th>
+                            <th class="tx">Descripción</th>
                             <th>Activo/Inactivo</th>
                             <th>Editar</th>
 
@@ -308,12 +309,12 @@
                                     <td><%=bnUnifor.getNombre_uniforme()%></td>
                                     <td><%=bnUnifor.getNombreTipo()%></td>
                                     <td>$ <%=bnUnifor.getPrecio()%></td> 
-                                    <td><%=bnUnifor.getUrl_diseño_Uniforme()%></td>
-                                    <td><%=bnUnifor.getDescripcion_uniforme()%></td>
+                                    <td><img class="imgl" src="images/uniformes/<%=bnUnifor.getUrl_diseño_Uniforme()%>" alt=""/></td>
+                                    <td class="tx"><textarea disabled="" class="txtareal"><%=bnUnifor.getDescripcion_uniforme()%></textarea> </td>
                                     <% if (bnUnifor.isEstadoUniforme()) {%>
                                     <td ><input checked="" type="checkbox" class="checkthis" disabled="" /></td>                                                               
                                         <%} else {%>
-                                    <td><input type="checkbox" class="checkthis" disabled=""/></td>                                                               
+                                    <td > <input type="checkbox" class="checkthis" disabled=""/></td>                                                               
                                         <%}%>
                                     <td><a data-placement="top" data-toggle="tooltip" title="Edit"  ><button class="btn btn-primary btn-xs editar" data-title="Edit" value="<%= bnUnifor.getId_uniforme()%>" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></a></td>
                                     <td><a data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs elimina"  value="<%= bnUnifor.getId_uniforme()%>" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></a></td>
@@ -321,7 +322,6 @@
 
                                 <%cont++;
                                     }%>
-
 
 
 
@@ -374,8 +374,7 @@
                 </div>
             </div>
         </div>
-       
-
+                       
         <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -385,7 +384,7 @@
                     </div>
 
                     <div class="modal-body">
-                         <input type="hidden" name="txtOpc" value="3">
+                        <input type="hidden" name="txtOpc" value="3">
                         <div class="formulario"></div>
 
                     </div>

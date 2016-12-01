@@ -194,7 +194,9 @@ public class DaoUniforme extends Conexion {
         try {
             consulta = "call actualizar_uniforme(?,?,?,?,?,?,?)";
             ps = conexion.prepareCall(consulta);
-
+            if (beanUniforme.getUrl_diseño_Uniforme().equals("")) {
+                beanUniforme.setUrl_diseño_Uniforme(null);
+            }
             ps.setString(1, beanUniforme.getNombre_uniforme());
             ps.setString(2, beanUniforme.getDescripcion_uniforme());
             ps.setString(3, beanUniforme.getUrl_diseño_Uniforme());

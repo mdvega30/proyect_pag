@@ -25,7 +25,7 @@
     }
 %>
 
-<form method="POST" action="actualizar" enctype="multipart/form-data" name="actualizar">
+<form method="POST" action="Editar" enctype="multipart/form-data" name="actualizar">
 
     <div class="form-group">
         <label>Nombre Uniforme</label>
@@ -75,7 +75,7 @@
         </div>
         <br>
         <div id="contenedorimg">
-            <img id='img-upload'/>
+             <img id='img-upload'/>
         </div>
 
     </div>

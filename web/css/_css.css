@@ -377,8 +377,30 @@ footer {
 
 /*Estilo btn agregar uniforme*/
 .btn-glyphicon { padding:8px; background:#ffffff; margin-right:4px; }
-.icon-btn { padding: 1px 15px 3px 2px; border-radius:50px;}
-
+.icon-btn { padding: 1px 15px 3px 2px; border-radius:5PX; }
+/*para que el text area no sea redimensionable */
 textarea {
-	resize: none;
+	resize: none;     
 }
+/*tamaño y color texarea addUniforme*/
+.txtareal:disabled, input:not([type]):disabled, input[type="color"]{
+   
+   background-color: whitesmoke;
+   border-color: #e5e5e5;
+       padding-bottom: 21px
+        
+   
+}
+/*Tamaño de la imagen */
+.imgl{
+    width:100px; margin:auto; 
+    margin-left:11px;
+    
+
+}
+/*centrado de texto en la tabla listar addUniforme.jsp*/
+.tx{
+    text-align: center      
+}
+
+

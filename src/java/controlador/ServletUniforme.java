@@ -5,25 +5,20 @@
  */
 package controlador;
 
-import Util.FileUpload;
+import Negocio.FileUpload;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import javax.json.JsonArray;
-import javax.json.JsonValue;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import jdk.nashorn.internal.parser.JSONParser;
-import modelo.BEAN.BeanUniforme;
-import modelo.DAO.DaoUniforme;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import modelo.BEAN.BeanUniforme;
+import modelo.DAO.DaoUniforme;
 
 /**
  *
@@ -31,15 +26,10 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  */
 public class ServletUniforme extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private String carpeta;
+    private boolean isMultiPart;
+    private String path;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -47,6 +37,7 @@ public class ServletUniforme extends HttpServlet {
 
         BeanUniforme beanUniforme = new BeanUniforme();
         DaoUniforme daoUniforme = new DaoUniforme();
+        carpeta = "Uniformes";
 
         ///elimina
         if (request.getParameter("txtOpc") != null && Integer.parseInt(request.getParameter("txtOpc")) == 2
@@ -59,7 +50,7 @@ public class ServletUniforme extends HttpServlet {
                 String item = bnUniforme.getUrl_diseño_Uniforme();//El nombre del archivo es decir de la img
                 if (daoUniforme.eliminarUniforme(beanUniforme)) {
 
-                    if (FileUpload.DeleteFile(path, item)) {//el metodo que se creo devuelve verdadero si se elimino correctamente 
+                    if (FileUpload.DeleteFile(path, item, carpeta)) {//el metodo que se creo devuelve verdadero si se elimino correctamente 
                         request.setAttribute("acualizado", "");
                         request.getRequestDispatcher("Adduniformes.jsp").forward(request, response);
 
@@ -74,12 +65,15 @@ public class ServletUniforme extends HttpServlet {
                     request.getRequestDispatcher("Adduniformes.jsp").forward(request, response);
 
                 }
+            } else {
+                request.setAttribute("noActualizado", "");
+                request.getRequestDispatcher("Adduniformes.jsp").forward(request, response);
             }
 
         }
         //Subir archivo y agregar uniforme
 
-        boolean isMultiPart = ServletFileUpload.isMultipartContent(request);//obtiene todos los valores y nombres de los campos
+        isMultiPart = ServletFileUpload.isMultipartContent(request);//obtiene todos los valores y nombres de los campos
         if (isMultiPart) {//Valida que sea correcto
             ServletFileUpload upload = new ServletFileUpload();//instancia el metodo de coomons upload
             try {
@@ -121,15 +115,13 @@ public class ServletUniforme extends HttpServlet {
 
                     } else {
                         // Hace lo especifico al archivo
-                        String path = getServletContext().getRealPath("/");//Pat del servidor
+                        path = getServletContext().getRealPath("/");//Pat del servidor
                         //Lama metodo para procesar y subir el archivo
-                        if (item.getName().isEmpty()) {
-                            
-                        beanUniforme.setUrl_diseño_Uniforme("null");
-                        }
+                        beanUniforme.setUrl_diseño_Uniforme(item.getName());//
+
                         if (daoUniforme.insertarUniforme(beanUniforme)) {
-                            
-                            if (FileUpload.processFile(path, item)) {
+
+                            if (FileUpload.processFile(path, item, carpeta)) {
                                 request.setAttribute("acualizado", "Se a guardado el archivo y los datos correctamente");
                                 request.getRequestDispatcher("Adduniformes.jsp").forward(request, response);
 
@@ -142,7 +134,7 @@ public class ServletUniforme extends HttpServlet {
                         } else {
                             request.setAttribute("noActualizado", "No se puedo insertar ");
                             request.getRequestDispatcher("Adduniformes.jsp").forward(request, response);
-                                response.getWriter().print("pribando 2");
+                            response.getWriter().print("pribando 2");
                         }
                     }
                 }
@@ -150,6 +142,8 @@ public class ServletUniforme extends HttpServlet {
                 fue.printStackTrace();
             }
 
+        }else{
+            request.getRequestDispatcher("Adduniformes.jsp").forward(request, response);
         }
 
     }

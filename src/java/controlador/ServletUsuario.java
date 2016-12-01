@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 public class ServletUsuario extends HttpServlet {
 
     private static final String PATTERN_EMAIL = "/\\w+@\\w+\\.+[a-z]/";
-
+    private int opcion;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,11 +40,11 @@ public class ServletUsuario extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
+        
         if (request.getParameter("textOpcion") == null) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
-        int opcion = Integer.parseInt(request.getParameter("textOpcion"));
+        opcion = Integer.parseInt(request.getParameter("textOpcion"));
         BeanUsuario beanUs = new BeanUsuario();
         DaoUsuario daoUsu = new DaoUsuario();
 

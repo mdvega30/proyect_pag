@@ -370,6 +370,7 @@ $(document).ready(function () {
         var input = $(this),
                 label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
         input.trigger('fileselect', [label]);
+
     });
 
     $('.btn-file :file').on('fileselect', function (event, label) {
@@ -431,6 +432,27 @@ $(document).ready(function () {
         $('.idDelete').val(mostrar);
 
     });
+
+
+    $(document).on('click', '.editar', function (e) {
+        e.preventDefault();
+        var mostrar = $(this).attr('value');
+//    $('.idEdit').val(mostrar);
+
+        $.ajax({//pasar por post datos al controlador
+            url: 'editaruniforme.jsp',
+            dataType: 'html',
+            data: {'idUni': mostrar},
+        }).done(function (data) {
+
+            $('.formulario').html(data);
+
+        });
+
+    });
+
+
+
 
 //        $.ajax({//pasar por post datos al controlador
 //            url: 'CrearUniforme',
@@ -502,22 +524,7 @@ $(document).ready(function () {
 
 
 
-$(document).on('click', '.editar', function (e) {
-    e.preventDefault();
-    var mostrar = $(this).attr('value');
-//    $('.idEdit').val(mostrar);
 
-    $.ajax({//pasar por post datos al controlador
-        url: 'editaruniforme.jsp',
-        dataType: 'html',
-        data: {'idUni': mostrar},
-    }).done(function (data) {
-
-        $('.formulario').html(data);
-
-    });
-
-});
 
 //$(document).ready(function () {
 //
@@ -551,3 +558,39 @@ $(document).on('click', '.editar', function (e) {
 //
 //
 //});
+
+
+$(document).on('click', '.btnsubir', function (e) {
+    var input = $('.imgsubir').val();
+    var ext = input.split('.').pop().toLowerCase();
+    if (input == '') {
+        e.preventDefault();
+        $('#respuesta1').html('<strong>¡Error!</strong> Debe subir una imagen.');
+    } else if ($.inArray(ext, ['jpeg', 'jpg', 'png']) === -1) {
+        $("#respuesta1").html("Seleccione un formato valido de imagen (jpeg,jpg,png).");
+        e.preventDefault();
+    }
+});
+
+var _URL = window.URL;
+$("#imgInp").change(function (e) {
+    var file, img;
+    if ((file = this.files[0])) {
+        img = new Image();
+        img.onload = function () {
+            //#img-upload
+            if (this.width == 800 && this.height == 500) {
+                $("#respuesta1").html("");
+            } else {
+                $('#img-upload').attr('src', "");
+                $("#respuesta1").html("La imagen debe ser de un tamaño de 800x500 pixeles.");
+
+            }
+        };
+        img.src = _URL.createObjectURL(file);
+    }
+});
+
+
+
+

@@ -9,8 +9,8 @@
         <servlet-class>controlador.ServletUniforme</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletCategoriaUniforme</servlet-name>
-        <servlet-class>controlador.ServletCategoriaUniforme</servlet-class>
+        <servlet-name>ServletEditarUniforme</servlet-name>
+        <servlet-class>controlador.ServletEditarUniforme</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletUsuario</servlet-name>
@@ -21,8 +21,8 @@
         <url-pattern>/CrearUniforme</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletCategoriaUniforme</servlet-name>
-        <url-pattern>/actualizar</url-pattern>
+        <servlet-name>ServletEditarUniforme</servlet-name>
+        <url-pattern>/Editar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
