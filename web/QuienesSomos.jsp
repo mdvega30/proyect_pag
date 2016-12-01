@@ -66,11 +66,7 @@
                                                 <input type="submit" class="btn btn-primary btn-block" value="Ingresar">
                                                 <input type="hidden" name="textOpcion" value="1">
                                             </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Recordar esta cuenta
-                                                </label>
-                                            </div>
+                                           
                                         </form>
                                     </div>
                                 </div>
@@ -175,5 +171,6 @@
                         </footer>
                         <script src="js/jquery.js" type="text/javascript"></script>
                         <script src="js/bootstrap.min.js" type="text/javascript"></script>
+                        <script src="js/_js.js" type="text/javascript"></script>
                         </body>
                         </html>

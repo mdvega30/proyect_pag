@@ -62,11 +62,7 @@
                                                     <input type="submit" class="btn btn-primary btn-block" value="Ingresar">
                                                     <input type="hidden" name="textOpcion" value="1">
                                                 </div>
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"> Recordar esta cuenta
-                                                    </label>
-                                                </div>
+                                                
                                             </form>
                                         </div>
                                     </div>

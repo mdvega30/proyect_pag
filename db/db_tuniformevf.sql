@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-11-2016 a las 00:55:04
+-- Tiempo de generación: 01-12-2016 a las 08:25:42
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -43,9 +43,15 @@ WHERE Correo = email;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_uniforme` (IN `NombreUniforme` VARCHAR(45), IN `Descripcion` VARCHAR(300), IN `ImagenDiseño` VARCHAR(100), IN `precio` DECIMAL, IN `EstadoUniforme` BOOLEAN, IN `TipoUniforme` INT, IN `id_uniforme` INT)  BEGIN
+if ImagenDiseño is null THEN
+UPDATE `uniforme` SET `Nombre_Uniforme` = NombreUniforme, `Descripcion_Uniforme` = Descripcion, 
+`Precio` = precio, `EstadoUniforme` = EstadoUniforme, 
+`Tipo_Uniforme_idTipo_Uniforme` = TipoUniforme WHERE `idUniforme` = id_uniforme;
+ELSE
 UPDATE `uniforme` SET `Nombre_Uniforme` = NombreUniforme, `Descripcion_Uniforme` = Descripcion, 
 `Url_Diseño_Uniforme` = ImagenDiseño, `Precio` = precio, `EstadoUniforme` = EstadoUniforme, 
 `Tipo_Uniforme_idTipo_Uniforme` = TipoUniforme WHERE `idUniforme` = id_uniforme;
+END IF;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `autenticacionAdmin` (IN `email` VARCHAR(45), IN `pass` VARCHAR(45), IN `roll` INT)  BEGIN
@@ -458,15 +464,11 @@ CREATE TABLE `uniforme` (
 --
 
 INSERT INTO `uniforme` (`idUniforme`, `Nombre_Uniforme`, `Descripcion_Uniforme`, `Url_Diseño_Uniforme`, `Precio`, `EstadoUniforme`, `Tipo_Uniforme_idTipo_Uniforme`) VALUES
-(46, 'Prueba edit', 'prueba edita ', 'hada-de-los-arboles.jpg', '100003', 1, 5),
-(47, 'prueba editar uniforme', 'Prueba 2 acrtu', 'folder.jpg', '500000', 1, 1),
-(48, 'prueba 3', 'prueba 3,prueba 3', '09e098ac21fa017c32763e71cf653995.jpg', '200000', 1, 1),
-(52, 'daaddas', 'asdasdsda', 'driada_raices_Totusik_Kolekie.jpg', '4', 1, 1),
-(54, '', '', '74dfbfd91cc78d33d6c1a2f1fc3226da.jpg', '0', 1, 1),
-(55, 'Prueba', '', '', '0', 1, 1),
-(71, 'nombre', '', NULL, '0', 0, 1),
-(73, 'czzxc', '', 'null', '0', 1, 1),
-(74, 'aaaaaa', '8458', NULL, '123', 1, 2);
+(140, 'Prueba ediciones especiales para ninos', 'Prueba edicion especial para nsssssssssso nuemro de reparto ', '1009621723_854.jpg', '1000000', 1, 3),
+(142, 'Uniforme para mujer', 'Mujer muy hermosa posa con su uniforme', 'img linda.jpg', '1000000', 1, 1),
+(143, 'China linda', 'Mujer muy bonita tambien con uniforme de colegio', 'china.jpg', '34', 1, 1),
+(144, 'Camisa deportiva de futbol', 'Es una fea camisa de futbol para fanaticos cutres', 'camisa.jpg', '0', 1, 1),
+(152, '', '', 'img111.jpg', '0', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -505,7 +507,8 @@ INSERT INTO `usuario` (`idUsuario`, `Id_tipodocumento`, `IdRol`, `Nombre1`, `Nom
 (11, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'noe@xx.123', 'Crea 105 n°154a-36', '700c8b805a3e2a265b01c77614cd8b21', NULL),
 (12, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'no@xx.123', 'Crea 105 n°154a-36', '700c8b805a3e2a265b01c77614cd8b21', NULL),
 (13, 2, 1, 'David', 'Andres', 'Daza', 'Diaz', '1026580077', 'no@x.123', 'Crea 105 n°154a-36', '700c8b805a3e2a265b01c77614cd8b21', NULL),
-(28, 1, 1, 'david', '', 'Andres', '', '15544554', 'dadaza770@misena.edu.co', '312345', '3889d5ce28fe61efc68a54b280028995', NULL);
+(28, 1, 1, 'david', '', 'Andres', '', '15544554', 'dadaza770@misena.edu.co', '312345', '3889d5ce28fe61efc68a54b280028995', NULL),
+(29, 1, 1, 'david', 'diaz', 'Daza', '', '123123', 'david.d.08@hotmail.com', 'cra172n 7-52', 'cc80ee497f35377053474a3eebf31e7c', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -663,7 +666,6 @@ ALTER TABLE `unidad_medida`
 --
 ALTER TABLE `uniforme`
   ADD PRIMARY KEY (`idUniforme`,`Tipo_Uniforme_idTipo_Uniforme`),
-  ADD UNIQUE KEY `Url_Diseño_Uniforme_UNIQUE` (`Url_Diseño_Uniforme`),
   ADD KEY `fk_Uniforme_Tipo_Uniforme1_idx` (`Tipo_Uniforme_idTipo_Uniforme`);
 
 --
@@ -788,12 +790,12 @@ ALTER TABLE `unidad_medida`
 -- AUTO_INCREMENT de la tabla `uniforme`
 --
 ALTER TABLE `uniforme`
-  MODIFY `idUniforme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `idUniforme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- Restricciones para tablas volcadas
 --
