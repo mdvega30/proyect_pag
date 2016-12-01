@@ -28,3 +28,20 @@ select *
 from usuario
 where  Correo = email and Contraseña= pass and token is null;
 END$$
+
+
+DROP PROCEDURE `actualizar_uniforme`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_uniforme`(IN `NombreUniforme` VARCHAR(45), IN `Descripcion` VARCHAR(300), IN `ImagenDiseño` VARCHAR(100), IN `precio` DECIMAL, IN `EstadoUniforme` BOOLEAN, IN `TipoUniforme` INT, IN `id_uniforme` INT)
+BEGIN
+if ImagenDiseño is null THEN
+UPDATE `uniforme` SET `Nombre_Uniforme` = NombreUniforme, `Descripcion_Uniforme` = Descripcion, 
+`Precio` = precio, `EstadoUniforme` = EstadoUniforme, 
+`Tipo_Uniforme_idTipo_Uniforme` = TipoUniforme WHERE `idUniforme` = id_uniforme;
+ELSE
+UPDATE `uniforme` SET `Nombre_Uniforme` = NombreUniforme, `Descripcion_Uniforme` = Descripcion, 
+`Url_Diseño_Uniforme` = ImagenDiseño, `Precio` = precio, `EstadoUniforme` = EstadoUniforme, 
+`Tipo_Uniforme_idTipo_Uniforme` = TipoUniforme WHERE `idUniforme` = id_uniforme;
+END IF;
+END$$
+DELIMITER ;
