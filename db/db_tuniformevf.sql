@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-12-2016 a las 08:25:42
+-- Tiempo de generación: 01-12-2016 a las 17:31:37
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -465,10 +465,9 @@ CREATE TABLE `uniforme` (
 
 INSERT INTO `uniforme` (`idUniforme`, `Nombre_Uniforme`, `Descripcion_Uniforme`, `Url_Diseño_Uniforme`, `Precio`, `EstadoUniforme`, `Tipo_Uniforme_idTipo_Uniforme`) VALUES
 (140, 'Prueba ediciones especiales para ninos', 'Prueba edicion especial para nsssssssssso nuemro de reparto ', '1009621723_854.jpg', '1000000', 1, 3),
-(142, 'Uniforme para mujer', 'Mujer muy hermosa posa con su uniforme', 'img linda.jpg', '1000000', 1, 1),
-(143, 'China linda', 'Mujer muy bonita tambien con uniforme de colegio', 'china.jpg', '34', 1, 1),
+(143, 'China linda', 'Mujer muy bonita  con uniforme ', 'china.jpg', '34', 1, 1),
 (144, 'Camisa deportiva de futbol', 'Es una fea camisa de futbol para fanaticos cutres', 'camisa.jpg', '0', 1, 1),
-(152, '', '', 'img111.jpg', '0', 1, 1);
+(153, '', '', '15 - 1.jpg', '0', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -790,7 +789,7 @@ ALTER TABLE `unidad_medida`
 -- AUTO_INCREMENT de la tabla `uniforme`
 --
 ALTER TABLE `uniforme`
-  MODIFY `idUniforme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `idUniforme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
