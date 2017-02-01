@@ -243,7 +243,7 @@
                                 </div>
 
                             </div>
-                            <button class="btn btn-success btn-lg btnsubir" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Guardar</button>
+                            <button class="btn btn-success btn-lg btnsubir" id="subir" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Guardar</button>
 
 
                         </form>

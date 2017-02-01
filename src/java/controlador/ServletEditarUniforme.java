@@ -67,7 +67,6 @@ public class ServletEditarUniforme extends HttpServlet {
                                 break;
                             case "imge":
                                 beanUniforme.setUrl_diseño_Uniforme(value);
-
                                 break;
                             case "opEstadoU":
                                 beanUniforme.setEstadoUniforme(Boolean.parseBoolean(value));

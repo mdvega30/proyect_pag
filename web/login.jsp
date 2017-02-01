@@ -109,7 +109,7 @@
                             ${registro}
                             <div class="alert alert-success">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Gracias!</strong> Se ha registrado correctamente.
+                                <strong>Gracias!</strong> Su cuenta se ha verificado correctamente.
                             </div>
                             <%}%>
 

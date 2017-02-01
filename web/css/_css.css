@@ -284,11 +284,11 @@ footer {
 }
 /*catalogo*/
 .hero-spacer {
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .hero-feature {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 
@@ -404,7 +404,7 @@ textarea {
 }
 
 
-/**/
+/* JHON      */
 
 .tablaMensajes {
 	display: none;

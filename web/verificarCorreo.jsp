@@ -81,11 +81,36 @@
                             </div>
                             </div>
                             </nav>
+                            <%if (request.getParameter("token") != null) {
+                                    String tok = request.getParameter("token");
+                                    DaoUsuario usu = new DaoUsuario();
 
+                                    if (usu.revisarToken(tok)) {//revisa que el token este en la base de datos 
+
+                                        if (usu.actualizarToken(tok)) {//si existe y el token lo modifica en la base de datos 
+
+                                            request.setAttribute("registro", "");
+                                            request.getRequestDispatcher("login.jsp").forward(request, response);
+                                        }
+
+                                    } else {//si el token no existe envia error
+                                        response.sendRedirect("Error404.jsp");
+                                    }
+
+                                }
+
+                            %>
 
                             <!--Contenido-->
 
+                            <%  String nombre = "";
+                                String correo = "";
+                                if (request.getParameter("nombre1") != null && request.getParameter("correo") != null) {
+                                    nombre = request.getParameter("nombre1");
+                                    correo = request.getParameter("correo");
 
+                                }
+                            %>
 
 
                             <div class="container">
@@ -95,12 +120,12 @@
                                         <div class="account-wall">
                                             <img class="profile-img" src="imagenes/LogoTuniforme_1.png" alt=""/>
 
-                                            <h1 style="text-align: center" >Hola David </h1>
+                                            <h1 style="text-align: center" >Hola ${nombre} </h1>
                                             <div style="margin: 20px;text-align: justify">
 
                                                 <p>Gracias por registrarse en nuestro sitio.
                                                     Para poder ingresar y usar nuestros servicios, <strong>debe verificar su correo</strong>
-                                                    dando clic en el enlace que se le ha enviado a su correo CORREO.
+                                                    dando clic en el enlace que se le ha enviado a su correo ${correo}.
                                                 </p>
                                             </div>
                                             <h3 style="text-align: center">El equipo de Tuniforme le agradece</h3>
@@ -111,25 +136,7 @@
                                 </div>
                             </div>
                             </div>
-                            <%if (request.getParameter("token") != null) {
-                                    String tok = request.getParameter("token");
-                                    DaoUsuario usu = new DaoUsuario();
 
-                                    if (usu.revisarToken(tok)) {
-
-                                        if (usu.actualizarToken(tok)) {
-
-                                            request.setAttribute("registro", "");
-                                            request.getRequestDispatcher("login.jsp").forward(request, response);
-                                        }
-
-                                    } else {
-                                        response.sendRedirect("Error404.jsp");
-                                    }
-
-                                }
-
-                            %>
                             <br>
                             <br>
                             <br>

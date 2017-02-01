@@ -363,45 +363,7 @@ $(document).ready(function () {
 
 
 
-/*subir archivo*/
 
-$(document).ready(function () {
-    $(document).on('change', '.btn-file :file', function () {
-        var input = $(this),
-                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        input.trigger('fileselect', [label]);
-
-    });
-
-    $('.btn-file :file').on('fileselect', function (event, label) {
-
-        var input = $(this).parents('.input-group').find(':text'),
-                log = label;
-
-        if (input.length) {
-            input.val(log);
-        } else {
-            if (log)
-                alert(log);
-        }
-
-    });
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#img-upload').attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    $("#imgInp").change(function () {
-        readURL(this);
-    });
-});
 
 
 
@@ -569,27 +531,74 @@ $(document).on('click', '.btnsubir', function (e) {
     } else if ($.inArray(ext, ['jpeg', 'jpg', 'png']) === -1) {
         $("#respuesta1").html("Seleccione un formato valido de imagen (jpeg,jpg,png).");
         e.preventDefault();
+    } else {
+        $('#respuesta1').html('');
     }
 });
+/*subir archivo*/
 
-var _URL = window.URL;
-$("#imgInp").change(function (e) {
-    var file, img;
-    if ((file = this.files[0])) {
-        img = new Image();
-        img.onload = function () {
-            //#img-upload
-            if (this.width == 800 && this.height == 500) {
-                $("#respuesta1").html("");
-            } else {
-                $('#img-upload').attr('src', "");
-                $("#respuesta1").html("La imagen debe ser de un tamaño de 800x500 pixeles.");
 
+
+
+
+
+
+//SUBE IMAGEN(NOMBRE Y LA PREVISUALIZA)
+$(document).ready(function () {
+    $("#imgInp").change(function (e) {
+        var _URL = window.URL;
+        var respuesta = false;
+        var file, img, origin_file;
+        origin_file = this;
+        if ((file = this.files[0])) {
+            img = new Image();
+            img.onload = function () {
+                //#img-upload
+                if (this.width == 800 && this.height == 500) {
+                    $("#respuesta1").html("");
+                    readURL(origin_file);
+                } else {
+                    $('#img-upload').attr('src', "");
+                    $("#respuesta1").html("La imagen debe ser de un tamaño de 800x500 pixeles.");
+                }
+
+            };
+            img.src = _URL.createObjectURL(file);
+        }
+    });
+
+    $(document).on('change', '.btn-file :file', function () {
+        var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [label]);
+    });
+
+    $('.btn-file :file').on('fileselect', function (event, label) {
+
+        var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+        if (input.length) {
+            input.val(log);
+        } else {
+            if (log)
+                alert(log);
+        }
+
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img-upload').attr('src', e.target.result);
             }
-        };
-        img.src = _URL.createObjectURL(file);
+            reader.readAsDataURL(input.files[0]);
+        }
     }
+
 });
+
 
 
 

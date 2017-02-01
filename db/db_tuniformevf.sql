@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-12-2016 a las 17:31:37
+-- Tiempo de generación: 01-12-2016 a las 21:56:21
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -73,6 +73,9 @@ end$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminarUniformes` (IN `id` INT)  BEGIN
 DELETE FROM Uniforme where idUniforme = id;
 END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarMensaje` (IN `idUsuario` INT, IN `Estado_mensaje` VARCHAR(20), IN `nom1` VARCHAR(30), IN `ape1` VARCHAR(30), IN `correo` VARCHAR(30), IN `empresa` VARCHAR(30), IN `Fecha` VARCHAR(40), IN `asunto` VARCHAR(100), IN `mensaje` VARCHAR(4000))  INSERT INTO `mensajes`(`idMensajes`, `Usuario_idUsuario`, `Estado_mensaje`, `Nombre`, `Apellido`, `Correo`, `Empresa`, `Fecha`, `Asunto`, `mensaje`) 
+VALUES (null,idUsuario,Estado_mensaje,nom1,ape1,correo,empresa,Fecha,asunto,mensaje)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarUsuario` (IN `tpdoc` INT, IN `roll` INT, IN `nom1` VARCHAR(30), IN `nom2` VARCHAR(30), IN `ape1` VARCHAR(30), IN `ape2` VARCHAR(30), IN `doc` VARCHAR(20), IN `email` VARCHAR(45), IN `direc` VARCHAR(45), IN `pass` VARCHAR(60), IN `tok` INT(50))  BEGIN
 INSERT INTO `usuario` (`idUsuario`, `Id_tipodocumento`, `IdRol`, `Nombre1`, `Nombre2`, `Apellido1`, `Apellido2`, `Documento`, `Correo`, `Direccion`, `Contraseña`,`token`) 
@@ -238,11 +241,32 @@ CREATE TABLE `insumo` (
 
 CREATE TABLE `mensajes` (
   `idMensajes` int(11) NOT NULL,
-  `Mensaje` varchar(600) NOT NULL,
-  `Fecha` varchar(45) DEFAULT NULL,
-  `Estado_mensaje` varchar(45) DEFAULT NULL,
-  `Usuario_idUsuario` int(11) NOT NULL
+  `Usuario_idUsuario` int(11) NOT NULL,
+  `Estado_mensaje` varchar(20) DEFAULT NULL,
+  `Nombre` varchar(30) NOT NULL,
+  `Apellido` varchar(30) NOT NULL,
+  `Correo` varchar(30) NOT NULL,
+  `Empresa` varchar(30) DEFAULT NULL,
+  `Fecha` varchar(40) NOT NULL,
+  `Asunto` varchar(100) NOT NULL,
+  `mensaje` varchar(4000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `mensajes`
+--
+
+INSERT INTO `mensajes` (`idMensajes`, `Usuario_idUsuario`, `Estado_mensaje`, `Nombre`, `Apellido`, `Correo`, `Empresa`, `Fecha`, `Asunto`, `mensaje`) VALUES
+(1, 1, 'Estado', '123', '123', '123', '1123', '123', '123', '123'),
+(2, 1, 'Estado', '123', '123', '123', '1123', '123', '123', '123'),
+(3, 1, 'Estado', '123', '123', '123', '123', '123', '123', '123'),
+(4, 1, 'Estado', '123', '123', '123', '123', '1', '23', '123'),
+(5, 1, 'Estado', '123', '123', '123', '123', '12', '3123', '123'),
+(6, 1, 'Estado', '123', '123', '123', '123', '123', '123', '123'),
+(7, 1, 'Estado', '123', '123', '123', '123', '123', '123', '123'),
+(8, 1, 'Estado', '123', '123', '1', '23', '123', '1', '23'),
+(9, 1, 'Estado', '123', '123', '1', '23', '123', '1', '23'),
+(10, 1, 'Estado', '123', '123', '1', '23', '123', '1', '23');
 
 -- --------------------------------------------------------
 
@@ -719,7 +743,7 @@ ALTER TABLE `insumo`
 -- AUTO_INCREMENT de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  MODIFY `idMensajes` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idMensajes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `novedad_pedido`
 --
@@ -811,12 +835,6 @@ ALTER TABLE `abono`
 --
 ALTER TABLE `institucion`
   ADD CONSTRAINT `fk_Institucion_Tipo_institucion1` FOREIGN KEY (`Tipo_institucion_idTipo_institucion`) REFERENCES `tipo_institucion` (`idTipo_institucion`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `mensajes`
---
-ALTER TABLE `mensajes`
-  ADD CONSTRAINT `fk_Mensajes_Usuario1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `novedad_pedido`

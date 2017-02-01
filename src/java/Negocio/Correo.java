@@ -19,10 +19,10 @@ public class Correo {
 
     public void envirCorreeoDeVerificacion(BeanUsuario beanUsu) {
 
-        this.destinatario = beanUsu.getCorreo();
+        this.destinatario = "dadaza770@misena.edu.co";
         this.asunto = "Verificacion de correo Tuniforme";
         this.mensaje = "Hola <b>" + beanUsu.getNombre1() + "</b><br>"
-                + "Por favor verifique su cuenta con nosotros visitando el siguiente enlace.<br>"
+                + "Por favor verifique su cuenta, visitando el siguiente enlace.<br>"
                 + "http://localhost:8080/ProyectoSena/verificarCorreo.jsp?token="+beanUsu.getToken()+"";
         
         

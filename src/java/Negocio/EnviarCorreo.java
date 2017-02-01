@@ -39,8 +39,8 @@ public class EnviarCorreo {
                     Message.RecipientType.TO,
                     new InternetAddress(datosCorreo.getDestinatario()));//Destinatario
             message.setSubject(datosCorreo.getAsunto());//Asunto del mensaje 
-
-            message.setText(datosCorreo.getMensaje());//Cuerpo o contenido dle mensaje
+            message.setContent(datosCorreo.getMensaje(), "text/html; charset=utf-8");
+//          message.setText(datosCorreo.getMensaje());//Cuerpo o contenido dle mensaje
 
             // Enviar correo
             Transport t = session.getTransport("smtp");
