@@ -41,6 +41,87 @@
                         <li><a href="#">Contactenos</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"> <span class="badge">1</span> <span >Articulos</span><span class="caret"></a>
+                    <ul class="dropdown-menu dropdown-cart" role="menu">
+              <li>
+                  <span class="item">
+                    <span class="item-left">
+                        <img src="http://lorempixel.com/50/50/" alt="" />
+                        <span class="item-info">
+                            <span class="text-muted"><small>UNIFORME COLEGIO MAYOR DE CUNDINAMARCA </small></span>
+                            <span><small>23000000$</small></span>
+                            <span><small> Cantidad: 9</small></span>
+                        </span>
+
+                    </span>
+                    <span class="item-right">
+                        <button class="btn btn-xs btn-danger pull-right">x</button>
+                    </span>
+                </span>
+              </li>
+              <li>
+                  <span class="item">
+                    <span class="item-left">
+                        <img src="http://lorempixel.com/50/50/" alt="" />
+                        <span class="item-info">
+                            <span class="text-muted"><small>UNIFORME COLEGIO MAYOR DE CUNDINAMARCA </small></span>
+                            <span><small>23000000$</small></span>
+                            <span><small> Cantidad: 9</small></span>
+                        </span>
+
+                    </span>
+                    <span class="item-right">
+                        <button class="btn btn-xs btn-danger pull-right">x</button>
+                    </span>
+                </span>
+              </li>
+                <li>
+                     <span class="item">
+                       <span class="item-left">
+                           <img src="http://lorempixel.com/50/50/" alt="" />
+                            <span class="item-info">
+                                <span class="text-muted"><small>UNIFORME COLEGIO MAYOR DE CUNDINAMARCA </small></span>
+                                <span><small>23000000$</small></span>
+                                <span><small> Cantidad: 9</small></span>
+                            </span>
+
+                        </span>
+                        <span class="item-right">
+                            <button class="btn btn-xs btn-danger pull-right">x</button>
+                      </span>
+                  </span>
+                </li>
+              
+             <li>
+                  <span class="item">
+                    <span class="item-left">
+                        <img src="http://lorempixel.com/50/50/" alt="" />
+                        <span class="item-info">
+                            <span class="text-muted"><small>UNIFORME COLEGIO MAYOR DE CUNDINAMARCA </small></span>
+                            <span><small>23000000$</small></span>
+                            <span><small> Cantidad: 9</small></span>
+                        </span>
+
+                    </span>
+                    <span class="item-right">
+                        <button class="btn btn-xs btn-danger pull-right">x</button>
+                    </span>
+                </span>
+              </li>
+              <li class="divider"></li>
+              <li><a class="text-center" href="">Ver Carro</a></li>
+          </ul>
+        </li>
+      
+      </ul>
+
+                        <!--fIN LISTA CARRITO DE COMPRAS-->
+                        
                         <li><a href="registro.jsp"><span class="glyphicon glyphicon-list-alt"></span> Regístrate</a></li>
 
 
@@ -81,9 +162,7 @@
                             </div>
                             </nav>
                             <!--Fin menu superior-->
-                            <br>
-                            <br>
-                            <br>
+
                             <%int pagina = 0; //pagina a mostrar
                                 if (request.getParameter("pagina") == null) {
                                     pagina = 0;
@@ -93,8 +172,6 @@
                             %>
 
                             <div class="container">
-
-                                <!-- Jumbotron Header -->
                                 <header class="jumbotron hero-spacer">
                                     <h1>A Warm Welcome!</h1>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
@@ -105,7 +182,7 @@
 
                                         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" >
 
-                                            <div class="input-group buscador-principal">    					
+                                            <div class="input-group buscador-principal">                        
                                                 <input name="search_param" value="all" id="search_param" type="hidden">         
                                                 <input class="form-control" name="x" placeholder="¿Qué quieres buscar?" type="text">
                                                 <div class="input-group-btn search-panel">
@@ -125,102 +202,182 @@
                                                     <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span> BUSCAR</button>
                                                 </span>
                                             </div>
-                                            </divs>
+
+
+
+
+                                            <!--Fin Barra Buscar -->
+                                            </header>
                                         </div>
-                                    </div>
-
-                                    <!--Fin Barra Buscar -->
-                                </header>
-
-                                <hr>
 
 
 
 
 
-                                <!-- Page Features -->
-                                <div class="row text-center">
-                                    <%
-                                        DaoUniforme daoUniforme = new DaoUniforme();
-                                        ArrayList<BeanUniforme> listaUniforme = daoUniforme.listarUniformeCatalog(pagina * 10, 10);
+                                        <!-- Page Features -->
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-11">
+                                                    <%
+                                                        DaoUniforme daoUniforme = new DaoUniforme();
+                                                        ArrayList<BeanUniforme> listaUniforme = daoUniforme.listarUniformeCatalog(pagina * 10, 10);
 
-                                        int cont = pagina * 10;
-                                        int contador2 = 0;
-                                        for (BeanUniforme bnUnifor : listaUniforme) {%>
+                                                        int cont = pagina * 10;
+                                                        int contador2 = 0;
+                                                        for (BeanUniforme bnUnifor : listaUniforme) {%>
 
-                                    <div class="col-md-3 col-sm-6 hero-feature">
-                                        <div class="thumbnail">
-                                            <img src="images/uniformes/<%=bnUnifor.getUrl_diseño_Uniforme()%>" alt="">
-                                            <div class="caption">
-                                                <h3><%=bnUnifor.getNombre_uniforme()%></h3>
-                                                <p><%=bnUnifor.getDescripcion_uniforme()%></p>
-                                                <p>$<%=bnUnifor.getPrecio()%></p>
-                                                <p>
-                                                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                    <div class="product">
+                                                        <div class="info-large">
 
-                                    <%cont++;
+
+                                                            <h3>COLORS</h3>
+                                                            <div class="colors-large">
+                                                                <ul>
+                                                                    <li><a href="" style="background:#222"><span></span></a></li>
+                                                                    <li><a href="" style="background:#6e8cd5"><span></span></a></li>
+                                                                    <li><a href="" style="background:#f56060"><span></span></a></li>
+                                                                    <li><a href="" style="background:#44c28d"><span></span></a></li>
+                                                                </ul> 
+                                                            </div>
+
+                                                            <h3>SIZE</h3>
+                                                            <div class="sizes-large">
+                                                                <span>XS</span>
+                                                                <span>S</span>
+                                                                <span>M</span>
+                                                                <span>L</span>
+                                                                <span>XL</span>
+                                                                <span>XXL</span>
+                                                            </div>
+
+                                                            <button class="add-cart-large">Add To Cart</button>                          
+
+                                                        </div>
+                                                        <div class="make3D">
+                                                            <div class="product-front">
+                                                                <div class="shadow"></div>
+                                                                <img src="images/uniformes/<%=bnUnifor.getUrl_diseño_Uniforme()%>" alt="" />
+                                                                <div class="image_overlay"></div>
+                                                                <a href="google.com" target="_blank"><div class="add_to_cart" >VER DETALLES</div></a>
+                                                                <div class="view_gallery">View gallery</div>                
+                                                                <div class="stats">         
+                                                                    <div class="stats-container">
+                                                                        <span class="product_price">$<%=bnUnifor.getPrecio()%></span>
+                                                                        <span class="product_name"> <%=bnUnifor.getNombre_uniforme()%></span>    
+                                                                        <p>Tuniforme.com</p>                                            
+
+                                                                        <div class="product-options">
+                                                                            <strong>Descripcion</strong>
+                                                                            <span><%=bnUnifor.getDescripcion_uniforme()%></span>
+
+
+                                                                        </div>                       
+                                                                    </div>                         
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="product-back">
+                                                                <div class="shadow"></div>
+                                                                <div class="carousel">
+                                                                    <ul class="carousel-container">
+                                                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1.jpg" alt="" /></li>
+                                                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2.jpg" alt="" /></li>
+                                                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/3.jpg" alt="" /></li>
+                                                                    </ul>
+                                                                    <div class="arrows-perspective">
+                                                                        <div class="carouselPrev">
+                                                                            <div class="y"></div>
+                                                                            <div class="x"></div>
+                                                                        </div>
+                                                                        <div class="carouselNext">
+                                                                            <div class="y"></div>
+                                                                            <div class="x"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="flip-back">
+                                                                    <div class="cy"></div>
+                                                                    <div class="cx"></div>
+                                                                </div>
+                                                            </div>    
+                                                        </div>  
+                                                    </div>
+
+
+                                                                   
+
+
+
+
+
+
+
+                                                    <%cont++;
+                                                    
                                         }%>
 
-                                    <!-- /.row -->
-                                </div>
+                                                    <!-- /.row -->
+                                                </div>
+                                            </div>
+                                        </div>
 
 
 
-                                <!-- Pagination -->
-                                <div class="row text-center">
-                                    <div class="col-lg-12">
-                                        <ul class="pagination pull-left">
+                                        <!-- Pagination -->
+                                        <br>
+                                        <div class="container">
+                                        <div class="row text-center">
+                                            <div class="col-lg-12">
+                                                <ul class="pagination pull-center">
 
 
 
-                                            <%if (pagina > 1) {%> 
-                                            <li class=""><a href="?pagina=<%=pagina - 1%>"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                                                    <%} else {%>
-                                            <li class="disabled"><a ><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                                                    <%}%>
-                                                    <%
-                                                        int numeroRegistros = daoUniforme.verRegistrosTotales();
-                                                        int numerPagina = numeroRegistros / 10;
+                                                    <%if (pagina > 1) {%> 
+                                                    <li class=""><a href="?pagina=<%=pagina - 1%>"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                                                            <%} else {%>
+                                                    <li class="disabled"><a ><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                                                            <%}%>
+                                                            <%
+                                                                int numeroRegistros = daoUniforme.verRegistrosTotales();
+                                                                int numerPagina = numeroRegistros / 10;
 
-                                                        for (int i = 0; i <= numerPagina; i++) {
+                                                                for (int i = 0; i <= numerPagina; i++) {
 
-                                                            if (i == pagina) {
+                                                                    if (i == pagina) {
+                                                            %>
+                                                    <li class="active"><a href="?pagina=<%=(i)%>"><%=i + 1%></a></li> 
+
+                                                    <%} else {
                                                     %>
-                                            <li class="active"><a href="?pagina=<%=(i)%>"><%=i + 1%></a></li> 
+                                                    <li class=""><a href="?pagina=<%=(i)%>"><%=i + 1%></a></li> 
 
-                                            <%} else {
-                                            %>
-                                            <li class=""><a href="?pagina=<%=(i)%>"><%=i + 1%></a></li> 
+                                                    <%}
+                                                }%>
+                                                    <%if (pagina < numerPagina) {%> 
+                                                    <li><a href="?pagina=<%=pagina + 1%>"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
 
-                                            <%}
-                                                    }%>
-                                            <%if (pagina < numerPagina) {%> 
-                                            <li><a href="?pagina=<%=pagina + 1%>"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                                                    <%} else {%>
+                                                    <li class="disabled" ><a><span class="glyphicon glyphicon-chevron-right"></span></a></li>
 
-                                            <%} else {%>
-                                            <li class="disabled" ><a><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                                                    <%}%>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- /.row -->
 
-                                            <%}%>
-                                        </ul>
                                     </div>
-                                </div>
-                                <!-- /.row -->
+                                    </div>
 
-                            </div>
+                                    <!-- /.Container -->
 
-                            <!-- /.Container -->
+                                    <!--Footer-->
 
-                            <!--Footer-->
-
-                        <footer class="container-fluid text-center" >
-                            <p>Footer ® David Daza</p>
-                        </footer>
-                        <script src="js/jquery.js" type="text/javascript"></script>
-                        <script src="js/bootstrap.min.js" type="text/javascript"></script>
-                        <script src="js/_js.js" type="text/javascript"></script>
-                        </body>
-                        </html>
+                                    <footer class="container-fluid text-center" >
+                                        <p>Footer ® David Daza</p>
+                                    </footer>
+                                    <script src="js/jquery.js" type="text/javascript"></script>
+                                    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+                                    <script src="js/_js.js" type="text/javascript"></script>
+                                    </body>
+                                    </html>

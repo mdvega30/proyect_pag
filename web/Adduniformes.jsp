@@ -189,13 +189,13 @@
                     </div>
                     <div class="modal-body">
                         <!--Inicio form insertyar datos-->
-                        <form method="POST" action="CrearUniforme" enctype="multipart/form-data" name="formInsert">
+                        <form method="POST" action="CrearUniforme" enctype="multipart/form-data" name="formInsert" id="form-AddUniforme">
 
                             <div class="form-group">
                                 <label>Nombre Uniforme</label>
-                                <input type="text" name="txtnombreU" placeholder="Nombre de Uniforme" value="" class="form-control"/>
-
+                                <input type="text" name="txtnombreU" id="txtnombreU" placeholder="Nombre de Uniforme" value="" class="form-control"/>
                             </div>
+                                <div id="respuesta2" class="  alert-danger" ></div>
 
                             <div class="form-group">
                                 <label>Tipo uniforme</label>
@@ -216,6 +216,8 @@
                                 <label>Descripción</label>
                                 <textarea  name="textareaDescripU" id="textareaDescrip" class="form-control input-sm" placeholder="Escriba una descripción"></textarea>
                             </div>
+                                <div id="respuesta3" class="  alert-danger" ></div>
+
                             <div class="form-group">
                                 <label>Estado</label><br>
                                 <select id="opEstadoU" name="opEstadoU" class="form-control">
@@ -307,7 +309,7 @@
                                     <td><input type="checkbox" class="checkthis" /></td>
                                     <td><%=cont + 1%></td>
                                     <td><%=bnUnifor.getNombre_uniforme()%></td>
-                                    <td><%=bnUnifor.getNombreTipo()%></td>
+                                    <td class="imgt" ><%=bnUnifor.getNombreTipo()%></td>
                                     <td>$ <%=bnUnifor.getPrecio()%></td> 
                                     <td><img class="imgl" src="images/uniformes/<%=bnUnifor.getUrl_diseño_Uniforme()%>" alt=""/></td>
                                     <td class="tx"><textarea disabled="" class="txtareal"><%=bnUnifor.getDescripcion_uniforme()%></textarea> </td>
@@ -398,7 +400,7 @@
 
 
 
-        <form method="POST" action="CrearUniforme" name="formEliminar">
+        <form method="POST" action="CrearUniforme" name="formEliminar" >
             <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
                 <div class="modal-dialog">
 

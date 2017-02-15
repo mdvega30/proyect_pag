@@ -44,6 +44,7 @@ $(document).ready(function () {
     var validacion7 = true;
     var validacion8 = true;
     var validacion9 = true;
+    var validacion10 = true;
     console.log(validacion8);
     console.log(validacion9);
     var validarSujeto = new RegExp(/^[a-z\d_]{4,25}$/i);
@@ -124,9 +125,29 @@ $(document).ready(function () {
             $('#resultado5').html('Coreecto!');
             validacion5 = false;
         }
-
-
     });
+    $('#email1').on('focusout', function () {
+        var ema = $('#email').val();
+        var ema1= $('#email1').val();
+        var validarCorreo = new RegExp(/\w+@\w+\.+[a-z]/);
+        if (ema1.trim() === '') {
+            $('#resultado10').removeClass('alert-success');
+            $('#resultado10').addClass('alert-danger');
+            $('#resultado10').html('<strong>¡Error!</strong> Este campo es requerido, no debe ir vacío.');
+            validacion10 = true;
+        } else if (ema!==ema1) {
+
+            $('#resultado10').html('<strong>¡Error!</strong> ¡Error! No coinciden el correos');
+            validacion10 = true;
+        } else {
+            $('#resultado10').removeClass('alert-danger');
+            $('#resultado10').addClass('alert-success');
+            $('#resultado10').html('Correcto!');
+            validacion10 = false;
+        }
+    });
+
+
 //validar DIRECCION 
 
     $('#direccion').on('focusout', function () {
@@ -307,6 +328,9 @@ $(document).ready(function () {
             $(location).attr('hreft', '#contra2');
             $('#contra2').focus();
             return false;
+        } else if (validacion10){
+            $(location).attr('hreft', '#email1');
+            $('#email').focus();
         }
 
         return true;
@@ -543,8 +567,14 @@ $(document).on('click', '.btnsubir', function (e) {
 
 
 
-//SUBE IMAGEN(NOMBRE Y LA PREVISUALIZA)
+//SUBE IMAGEN(NOMBRE LA PREVISUALIZA, y Valida el tamaño )
 $(document).ready(function () {
+var tamanoImagen = false;
+var nomUniforme = false;
+var descUniforme = false;
+var validarSujeto1 = new RegExp(/^[a-z\d_]{15,35}$/i);
+var validarSujeto2 = new RegExp(/^[a-z\d_]{15,45}$/i);
+
     $("#imgInp").change(function (e) {
         var _URL = window.URL;
         var respuesta = false;
@@ -554,18 +584,99 @@ $(document).ready(function () {
             img = new Image();
             img.onload = function () {
                 //#img-upload
-                if (this.width == 800 && this.height == 500) {
+                if (this.width == 330 && this.height == 660) {//Valida tamaño de imagen 
                     $("#respuesta1").html("");
                     readURL(origin_file);
+                    return tamanoImagen = false;//retorna falso si todo esta correcto
+
                 } else {
                     $('#img-upload').attr('src', "");
                     $("#respuesta1").html("La imagen debe ser de un tamaño de 800x500 pixeles.");
+                    return tamanoImagen = true;
                 }
 
             };
             img.src = _URL.createObjectURL(file);
         }
+//15 maximo 45
+
+
+
+
     });
+
+
+    /*Valida Nombre Uniforme*/
+    $('#txtnombre').on('focusout', function () {
+        var nombreUn = $('#txtnombreU').val();
+
+        if (false == validarSujeto1.test(nombreUn)||nombreUn.trim()=='') {
+            $('#respuesta2').html('<strong>¡Error!</strong> ¡Error! Este campo debe contener mínimo 15 caracteres y máximo 35.');
+            $('#respuesta2').addClass('alert-danger');
+            return nomUniforme = true;
+
+        } else {
+
+            $('#respuesta2').html('');
+            return nomUniforme = false;
+        }
+
+
+    });
+
+
+
+    $('#textareaDescri').on('focusout', function () {
+        var descUni = $('#textareaDescrip').val();
+
+        if (false == validarSujeto2.test(descUni)||descUni.trim()==='') {
+            $('#respuesta3').html('<strong>¡Error!</strong> ¡Error! Este campo debe contener mínimo 15 caracteres y máximo 45.');
+            $('#respuesta3').addClass('alert-danger');
+            return descUniforme = true;
+
+        } else {
+
+            $('#respuesta3').html('');
+            return descUniforme = false;
+        }
+
+
+    });
+    
+        $("#form-AddUniforme").submit(function () {
+        if (tamanoImagen) {
+            return false;
+        } else if (nomUniforme) {
+            return false;
+        } else if (descUniforme) {
+            return false;
+
+        }
+        return true;
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     $(document).on('change', '.btn-file :file', function () {
         var input = $(this),
@@ -599,7 +710,287 @@ $(document).ready(function () {
 
 });
 
+/*CATALOGO*/
+/*NUEVO CATALOGO*/
+$(document).ready(function () {
 
+    $(".largeGrid").click(function () {
+        $(this).find('a').addClass('active');
+        $('.smallGrid a').removeClass('active');
+
+        $('.product').addClass('large').each(function () {
+        });
+        setTimeout(function () {
+            $('.info-large').show();
+        }, 200);
+        setTimeout(function () {
+
+            $('.view_gallery').trigger("click");
+        }, 400);
+
+        return false;
+    });
+
+    $(".smallGrid").click(function () {
+        $(this).find('a').addClass('active');
+        $('.largeGrid a').removeClass('active');
+
+        $('div.product').removeClass('large');
+        $(".make3D").removeClass('animate');
+        $('.info-large').fadeOut("fast");
+        setTimeout(function () {
+            $('div.flip-back').trigger("click");
+        }, 400);
+        return false;
+    });
+
+    $(".smallGrid").click(function () {
+        $('.product').removeClass('large');
+        return false;
+    });
+
+    $('.colors-large a').click(function () {
+        return false;
+    });
+
+
+    $('.product').each(function (i, el) {
+
+        // Lift card and show stats on Mouseover
+        $(el).find('.make3D').hover(function () {
+            $(this).parent().css('z-index', "20");
+            $(this).addClass('animate');
+            $(this).find('div.carouselNext, div.carouselPrev').addClass('visible');
+        }, function () {
+            $(this).removeClass('animate');
+            $(this).parent().css('z-index', "1");
+            $(this).find('div.carouselNext, div.carouselPrev').removeClass('visible');
+        });
+
+        // Flip card to the back side
+        $(el).find('.view_gallery').click(function () {
+
+            $(el).find('div.carouselNext, div.carouselPrev').removeClass('visible');
+            $(el).find('.make3D').addClass('flip-10');
+            setTimeout(function () {
+                $(el).find('.make3D').removeClass('flip-10').addClass('flip90').find('div.shadow').show().fadeTo(80, 1, function () {
+                    $(el).find('.product-front, .product-front div.shadow').hide();
+                });
+            }, 50);
+
+            setTimeout(function () {
+                $(el).find('.make3D').removeClass('flip90').addClass('flip190');
+                $(el).find('.product-back').show().find('div.shadow').show().fadeTo(90, 0);
+                setTimeout(function () {
+                    $(el).find('.make3D').removeClass('flip190').addClass('flip180').find('div.shadow').hide();
+                    setTimeout(function () {
+                        $(el).find('.make3D').css('transition', '100ms ease-out');
+                        $(el).find('.cx, .cy').addClass('s1');
+                        setTimeout(function () {
+                            $(el).find('.cx, .cy').addClass('s2');
+                        }, 100);
+                        setTimeout(function () {
+                            $(el).find('.cx, .cy').addClass('s3');
+                        }, 200);
+                        $(el).find('div.carouselNext, div.carouselPrev').addClass('visible');
+                    }, 100);
+                }, 100);
+            }, 150);
+        });
+
+        // Flip card back to the front side
+        $(el).find('.flip-back').click(function () {
+
+            $(el).find('.make3D').removeClass('flip180').addClass('flip190');
+            setTimeout(function () {
+                $(el).find('.make3D').removeClass('flip190').addClass('flip90');
+
+                $(el).find('.product-back div.shadow').css('opacity', 0).fadeTo(100, 1, function () {
+                    $(el).find('.product-back, .product-back div.shadow').hide();
+                    $(el).find('.product-front, .product-front div.shadow').show();
+                });
+            }, 50);
+
+            setTimeout(function () {
+                $(el).find('.make3D').removeClass('flip90').addClass('flip-10');
+                $(el).find('.product-front div.shadow').show().fadeTo(100, 0);
+                setTimeout(function () {
+                    $(el).find('.product-front div.shadow').hide();
+                    $(el).find('.make3D').removeClass('flip-10').css('transition', '100ms ease-out');
+                    $(el).find('.cx, .cy').removeClass('s1 s2 s3');
+                }, 100);
+            }, 150);
+
+        });
+
+        makeCarousel(el);
+    });
+
+    $('.add-cart-large').each(function (i, el) {
+        $(el).click(function () {
+            var carousel = $(this).parent().parent().find(".carousel-container");
+            var img = carousel.find('img').eq(carousel.attr("rel"))[0];
+            var position = $(img).offset();
+
+            var productName = $(this).parent().find('h4').get(0).innerHTML;
+
+            $("body").append('<div class="floating-cart"></div>');
+            var cart = $('div.floating-cart');
+            $("<img src='" + img.src + "' class='floating-image-large' />").appendTo(cart);
+
+            $(cart).css({'top': position.top + 'px', "left": position.left + 'px'}).fadeIn("slow").addClass('moveToCart');
+            setTimeout(function () {
+                $("body").addClass("MakeFloatingCart");
+            }, 800);
+
+            setTimeout(function () {
+                $('div.floating-cart').remove();
+                $("body").removeClass("MakeFloatingCart");
+
+
+                var cartItem = "<div class='cart-item'><div class='img-wrap'><img src='" + img.src + "' alt='' /></div><span>" + productName + "</span><strong>$39</strong><div class='cart-item-border'></div><div class='delete-item'></div></div>";
+
+                $("#cart .empty").hide();
+                $("#cart").append(cartItem);
+                $("#checkout").fadeIn(500);
+
+                $("#cart .cart-item").last()
+                        .addClass("flash")
+                        .find(".delete-item").click(function () {
+                    $(this).parent().fadeOut(300, function () {
+                        $(this).remove();
+                        if ($("#cart .cart-item").size() == 0) {
+                            $("#cart .empty").fadeIn(500);
+                            $("#checkout").fadeOut(500);
+                        }
+                    })
+                });
+                setTimeout(function () {
+                    $("#cart .cart-item").last().removeClass("flash");
+                }, 10);
+
+            }, 1000);
+
+
+        });
+    })
+
+    /* ----  Image Gallery Carousel   ---- */
+    function makeCarousel(el) {
+
+
+        var carousel = $(el).find('.carousel ul');
+        var carouselSlideWidth = 315;
+        var carouselWidth = 0;
+        var isAnimating = false;
+        var currSlide = 0;
+        $(carousel).attr('rel', currSlide);
+
+        // building the width of the casousel
+        $(carousel).find('li').each(function () {
+            carouselWidth += carouselSlideWidth;
+        });
+        $(carousel).css('width', carouselWidth);
+
+        // Load Next Image
+        $(el).find('div.carouselNext').on('click', function () {
+            var currentLeft = Math.abs(parseInt($(carousel).css("left")));
+            var newLeft = currentLeft + carouselSlideWidth;
+            if (newLeft == carouselWidth || isAnimating === true) {
+                return;
+            }
+            $(carousel).css({'left': "-" + newLeft + "px",
+                "transition": "300ms ease-out"
+            });
+            isAnimating = true;
+            currSlide++;
+            $(carousel).attr('rel', currSlide);
+            setTimeout(function () {
+                isAnimating = false;
+            }, 300);
+        });
+
+        // Load Previous Image
+        $(el).find('div.carouselPrev').on('click', function () {
+            var currentLeft = Math.abs(parseInt($(carousel).css("left")));
+            var newLeft = currentLeft - carouselSlideWidth;
+            if (newLeft < 0 || isAnimating === true) {
+                return;
+            }
+            $(carousel).css({'left': "-" + newLeft + "px",
+                "transition": "300ms ease-out"
+            });
+            isAnimating = true;
+            currSlide--;
+            $(carousel).attr('rel', currSlide);
+            setTimeout(function () {
+                isAnimating = false;
+            }, 300);
+        });
+    }
+
+    $('.sizes a span, .categories a span').each(function (i, el) {
+        $(el).append('<span class="x"></span><span class="y"></span>');
+
+        $(el).parent().on('click', function () {
+            if ($(this).hasClass('checked')) {
+                $(el).find('.y').removeClass('animate');
+                setTimeout(function () {
+                    $(el).find('.x').removeClass('animate');
+                }, 50);
+                $(this).removeClass('checked');
+                return false;
+            }
+
+            $(el).find('.x').addClass('animate');
+            setTimeout(function () {
+                $(el).find('.y').addClass('animate');
+            }, 100);
+            $(this).addClass('checked');
+            return false;
+        });
+    });
+    /*animacion agregar al catalogo */
+    /*$('.add_to_cart').click(function(){
+     var productCard = $(this).parent();
+     var position = productCard.offset();
+     var productImage = $(productCard).find('img').get(0).src;
+     var productName = $(productCard).find('.product_name').get(0).innerHTML;                
+     
+     $("body").append('<div class="floating-cart"></div>');      
+     var cart = $('div.floating-cart');      
+     productCard.clone().appendTo(cart);
+     $(cart).css({'top' : position.top + 'px', "left" : position.left + 'px'}).fadeIn("slow").addClass('moveToCart');        
+     setTimeout(function(){$("body").addClass("MakeFloatingCart");}, 800);
+     setTimeout(function(){
+     $('div.floating-cart').remove();
+     $("body").removeClass("MakeFloatingCart");
+     
+     
+     var cartItem = "<div class='cart-item'><div class='img-wrap'><img src='"+productImage+"' alt='' /></div><span>"+productName+"</span><strong>$39</strong><div class='cart-item-border'></div><div class='delete-item'></div></div>";         
+     
+     $("#cart .empty").hide();           
+     $("#cart").append(cartItem);
+     $("#checkout").fadeIn(500);
+     
+     $("#cart .cart-item").last()
+     .addClass("flash")
+     .find(".delete-item").click(function(){
+     $(this).parent().fadeOut(3, function(){
+     $(this).remove();
+     if($("#cart .cart-item").size() == 0){
+     $("#cart .empty").fadeIn(500);
+     $("#checkout").fadeOut(500);
+     }
+     })
+     });
+     setTimeout(function(){
+     $("#cart .cart-item").last().removeClass("flash");
+     }, 100 );
+     
+     }, 1000);
+     });*/
+});
 
 
 

@@ -120,6 +120,11 @@
                                 <label for="correo">Correo:</label>
                                 <input type="text" id="email" class="form-control input-email" name="correo" placeholder="Ingrese Email" >
                                 <div class="message alert-danger" id="resultado5"></div>
+                                
+                                <a name="correo"></a>
+                                <label for="correo">Digite de nuevo su correo:</label>
+                                <input type="text" id="email1" class="form-control input-email" name="correo" placeholder="Ingrese de nuevo su correo" onpaste="return false" >
+                                <div class="message alert-danger" id="resultado10"></div>
 
                                 <a name="direccion"></a>
                                 <label for="direccion">Dirección:</label>
