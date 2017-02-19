@@ -10,14 +10,9 @@ public class BeanUniforme {
     private boolean estadoUniforme;
     private int id_tipoUniforme;
     private String nombreTipo;
+    private int institucion_idInstitucion;
 
-
-    
-
-    public BeanUniforme() {
-
-    }
-    public BeanUniforme(int id_uniforme, String nombre_uniforme, String descripcion_uniforme, String url_diseño_Uniforme, double precio, boolean estadoUniforme, int id_tipoUniforme, String nombreTipo) {
+    public BeanUniforme(int id_uniforme, String nombre_uniforme, String descripcion_uniforme, String url_diseño_Uniforme, double precio, boolean estadoUniforme, int id_tipoUniforme, String nombreTipo, int institucion_idInstitucion) {
         this.id_uniforme = id_uniforme;
         this.nombre_uniforme = nombre_uniforme;
         this.descripcion_uniforme = descripcion_uniforme;
@@ -26,9 +21,11 @@ public class BeanUniforme {
         this.estadoUniforme = estadoUniforme;
         this.id_tipoUniforme = id_tipoUniforme;
         this.nombreTipo = nombreTipo;
+        this.institucion_idInstitucion = institucion_idInstitucion;
     }
 
-    
+    public BeanUniforme() {
+    }
 
     public int getId_uniforme() {
         return id_uniforme;
@@ -85,13 +82,21 @@ public class BeanUniforme {
     public void setId_tipoUniforme(int id_tipoUniforme) {
         this.id_tipoUniforme = id_tipoUniforme;
     }
-    
+
     public String getNombreTipo() {
         return nombreTipo;
     }
 
     public void setNombreTipo(String nombreTipo) {
         this.nombreTipo = nombreTipo;
+    }
+
+    public int getInstitucion_idInstitucion() {
+        return institucion_idInstitucion;
+    }
+
+    public void setInstitucion_idInstitucion(int institucion_idInstitucion) {
+        this.institucion_idInstitucion = institucion_idInstitucion;
     }
 
 }

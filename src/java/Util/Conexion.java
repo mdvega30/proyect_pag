@@ -16,7 +16,7 @@ public class Conexion {
         driver="com.mysql.jdbc.Driver";
         userbd="root";
         passbd="";
-        bd= "db_tuniformevf";
+        bd= "tuniforme";
         urldb="jdbc:mysql://localhost:3306/"+bd;
         
         try {

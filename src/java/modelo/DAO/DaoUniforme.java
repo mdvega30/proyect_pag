@@ -38,15 +38,16 @@ public class DaoUniforme extends Conexion {
     public boolean insertarUniforme(BeanUniforme beanUniforme) {
         PreparedStatement ps = null;
         try {
-            consulta = "call insertar_uniforme(?,?,?,?,?,?)";
+            consulta = "call insertar_uniforme(?,?,?,?,?,?,?)";
             ps = conexion.prepareCall(consulta);
-
+            beanUniforme.setInstitucion_idInstitucion(1);
             ps.setString(1, beanUniforme.getNombre_uniforme());
             ps.setString(2, beanUniforme.getDescripcion_uniforme());
             ps.setString(3, beanUniforme.getUrl_diseño_Uniforme());
             ps.setDouble(4, beanUniforme.getPrecio());
             ps.setBoolean(5, beanUniforme.isEstadoUniforme());
             ps.setInt(6, beanUniforme.getId_tipoUniforme());
+            ps.setInt(7, beanUniforme.getInstitucion_idInstitucion());
             if (ps.executeUpdate() == 1) {
                 return true;
             }
@@ -91,6 +92,7 @@ public class DaoUniforme extends Conexion {
                 bnUnifor.setPrecio(print.getDouble("Precio"));
                 bnUnifor.setEstadoUniforme(print.getBoolean("EstadoUniforme"));
                 bnUnifor.setNombreTipo(print.getString("Nombre_Tipo"));
+
                 listaUniformes.add(bnUnifor);
 
             }
@@ -101,17 +103,18 @@ public class DaoUniforme extends Conexion {
 
         return listaUniformes;
     }
-    
-     public ArrayList<BeanUniforme> listarUniformeCatalog(int pagina, int numeroRegistro) {
+
+    public ArrayList<BeanUniforme> listarUniformeCatalog(int pagina, int numeroRegistro ,String bucar) {
         PreparedStatement ps = null;
-
+       
         ArrayList<BeanUniforme> listaUniformes = new ArrayList<>();
-
+//SET FOREIGN_KEY_CHECKS = on
         try {
-            consulta = "call listar_uniformesCatalogo(?,?)";
+            consulta = "call listar_uniformesCatalogo(?,?,?)";
             ps = conexion.prepareCall(consulta);
             ps.setInt(1, pagina);
             ps.setInt(2, numeroRegistro);
+            ps.setString(3, bucar);
 
             ResultSet print = ps.executeQuery();
             while (print.next()) {
@@ -135,6 +138,39 @@ public class DaoUniforme extends Conexion {
         return listaUniformes;
     }
 
+    /*
+    public ArrayList<BeanUniforme> buscarUniforme(String pagina) {
+        PreparedStatement ps = null;
+
+        ArrayList<BeanUniforme> listaUniformes = new ArrayList<>();
+
+        try {
+            consulta = "select* FROM uniforme WHERE Nombre_uniforme like ?";
+            ps = conexion.prepareStatement(consulta);
+            ps.setString(1,"%"+pagina+"%");
+
+            ResultSet print = ps.executeQuery();
+            while (print.next()) {
+                BeanUniforme bnUnifor = new BeanUniforme();
+
+                bnUnifor.setId_uniforme(print.getInt("idUniforme"));
+                bnUnifor.setNombre_uniforme(print.getString("Nombre_Uniforme"));
+                bnUnifor.setDescripcion_uniforme(print.getString("Descripcion_Uniforme"));
+                bnUnifor.setUrl_diseño_Uniforme(print.getString("Url_Diseño_Uniforme"));
+                bnUnifor.setPrecio(print.getDouble("Precio"));
+                bnUnifor.setEstadoUniforme(print.getBoolean("EstadoUniforme"));
+                
+                listaUniformes.add(bnUnifor);
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Ocurrio error al listar" + e);
+        }
+
+        return listaUniformes;
+    }
+     */
     public boolean eliminarUniforme(BeanUniforme beanUniforme) {
 
         PreparedStatement ps = null;
@@ -192,8 +228,10 @@ public class DaoUniforme extends Conexion {
 
         PreparedStatement ps = null;
         try {
-            consulta = "call actualizar_uniforme(?,?,?,?,?,?,?)";
+            consulta = "call actualizar_uniforme(?,?,?,?,?,?,?,?)";
             ps = conexion.prepareCall(consulta);
+            beanUniforme.setInstitucion_idInstitucion(1);
+
             if (beanUniforme.getUrl_diseño_Uniforme().equals("")) {
                 beanUniforme.setUrl_diseño_Uniforme(null);
             }
@@ -204,17 +242,18 @@ public class DaoUniforme extends Conexion {
             ps.setBoolean(5, beanUniforme.isEstadoUniforme());
             ps.setInt(6, beanUniforme.getId_tipoUniforme());
             ps.setInt(7, beanUniforme.getId_uniforme());
+            ps.setInt(8, beanUniforme.getInstitucion_idInstitucion());
             int fila = ps.executeUpdate();
             if (fila > 0) {
                 return true;
-            }else{
+            } else {
                 return false;
-                
+
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-        return false;
+            return false;
         }
 
     }
@@ -287,42 +326,63 @@ public class DaoUniforme extends Conexion {
 //        } else {
 //            System.out.println("No se puedo crear");
 //        }
-//        BeanUniforme bnUniforme = new BeanUniforme();
-//        DaoUniforme uni = new DaoUniforme();
-//        uni.listarUniforme(1, 10);
-//
-//        ArrayList<BeanUniforme> listaUniforme = uni.listarUniforme(1, 10);
-//
-//        for (BeanUniforme BeanUnforme : listaUniforme) {
-//            System.out.println("------------------------------------");
-//            System.out.println(BeanUnforme.getId_uniforme());
-//            System.out.println(BeanUnforme.getNombre_uniforme());
-//            System.out.println(BeanUnforme.getDescripcion_uniforme());
-//            System.out.println(BeanUnforme.getUrl_diseño_Uniforme());
-//            System.out.println(BeanUnforme.getNombreTipo());
-//            System.out.println(BeanUnforme.isEstadoUniforme());
-//            System.out.println("-------------------------------------");
-//        }
         BeanUniforme bnUniforme = new BeanUniforme();
         DaoUniforme uni = new DaoUniforme();
-        bnUniforme.setId_uniforme(18);
-//       
-         uni.actualizarUniforme(bnUniforme);
-       
-      
-        bnUniforme.setNombre_uniforme("no se");
+
+        ArrayList<BeanUniforme> listaUniforme = uni.listarUniformeCatalog(0,10,"a");
+
+        for (BeanUniforme BeanUnforme : listaUniforme) {
+            System.out.println("------------------------------------");
+            System.out.println(BeanUnforme.getId_uniforme());
+            System.out.println(BeanUnforme.getNombre_uniforme());
+            System.out.println(BeanUnforme.getDescripcion_uniforme());
+            System.out.println(BeanUnforme.getUrl_diseño_Uniforme());
+            System.out.println(BeanUnforme.getNombreTipo());
+            System.out.println(BeanUnforme.isEstadoUniforme());
+            System.out.println("-------------------------------------");
+        }
+//        BeanUniforme bnUniforme = new BeanUniforme();
+//        DaoUniforme uni = new DaoUniforme();
+//        bnUniforme.setId_uniforme(4);
+////       
+//
+////       
+////      
+//        bnUniforme.setNombre_uniforme("no se");
 //        bnUniforme.setDescripcion_uniforme("Prueba descrip");
 //        bnUniforme.setUrl_diseño_Uniforme("imgimf.png");
 //        bnUniforme.setPrecio(Double.parseDouble("10.2"));
-        bnUniforme.setEstadoUniforme(Boolean.parseBoolean("false"));
-        bnUniforme.setId_tipoUniforme(1);
-        
-
-        if (uni.actualizarUniforme(bnUniforme)) {
-            System.out.println("se actualizzo");
-
-        } else {
-            System.out.println("No se puedo crear");
-        }
+//        bnUniforme.setEstadoUniforme(Boolean.parseBoolean("false"));
+//        bnUniforme.setId_tipoUniforme(1);
+//
+//        if (uni.actualizarUniforme(bnUniforme)) {
+//            System.out.println("se actualizzo");
+//
+//        } else {
+//            System.out.println("No se puedo crear");
+//        }
+/*
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_uniformesCatalogo`(IN `pagina` INT, IN `numrRegistros` INT, IN `nombre_Uni` VARCHAR(45))
+BEGIN
+if nombre_Uni is null THEN
+select u.idUniforme,u.Nombre_Uniforme,u.Descripcion_Uniforme,
+u.Url_Diseño_Uniforme,
+u.Precio, t.Nombre_Tipo,u.EstadoUniforme
+from uniforme u
+INNER JOIN tipo_uniforme t on u.Tipo_Uniforme_idTipo_Uniforme= t.idTipo_Uniforme 
+where u.EstadoUniforme=1
+limit pagina,numrRegistros;
+ELSE
+select u.idUniforme,u.Nombre_Uniforme,u.Descripcion_Uniforme,u.Url_Diseño_Uniforme,
+u.Precio, t.Nombre_Tipo,u.EstadoUniforme
+from uniforme u
+INNER JOIN tipo_uniforme t on u.Tipo_Uniforme_idTipo_Uniforme= t.idTipo_Uniforme 
+where u.Nombre_Uniforme LIKE CONCAT('%',nombre_Uni,' %')
+limit pagina,numrRegistros;
+END IF;
+END$$
+DELIMITER ;
+*/
     }
 }

@@ -101,20 +101,14 @@
                                 <input type="text" id="nom1" class="form-control" name="nombre1" placeholder="Primer Nombre"  autofocus >
                                 <div class="message alert-danger" id="resultado1"></div>
 
-                                <a name="nombre2"></a>
-                                <label for="segundo_nombre">Segundo Nombre:</label>
-                                <input type="text" id="nom2" class="form-control"  name="nombre2" placeholder="Segundo Nombre">
-                                <div class="message alert-danger" id="resultado2"></div>
+                                
 
                                 <a name="apellido1"></a>
                                 <label for="primer_apellido">Primer Apellido:</label>
                                 <input type="text" id="ape1" class="form-control"  name="apellido1" placeholder="Primer Apellido">
                                 <div class="message alert-danger" id="resultado3"></div>
 
-                                <a name="apellido2"></a>
-                                <label for="segundo_apellido">Segundo Apellido:</label>
-                                <input type="text" id="ape2" class="form-control" name="apellido2" placeholder="Segundo Apellido">
-                                <div class="message alert-danger" id="resultado4"></div>
+                                
 
                                 <a name="correo"></a>
                                 <label for="correo">Correo:</label>
