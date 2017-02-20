@@ -30,9 +30,9 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li ><a href="index.jsp">Inicio</a></li>
-                        <li><a href="#">Productos</a></li>
-                        <li><a href="#">¿Quienes somos?</a></li>
-                        <li><a href="#">Contactenos</a></li>
+                        <li><a href="catalogo.jsp">Catálogo</a></li>
+                        <li><a href="QuienesSomos.jsp">¿Quienes somos?</a></li>
+                        <li><a href="contactenos.jsp">Contactenos</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li ><a href="registro.jsp"><span class="glyphicon glyphicon-list-alt"></span> Regístrate</a></li>

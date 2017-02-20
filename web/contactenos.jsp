@@ -87,132 +87,130 @@
                                 <br>
 
                                 <!--Fin menu head-->
-                                <div id="cuerpo">
+                                <div class="container">
 
-                                    <div id="divCuerpo">
-                                        <script src="https://www.google.com/recaptcha/api.js?hl=es"></script><script type="text/javascript" src="/javax.faces.resource/jquery.scrollTo.js.xhtml?ln=js/scrollTo"></script>
-                                        <script type="text/javascript" src="/javax.faces.resource/email.js.xhtml?ln=js/enviarEmail"></script>
+                                    <div id="cuerpo">
 
-                                        <input type="hidden" id="hiddenIdioma" value="es" />
+                                        <div id="divCuerpo">
+                                            <script src="https://www.google.com/recaptcha/api.js?hl=es"></script>
+                                            <input type="hidden" id="hiddenIdioma" value="es" />
 
-                                        <div class="col-lg-12 text-center">
-                                            <h1>Contáctenos</h1>                   
-                                        </div>
-                                        <br>
-                                        <br>
-                                        <div class="col-sm-5 text-left"> 
-                                            <div class="container-fluid divContactenos-catalogos">
-                                                <div class="row">
-                                                    <label class="col-xs-12">Los campos marcados con <span class="asterisco">* </span>son obligatorios
-                                                    </label>
-                                                </div>
-
-
-                                                <div class="form-group">
-
-                                                    <form role="form"  method="POST" action="enviarMensaje" id="form-register"  id="formcontactenosExternoBean" name="formcontactenosExternoBean" method="post" action="/popUpsEmail/contactenosCatalogos.xhtml" class="form-horizontal" enctype="application/x-www-form-urlencoded">         
-                                                        <div class="form-group">
-
-                                                            <label for="primer_nombre">Nombre:<span class="asterisco">*</span></label>
-                                                            <a name="nombre1"></a>
-                                                            <input type="text" id="nom1" class="form-control" name="nombre" placeholder="Primer Nombre"  autofocus >
-                                                            <div class="message alert-danger" id="resultado1"></div>
-
-                                                            <a name="apellido1"></a>
-                                                            <label for="segundo_nombre">Apellido:<span class="asterisco">*</span></label>
-                                                            <input type="text" id="nom2" class="form-control"  name="apellido" placeholder="Segundo Nombre">
-                                                            <div class="message alert-danger" id="resultado2"></div>
-
-                                                            <a name="correo"></a>
-                                                            <label for="correo">Correo:</label>
-                                                            <input type="text" id="correo" class="form-control input-email" name="correo" placeholder="Ingrese Email" >
-                                                            <div class="message alert-danger" id="resultado5"></div>
+                                            <div class="col-lg-12 text-center">
+                                                <h1>Contáctenos</h1>                   
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <div class="col-sm-5 text-left"> 
+                                                <div class="container-fluid divContactenos-catalogos">
+                                                    <div class="row">
+                                                        <label class="col-xs-12">Los campos marcados con <span class="asterisco">* </span>son obligatorios
+                                                        </label>
+                                                    </div>
 
 
-                                                            <a name="Empresa"></a>
-                                                            <label for="segundo_nombre">Empresa:</label>
-                                                            <input type="text" id="nom2" class="form-control"  name="empresa" placeholder="Empresa">
-                                                            <div class="message alert-danger" id="resultado2"></div>
+                                                    <div class="form-group">
 
-                                                            <a name="fecha"></a>
-                                                            <label for="segundo_nombre">Fecha:</label>
-                                                            <input type="text" id="nom2" class="form-control"  name="fecha" placeholder="Segundo Nombre">
-                                                            <div class="message alert-danger" id="resultado2"></div>
+                                                        <form role="form"  method="POST" action="enviarMensaje" id="form-register"  id="formcontactenosExternoBean" name="formcontactenosExternoBean" method="post" action="/popUpsEmail/contactenosCatalogos.xhtml" class="form-horizontal" enctype="application/x-www-form-urlencoded">         
+                                                            <div class="form-group">
 
-                                                            <a name="Asunto"></a>
-                                                            <label for="segundo_nombre">Asunto:<span class="asterisco">*</span></label>
-                                                            <input type="text" id="nom2" class="form-control"  name="asunto" placeholder="Asunto">
-                                                            <div class="message alert-danger" id="resultado2"></div>
+                                                                <label for="primer_nombre">Nombre:<span class="asterisco">*</span></label>
+                                                                <a name="nombre1"></a>
+                                                                <input type="text" id="nom1" class="form-control" name="nombre" placeholder="Primer Nombre"  autofocus >
+                                                                <div class="message alert-danger" id="resultado1"></div>
 
-                                                            <a name="Mensaje"></a>
-                                                            <label for="segundo_nombre">Mensaje:<span class="asterisco">*</span></label>
+                                                                <a name="apellido1"></a>
+                                                                <label for="primer_apellido">Apellido:<span class="asterisco">*</span></label>
+                                                                <input type="text" id="apellido1" class="form-control"  name="apellido1" placeholder="Segundo Nombre">
+                                                                <div class="message alert-danger" id="resultado3"></div>
+
+                                                                <a name="correo"></a>
+                                                                <label for="correo">Correo:</label>
+                                                                <input type="text" id="email" class="form-control input-email" name="correo" placeholder="Ingrese Email" >
+                                                                <div class="message alert-danger" id="resultado5"></div>
 
 
-                                                            <div class="message alert-danger" id="resultado2"></div>
-                                                            <textarea class="form-control" name="mensaje" rows="5"></textarea>
+                                                                <a name="Empresa"></a>
+                                                                <label for="segundo_nombre">Empresa:</label>
+                                                                <input type="text"  class="form-control"  name="empresa" placeholder="Empresa">
+                                                                <div class="message alert-danger"></div>
+
+
+                                                                <a name="Asunto"></a>
+                                                                <label>Asunto:<span class="asterisco">*</span></label>
+                                                                <input type="text"class="form-control"  name="asunto" placeholder="Asunto">
+                                                                <div class="message alert-danger"></div>
+
+                                                                <a name="Mensaje"></a>
+                                                                <label>Mensaje:<span class="asterisco">*</span></label>
+
+
+                                                                <div class="message alert-danger" id="resultado2"></div>
+                                                                <textarea class="form-control" name="mensaje" rows="5"></textarea>
 
 
 
-                                                            <label class="col-sm-5 text-left"></label>
-                                                            <div class="g-recaptcha col-sm-9" data-sitekey="6LdZjygTAAAAAEdeYV1NfHG9jdi8cLo7zhi7QWf_"></div>
+                                                                <label class="col-sm-5 text-left"></label>
+                                                                <div class="g-recaptcha col-sm-9" data-sitekey="6LdZjygTAAAAAEdeYV1NfHG9jdi8cLo7zhi7QWf_"></div>
 
 
 
-                                                            <label class="col-sm-5 text-left"></label>
-                                                            <div class="col-sm-9">
-                                                                <input type="submit" value="Enviar" class="bottones" style="margin:0;">
-                                                                <input type="hidden" name="textMensaje" value="1">
-                                                            </div>
-                                                            <div id="pie">
-                                                                <% if (request.getAttribute("error") != null) { %>
-                                                                ${error}
-                                                                <div class="alert alert-danger">
-                                                                    <a href="#" class="close" data-dismiss="" aria-label="close">&times;</a>
-                                                                    <strong>Error!</strong> No se ha podido enviar el mensaje
+                                                                <label class="col-sm-5 text-left"></label>
+                                                                <div class="col-sm-9">
+                                                                    <input type="submit" value="Enviar" class="bottones" style="margin:0;">
+                                                                    <input type="hidden" name="textMensaje" value="1">
                                                                 </div>
-                                                                <%} else { %>
-                                                                ${exito}
+                                                                <div id="pie">
+                                                                    <% if (request.getAttribute("error") != null) { %>
+                                                                    ${error}
+                                                                    <div class="alert alert-danger">
+                                                                        <a href="#" class="close" data-dismiss="" aria-label="close">&times;</a>
+                                                                        <strong>Error!</strong> No se ha podido enviar el mensaje
+                                                                    </div>
+                                                                    <%} else { %>
+                                                                    ${exito}
 
-                                                                <% }%>
+                                                                    <% }%>
+                                                                </div>
                                                             </div>
-                                                        </div>
 
-                                                    </form>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <div>
+
+                                        <p><strong>Tuniforme</strong><br>
+                                            <span>Cra 59 # 14 - 79<br> 
+                                                <abbr title="Pbx">Pbx:</abbr> (571) 414 0410<br>
+                                                <abbr title="Teléfonos">Tels:</abbr> (571) 260 0628 - 414 6256<br>
+                                                <abbr title="Celulares">Cels:</abbr> (571) 311 688 1054 - 313 210 9785<br>
+                                                <a href="mailto:Tuniforme@Tuniforme.com">Tuniforme@Tuniforme.com</a></span><br>
+                                            <strong>Bogotá, Colombia</strong></p>
+                                    </div>
+
                                 </div>
 
-
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <div>
-
-                                    <p><strong>Tuniforme</strong><br>
-                                        <span>Cra 59 # 14 - 79<br> 
-                                            <abbr title="Pbx">Pbx:</abbr> (571) 414 0410<br>
-                                            <abbr title="Teléfonos">Tels:</abbr> (571) 260 0628 - 414 6256<br>
-                                            <abbr title="Celulares">Cels:</abbr> (571) 311 688 1054 - 313 210 9785<br>
-                                            <a href="mailto:Tuniforme@Tuniforme.com">Tuniforme@Tuniforme.com</a></span><br>
-                                        <strong>Bogotá, Colombia</strong></p>
-                                </div>
-
-
-
+                                <footer class="container-fluid text-center">
+                                    <p>Footer ® David Daza</p>
+                                </footer>
 
 
 
                                 <script src="js/jquery.js" type="text/javascript"></script>
                                 <script src="js/bootstrap.min.js" type="text/javascript"></script>
-
 
                                 </body>
                                 </html>

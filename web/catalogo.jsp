@@ -38,7 +38,7 @@
                         <li ><a href="index.jsp">Inicio</a></li>
                         <li class="active"><a href="catalogo.jsp">Catálogo</a></li>
                         <li><a href="QuienesSomos.jsp">¿Quienes somos?</a></li>
-                        <li><a href="#">Contactenos</a></li>
+                        <li><a href="contactenos.jsp">Contactenos</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <ul class="nav navbar-nav navbar-right">
@@ -241,8 +241,10 @@
                                                                                         if (!busca.equals("")) {
                                                                                             info = "Resultado de Búsqueda";
                                                                                         }
-                                                                                        for (BeanUniforme bnUnifor : listaUniforme) {%>
+                                                                                     %>   
+                                                                                     
                                                                                 <h3 style="margin-left: 35%;color: gray "><%out.print(info);%></h3> 
+                                                                                        <%for (BeanUniforme bnUnifor : listaUniforme) {%>
                                                                                 <div class="product">
                                                                                     <div class="info-large">
 
@@ -273,7 +275,7 @@
                                                                                     <div class="make3D">
                                                                                         <div class="product-front">
                                                                                             <div class="shadow"></div>
-                                                                                            <img src="images/uniformes/<%=bnUnifor.getUrl_diseño_Uniforme()%>" alt="" />
+                                                                                            <img src="images/<%=bnUnifor.getUrl_diseño_Uniforme()%>" alt="" />
                                                                                             <div class="image_overlay"></div>
                                                                                             <a href="google.com" target="_blank"><div class="add_to_cart" >VER DETALLES</div></a>
                                                                                             <div class="view_gallery">View gallery</div>                

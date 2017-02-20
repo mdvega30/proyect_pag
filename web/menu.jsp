@@ -46,7 +46,7 @@
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="menu.jsp">Inicio</a></li>
-                            <li><a href="#">Crear Uniforme</a></li>
+                            <li><a href="Disena1.jsp">Crear Uniforme</a></li>
                             <li><a href="#">¿Quienes somos?</a></li>
                             <li><a href="#">Contactenos</a></li>
                         </ul>
@@ -61,7 +61,7 @@
 
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="#" class="glyphicon glyphicon-user"  data-toggle="dropdown"><b> <%= dao.getNombre1()%></b> <span class="caret"></span></a>
+                               <a href="#"  data-toggle="dropdown"><img src="imagenes/avatar3.png" alt=""/><b> <%= dao.getNombre1()%></b> <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#" data-target="#myModal" data-toggle="modal">Editar mi cuenta <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
                                     <li class="divider"></li>

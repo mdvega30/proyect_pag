@@ -23,7 +23,7 @@ public class Correo {
         this.asunto = "Verificacion de correo Tuniforme";
         this.mensaje = "Hola <b>" + beanUsu.getNombre1() + "</b><br>"
                 + "Por favor verifique su cuenta, visitando el siguiente enlace.<br>"
-                + "http://localhost:8080/ProyectoSena/verificarCorreo.jsp?token="+beanUsu.getToken()+"";
+                + "http://localhost:8080/ProyectoSenaTuniforme/verificarCorreo.jsp?token="+beanUsu.getToken()+"";
         
         
         EnviarCorreo enviarVerificacion = new EnviarCorreo();

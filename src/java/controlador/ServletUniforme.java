@@ -37,7 +37,7 @@ public class ServletUniforme extends HttpServlet {
 
         BeanUniforme beanUniforme = new BeanUniforme();
         DaoUniforme daoUniforme = new DaoUniforme();
-        carpeta = "Uniformes";
+        carpeta = "images";
 
         ///elimina
         if (request.getParameter("txtOpc") != null && Integer.parseInt(request.getParameter("txtOpc")) == 2

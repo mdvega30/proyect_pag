@@ -49,9 +49,9 @@ public class ServletUsuario extends HttpServlet {
         DaoUsuario daoUsu = new DaoUsuario();
 
         beanUs.setNombre1(request.getParameter("nombre1"));
-        beanUs.setNombre2(request.getParameter("nombre2"));
+        beanUs.setNombre2("nombre");
         beanUs.setApellido1(request.getParameter("apellido1"));
-        beanUs.setApellido2(request.getParameter("apellido2"));
+        beanUs.setApellido2("apellido");
         beanUs.setDireccion(request.getParameter("direccion"));
         beanUs.setDocumento(request.getParameter("doc"));
         beanUs.setCorreo(request.getParameter("correo"));

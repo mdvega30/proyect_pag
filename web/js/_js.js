@@ -9,7 +9,7 @@ var error = false;
 $(document).ready(function () {
 
 
-    $('.input-email').on('focusout', function (event) {
+    $('.input-emai').on('focusout', function (event) {
         event.preventDefault();
         $.ajax({
             url: 'iniciar',
@@ -81,7 +81,7 @@ $(document).ready(function () {
         } else {
             $('#resultado1').removeClass('alert-danger');
             $('#resultado1').addClass('alert-success');
-            $('#resultado1').html('Coreecto!');
+            $('#resultado1').html('Correcto!');
             validacion1 = false;
         }
 
@@ -101,7 +101,7 @@ $(document).ready(function () {
         } else {
             $('#resultado3').removeClass('alert-danger');
             $('#resultado3').addClass('alert-success');
-            $('#resultado3').html('Coreecto!');
+            $('#resultado3').html('Correcto!');
             validacion3 = false;
         }
 
@@ -122,20 +122,20 @@ $(document).ready(function () {
         } else {
             $('#resultado5').removeClass('alert-danger');
             $('#resultado5').addClass('alert-success');
-            $('#resultado5').html('Coreecto!');
+            $('#resultado5').html('Correcto!');
             validacion5 = false;
         }
     });
     $('#email1').on('focusout', function () {
         var ema = $('#email').val();
-        var ema1= $('#email1').val();
+        var ema1 = $('#email1').val();
         var validarCorreo = new RegExp(/\w+@\w+\.+[a-z]/);
         if (ema1.trim() === '') {
             $('#resultado10').removeClass('alert-success');
             $('#resultado10').addClass('alert-danger');
             $('#resultado10').html('<strong>¡Error!</strong> Este campo es requerido, no debe ir vacío.');
             validacion10 = true;
-        } else if (ema!==ema1) {
+        } else if (ema !== ema1) {
 
             $('#resultado10').html('<strong>¡Error!</strong> ¡Error! No coinciden el correos');
             validacion10 = true;
@@ -165,7 +165,7 @@ $(document).ready(function () {
         } else {
             $('#resultado6').removeClass('alert-danger');
             $('#resultado6').addClass('alert-success');
-            $('#resultado6').html('Coreecto!');
+            $('#resultado6').html('Correcto!');
             validacion6 = false;
         }
     });
@@ -204,7 +204,7 @@ $(document).ready(function () {
         } else {
             $('#resultado7').removeClass('alert-danger');
             $('#resultado7').addClass('alert-success');
-            $('#resultado7').html('Coreecto!');
+            $('#resultado7').html('Correcto!');
             validacion7 = false;
 
         }
@@ -328,7 +328,7 @@ $(document).ready(function () {
             $(location).attr('hreft', '#contra2');
             $('#contra2').focus();
             return false;
-        } else if (validacion10){
+        } else if (validacion10) {
             $(location).attr('hreft', '#email1');
             $('#email').focus();
         }
@@ -569,11 +569,11 @@ $(document).on('click', '.btnsubir', function (e) {
 
 //SUBE IMAGEN(NOMBRE LA PREVISUALIZA, y Valida el tamaño )
 $(document).ready(function () {
-var tamanoImagen = false;
-var nomUniforme = false;
-var descUniforme = false;
-var validarSujeto1 = new RegExp(/^[a-z\d_]{15,35}$/i);
-var validarSujeto2 = new RegExp(/^[a-z\d_]{15,45}$/i);
+    var tamanoImagen = false;
+    var nomUniforme = false;
+    var descUniforme = false;
+    var validarSujeto1 = new RegExp(/^[a-z\d_]{15,35}$/i);
+    var validarSujeto2 = new RegExp(/^[a-z\d_]{15,45}$/i);
 
     $("#imgInp").change(function (e) {
         var _URL = window.URL;
@@ -610,7 +610,7 @@ var validarSujeto2 = new RegExp(/^[a-z\d_]{15,45}$/i);
     $('#txtnombre').on('focusout', function () {
         var nombreUn = $('#txtnombreU').val();
 
-        if (false == validarSujeto1.test(nombreUn)||nombreUn.trim()=='') {
+        if (false == validarSujeto1.test(nombreUn) || nombreUn.trim() == '') {
             $('#respuesta2').html('<strong>¡Error!</strong> ¡Error! Este campo debe contener mínimo 15 caracteres y máximo 35.');
             $('#respuesta2').addClass('alert-danger');
             return nomUniforme = true;
@@ -629,7 +629,7 @@ var validarSujeto2 = new RegExp(/^[a-z\d_]{15,45}$/i);
     $('#textareaDescri').on('focusout', function () {
         var descUni = $('#textareaDescrip').val();
 
-        if (false == validarSujeto2.test(descUni)||descUni.trim()==='') {
+        if (false == validarSujeto2.test(descUni) || descUni.trim() === '') {
             $('#respuesta3').html('<strong>¡Error!</strong> ¡Error! Este campo debe contener mínimo 15 caracteres y máximo 45.');
             $('#respuesta3').addClass('alert-danger');
             return descUniforme = true;
@@ -642,8 +642,8 @@ var validarSujeto2 = new RegExp(/^[a-z\d_]{15,45}$/i);
 
 
     });
-    
-        $("#form-AddUniforme").submit(function () {
+
+    $("#form-AddUniforme").submit(function () {
         if (tamanoImagen) {
             return false;
         } else if (nomUniforme) {
@@ -991,6 +991,41 @@ $(document).ready(function () {
      }, 1000);
      });*/
 });
+
+/*jefer- funtion imagenes para canvas */
+
+/*canvas*/
+
+function draw(direction) {
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.clearRect(0, 0, c.width, c.height);
+    var img = document.getElementById("lamp");
+    var pat = ctx.createPattern(img, direction);
+    ctx.rect(0, 0, 400, 500);
+    ctx.fillStyle = pat;
+    ctx.fill();
+}
+function draw2(direction2) {
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.clearRect(0, 0, c.width, c.height);
+    var img2 = document.getElementById("lam");
+    var pat = ctx.createPattern(img2, direction2);
+    ctx.rect(0, 0, 400, 500);
+    ctx.fillStyle = pat;
+    ctx.fill();
+}
+function draw3(direction2) {
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.clearRect(0, 0, c.width, c.height);
+    var img2 = document.getElementById("lampa");
+    var pat = ctx.createPattern(img2, direction2);
+    ctx.rect(0, 0, 400, 500);
+    ctx.fillStyle = pat;
+    ctx.fill();
+}
 
 
 

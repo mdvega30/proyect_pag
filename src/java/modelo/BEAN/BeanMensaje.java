@@ -21,12 +21,11 @@ public class BeanMensaje {
     private String Fecha;
     private String Asunto;
     private String Mensaje;
-    
-    
-       public BeanMensaje() {
+
+    public BeanMensaje() {
     }
 
-    public BeanMensaje(int idMensajes, int Usuario_idUsuario , String Estado_Mensaje, String Nombre,
+    public BeanMensaje(int idMensajes, int Usuario_idUsuario, String Estado_Mensaje, String Nombre,
             String Apellido, String Correo, String Empresa, String Fecha, String Asunto, String Mensaje) {
         this.idMensajes = idMensajes;
         this.Usuario_idUsuario = Usuario_idUsuario;
@@ -120,7 +119,4 @@ public class BeanMensaje {
         this.Mensaje = Mensaje;
     }
 
-   
-    
 }
-

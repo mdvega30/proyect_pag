@@ -7,6 +7,8 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +36,9 @@ public class ServletMensaje extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
+        Date ahora = new Date();
+        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
+
         if (request.getParameter("textMensaje") == null) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
@@ -42,20 +47,20 @@ public class ServletMensaje extends HttpServlet {
         BeanMensaje beanMs = new BeanMensaje();
         beanMs.setEstado_Mensaje("Estado");
         beanMs.setNombre(request.getParameter("nombre"));
-        beanMs.setApellido(request.getParameter("apellido"));
+        beanMs.setApellido(request.getParameter("apellido1"));
         beanMs.setCorreo(request.getParameter("correo"));
         beanMs.setEmpresa(request.getParameter("empresa"));
-        beanMs.setFecha(request.getParameter("fecha"));
+        beanMs.setFecha(formateador.format(ahora));
         beanMs.setAsunto(request.getParameter("asunto"));
         beanMs.setMensaje(request.getParameter("mensaje"));
-        beanMs.setUsuario_idUsuario(1);
+        
 
         switch (opcion) {
             case 1: //Agregar Registro
                 DaoMensaje daoMs = new DaoMensaje();
 
                 if (daoMs.crearMensaje(beanMs)) {
-                    
+
                     request.setAttribute("exito", "El mensaje se ha enviado");
                     request.getRequestDispatcher("contactenos.jsp").forward(request, response);
                 } else {
@@ -64,7 +69,6 @@ public class ServletMensaje extends HttpServlet {
                 request.getRequestDispatcher("contactenos.jsp").forward(request, response);
                 break;
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

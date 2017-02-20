@@ -125,9 +125,9 @@
 
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="#" class="glyphicon glyphicon-user"   data-toggle="dropdown"><b> <%= beanUs.getNombre1()%></b> <span class="caret"></span></a>
+                                 <a href="#" data-toggle="dropdown"><img src="imagenes/avatar4.png" alt=""/><b> <%= beanUs.getNombre1()%></b> <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#"><i class="icon-envelope"></i> Mensajes <span class="badge badge-info">4</span></a></li>
+                                    <li><a href="listarMensajes.jsp"><i class="icon-envelope"></i> Mensajes <span class="badge badge-info">4</span></a></li>
                                     <li><a href="iniciar?textOpcion=3">Salir<span class="glyphicon glyphicon-log-out pull-right"></span></a></li>  
                                     <li class="divider"></li>
 
@@ -311,7 +311,7 @@
                                     <td><%=bnUnifor.getNombre_uniforme()%></td>
                                     <td class="imgt" ><%=bnUnifor.getNombreTipo()%></td>
                                     <td>$ <%=bnUnifor.getPrecio()%></td> 
-                                    <td><img class="imgl" src="images/uniformes/<%=bnUnifor.getUrl_diseño_Uniforme()%>" alt=""/></td>
+                                    <td><img class="imgl" src="images/<%=bnUnifor.getUrl_diseño_Uniforme()%>" alt=""/></td>
                                     <td class="tx"><textarea disabled="" class="txtareal"><%=bnUnifor.getDescripcion_uniforme()%></textarea> </td>
                                     <% if (bnUnifor.isEstadoUniforme()) {%>
                                     <td ><input checked="" type="checkbox" class="checkthis" disabled="" /></td>                                                               

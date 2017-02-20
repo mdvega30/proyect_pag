@@ -18,7 +18,7 @@ public class FileUpload {
 
     public static boolean processFile(String path, FileItemStream item, String carpeta) {
         try {
-            File f = new File(path + File.separator + "images" + File.separator + carpeta);//crea la carpeta images
+            File f = new File(path + File.separator + carpeta);//crea la carpeta images
            
             if (!f.exists()) {
                 f.mkdir();
