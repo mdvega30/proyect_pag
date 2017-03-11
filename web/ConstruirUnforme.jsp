@@ -27,7 +27,7 @@
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/_css.css" rel="stylesheet" type="text/css"/>
-        <title>Construir Uniforme</title>
+        <title>Construir Uniformsssssssss</title>
     </head>
     <body>
 
