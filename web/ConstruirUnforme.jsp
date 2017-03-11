@@ -129,7 +129,7 @@
             </div>
         </div>
     </nav>
-    <!--Fin nav var coment-->
+    <!--Fin nav var -->
 
     <br>
     <br>
