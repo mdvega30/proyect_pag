@@ -1,13 +1,13 @@
 package modelo.BEAN;
 
-public class BeanTipoUniforme {
+public class BeanTipoUniforme{
 
     private int id_tipo_uniforme;
     private String nombre_tipo_uniforme;
-
     private String descripcion_tipo_uniforme;
 
-    public BeanTipoUniforme() {
+    public BeanTipoUniforme()  {
+        super.getClass();
     }
 
     public BeanTipoUniforme(int id_tipo_uniforme, String nombre_tipo_uniforme, String descripcion_tipo_uniforme) {

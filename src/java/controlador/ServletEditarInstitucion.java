@@ -13,42 +13,52 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.BEAN.BeanInstitucion;
+import modelo.BEAN.BeanUniforme;
+import modelo.DAO.DaoInstitucion;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import modelo.BEAN.BeanUniforme;
-import modelo.DAO.DaoUniforme;
 
 /**
  *
  * @author David
  */
-public class ServletUniforme extends HttpServlet {
+public class ServletEditarInstitucion extends HttpServlet {
 
     private String carpeta;
-    private boolean isMultiPart;
     private String path;
+    private boolean isMultiPart;
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        BeanUniforme beanUniforme = new BeanUniforme();
-        DaoUniforme daoUniforme = new DaoUniforme();
-        carpeta = "images";
+        BeanInstitucion beanInstitucion = new BeanInstitucion();
+        DaoInstitucion daoInstitucion = new DaoInstitucion();
+        carpeta = "institucion";
 
         ///elimina
         if (request.getParameter("txtOpc") != null && Integer.parseInt(request.getParameter("txtOpc")) == 2
                 && request.getParameter("idEliminarIns") != null) {
-            beanUniforme.setId_uniforme(Integer.parseInt(request.getParameter("idEliminarIns")));
-            BeanUniforme bnUniforme = daoUniforme.verImg(beanUniforme);
-            if (bnUniforme.getUrl_diseño_Uniforme() != null) {
+            beanInstitucion.setId_institucion(Integer.parseInt(request.getParameter("idEliminarIns")));
+            BeanInstitucion beanInstitu = daoInstitucion.verUniforme(beanInstitucion);
+            if (beanInstitu.getUrl_logo_institucion() != null) {
 
                 String path = getServletContext().getRealPath("/");//Se obtiene el path del la carpeta imagenes del servidor
-                String item = bnUniforme.getUrl_diseño_Uniforme();//El nombre del archivo es decir de la img
-                if (daoUniforme.eliminarUniforme(beanUniforme)) {
+                String item = beanInstitu.getUrl_logo_institucion();//El nombre del archivo es decir de la img
+                if (daoInstitucion.eliminarInstitucion(beanInstitu)) {
 
                     if (FileUpload.DeleteFile(path, item, carpeta)) {//el metodo que se creo devuelve verdadero si se elimino correctamente 
                         request.setAttribute("acualizado", "");
@@ -71,7 +81,6 @@ public class ServletUniforme extends HttpServlet {
             }
 
         }
-        //Subir archivo y agregar uniforme
 
         isMultiPart = ServletFileUpload.isMultipartContent(request);//obtiene todos los valores y nombres de los campos
         if (isMultiPart) {//Valida que sea correcto
@@ -88,24 +97,20 @@ public class ServletUniforme extends HttpServlet {
                         is.read(b);
                         String value = new String(b);//Obtiene el valor del campo
                         switch (fieldName) {//obtiene el nombre y los divide en un switch para ahcerle el tratamiento especifico a cada campo
-                            case "txtnombreU":
-                                beanUniforme.setNombre_uniforme(value);
+                            case "txtInstitucion":
+                                beanInstitucion.setNombre_intitucion(value);
                                 break;
-                            case "opTipoU":
-                                beanUniforme.setId_tipoUniforme(Integer.parseInt(value));
+                            case "idEdits":
+                                beanInstitucion.setId_institucion(Integer.parseInt(value));
                                 break;
-                            case "txtPrecio":
-                                if (value != null && !value.isEmpty()) {
-                                    beanUniforme.setPrecio(Double.parseDouble(value));
-                                }
-
+                            case "txaDescripcion":
+                                beanInstitucion.setDescripcion_institucion(value);
                                 break;
-                            case "textareaDescripU":
-                                beanUniforme.setDescripcion_uniforme(value);
+                            case "tipoInstitucion":
+                                beanInstitucion.setId_tipoInstitucion(Integer.parseInt(value));
                                 break;
-                            case "opEstadoU":
-                                beanUniforme.setEstadoUniforme(Boolean.parseBoolean(value));
-
+                            case "nomImgen":
+                                beanInstitucion.setUrl_logo_institucion(value);
                                 break;
                             default:
 
@@ -117,33 +122,46 @@ public class ServletUniforme extends HttpServlet {
                         // Hace lo especifico al archivo
                         path = getServletContext().getRealPath("/");//Pat del servidor
                         //Lama metodo para procesar y subir el archivo
-                        beanUniforme.setUrl_diseño_Uniforme(item.getName());//
+                        BeanUniforme bns = new BeanUniforme();
 
-                        if (daoUniforme.insertarUniforme(beanUniforme)) {
+                        if (bns.getUrl_diseño_Uniforme() != null) {///Pendiente para eliminar el archivo y agregar el nuevo archivo
+                            beanInstitucion.setUrl_logo_institucion(item.getName());
 
-                            if (FileUpload.processFile(path, item, carpeta)) {
-                                request.setAttribute("acualizado", "Se a guardado el archivo y los datos correctamente");
-                                request.getRequestDispatcher("Adduniformes.jsp").forward(request, response);
+                            String paths = getServletContext().getRealPath("/");//Se obtiene el path del la carpeta imagenes del servidor
+                            String items = bns.getUrl_diseño_Uniforme();//El nombre del archivo es decir de la img
 
-                                response.getWriter().print("pribando 1");
-                            } else {
-                                request.setAttribute("noActualizado", "No se pudo guardar el archivo");
-                                request.getRequestDispatcher("Adduniformes.jsp").forward(request, response);
-                                response.getWriter().print("pribando 2");
+                            if (FileUpload.DeleteFile(paths, items, carpeta)) {//el metodo que se creo devuelve verdadero si se elimino correctamente 
+
                             }
+
+                        }
+
+                        beanInstitucion.setUrl_logo_institucion(item.getName());//trae el nombre de la imagen que se va a editar 
+                        if (daoInstitucion.actualizarInstitucion(beanInstitucion)) {//actualiza el uniforme
+                            if (!item.getName().equals("")) {//Evalua que se haya subido una imagen al momento de editar
+                                beanInstitucion.setDescripcion_institucion(item.getName());
+                                if (FileUpload.processFile(path, item, carpeta)) {//agrega la imagen al servidor 
+                                    request.setAttribute("acualizado", "");
+                                    request.getRequestDispatcher("Addinstitucion.jsp").forward(request, response);
+
+                                } else {
+                                    request.setAttribute("noActualizado", "");
+                                    request.getRequestDispatcher("Addinstitucion.jsp").forward(request, response);
+                                }
+                            }
+                            request.setAttribute("acualizado", "");
+                            request.getRequestDispatcher("Addinstitucion.jsp").forward(request, response);
                         } else {
-                            request.setAttribute("noActualizado", "No se puedo insertar ");
-                            request.getRequestDispatcher("Adduniformes.jsp").forward(request, response);
-                            response.getWriter().print("pribando 2");
+                            request.setAttribute("noActualizado", "");
+                            request.getRequestDispatcher("Addinstitucion.jsp").forward(request, response);
                         }
                     }
                 }
             } catch (FileUploadException fue) {
                 fue.printStackTrace();
             }
-
         } else {
-            request.getRequestDispatcher("Adduniformes.jsp").forward(request, response);
+            request.getRequestDispatcher("Addinstitucion.jsp").forward(request, response);
         }
 
     }

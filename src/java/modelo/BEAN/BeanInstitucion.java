@@ -7,19 +7,24 @@ public class BeanInstitucion {
     private String nombre_intitucion;
     private String descripcion_institucion;
     private String url_logo_institucion;
+    private String Nombre_tipo_institucion;
     private int id_tipoInstitucion;
+
     
     public BeanInstitucion(){
         
     }
 
-    public BeanInstitucion(int id_institucion, String nombre_intitucion, String descripcion_institucion, String url_logo_institucion, int id_tipoInstitucion) {
+    public BeanInstitucion(int id_institucion, String nombre_intitucion, String descripcion_institucion, String url_logo_institucion, String Nombre_tipo_institucion, int id_tipoInstitucion) {
         this.id_institucion = id_institucion;
         this.nombre_intitucion = nombre_intitucion;
         this.descripcion_institucion = descripcion_institucion;
         this.url_logo_institucion = url_logo_institucion;
+        this.Nombre_tipo_institucion = Nombre_tipo_institucion;
         this.id_tipoInstitucion = id_tipoInstitucion;
     }
+
+   
 
     public int getId_institucion() {
         return id_institucion;
@@ -61,6 +66,13 @@ public class BeanInstitucion {
         this.id_tipoInstitucion = id_tipoInstitucion;
     }
     
+    public String getNombre_tipo_institucion() {
+        return Nombre_tipo_institucion;
+    }
+
+    public void setNombre_tipo_institucion(String Nombre_tipo_institucion) {
+        this.Nombre_tipo_institucion = Nombre_tipo_institucion;
+    }
     
     
     
