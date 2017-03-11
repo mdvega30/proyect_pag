@@ -27,7 +27,7 @@
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/_css.css" rel="stylesheet" type="text/css"/>
-        <title>JSP Page</title>
+        <title>Construir Uniforme</title>
     </head>
     <body>
 
@@ -129,7 +129,7 @@
             </div>
         </div>
     </nav>
-    <!--Fin nav var coment-->
+    <!--Fin nav var -->
 
     <br>
     <br>
