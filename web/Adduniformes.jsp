@@ -1,4 +1,7 @@
 
+<%@page import="controlador.ControladorInstitucion"%>
+<%@page import="modelo.BEAN.BeanInstitucion"%>
+<%@page import="modelo.DAO.DaoInstitucion"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="modelo.BEAN.BeanUniforme"%>
 <%@page import="modelo.BEAN.BeanUniforme"%>
@@ -43,8 +46,6 @@
             beanUs.setCorreo(usuario1);
             daoUs.contruirObjetoUsuario(beanUs);
             BeanUniforme beanUnif = new BeanUniforme();
-
-
         %>
 
 
@@ -181,8 +182,8 @@
                     <div class="panel with-nav-tabs panel">
                         <div class="panel-heading">
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#tab1default" data-toggle="tab">Paso 1</a></li>
-                                <li><a href="#tab2default" data-toggle="tab">Paso 2</a></li>
+                                <li><a href="Addinstitucion.jsp" >Paso 1</a></li>
+                                <li class="active" ><a href="#tab2default" data-toggle="tab">Paso 2</a></li>
                                 <li><a href="#tab3default" data-toggle="tab">Paso 3</a></li>
 
                             </ul>
@@ -221,6 +222,14 @@
                                                                 <option value="3">Uniformes militares y de fuerzas de seguridad</option>
                                                                 <option value="4">Uniformes religiosos o hábitos</option>
                                                                 <option value="5">Otros</option>
+                                                            </select>
+                                                        </div>
+                                                            <% ControladorInstitucion controInsti = new ControladorInstitucion(); %>
+                                                        <div class="form-group">
+                                                            <label>Instituciòn</label>
+                                                            <select id="opTipoU" name="opTipoInsti" class="form-control">
+                                                                
+                                                            <%= controInsti.getInstitucion()%>
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
@@ -286,7 +295,7 @@
                                         <div class="row">
                                             <br>
 
-                                            <div class="col-md-12">
+                                            <div class="col-md-11">
                                                 <h4>Uniformes en catalogo para la venta</h4>
                                                 <div class="table-responsive">
 
@@ -297,18 +306,19 @@
                                                             pagina = Integer.valueOf(request.getParameter("pagina"));
                                                         }
                                                     %>
-                                                    <table id="mytable" class="table table-bordred table-striped "  >
+                                                    <table id="mytable" class="table table-bordred table-striped "   >
 
                                                         <thead>
 
-                                                        <th><input type="checkbox" id="checkall" /></th>
+                                                       
                                                         <th>N°</th>
                                                         <th>Nombre Uniforme</th>
-                                                        <th>Tipo uniforme</th>
+                                                        <th >Tipo uniforme</th>
+                                                        <th>Instituciòn</th>
                                                         <th>Precio</th>
                                                         <th class="tx">Imagen</th>
                                                         <th class="tx">Descripción</th>
-                                                        <th>Activo/Inactivo</th>
+                                                        <th >Activo/Inactivo</th>
                                                         <th>Editar</th>
 
                                                         <th>Eliminar</th>
@@ -319,18 +329,21 @@
                                                                 ArrayList<BeanUniforme> listaUniforme = daoUniforme.listarUniforme(pagina * 10, 10);
                                                                 int cont = pagina * 10;
                                                                 int contador2 = 0;
-
+                                                                DaoInstitucion daoInstitucion = new DaoInstitucion();
+                                                                BeanInstitucion beanInstitucion = new BeanInstitucion();
                                                                 for (BeanUniforme bnUnifor : listaUniforme) {%>
-                                                            <tr>
-                                                                <td><input type="checkbox" class="checkthis" /></td>
+                                                            <tr> 
+                                                              
+                                                                
                                                                 <td><%=cont + 1%></td>
-                                                                <td><%=bnUnifor.getNombre_uniforme()%></td>
+                                                                <td><%=bnUnifor.getNombre_uniforme() %></td>
                                                                 <td class="imgt" ><%=bnUnifor.getNombreTipo()%></td>
-                                                                <td>$ <%=bnUnifor.getPrecio()%></td> 
+                                                                <td class="" ><%=bnUnifor.getNombre_tipo_institucion()%></td>
+                                                                <td>$<%=bnUnifor.getPrecio()%></td> 
                                                                 <td><img class="imgl" src="images/<%=bnUnifor.getUrl_diseño_Uniforme()%>" alt=""/></td>
                                                                 <td class="tx"><textarea disabled="" class="txtareal"><%=bnUnifor.getDescripcion_uniforme()%></textarea> </td>
                                                                 <% if (bnUnifor.isEstadoUniforme()) {%>
-                                                                <td ><input checked="" type="checkbox" class="checkthis" disabled="" /></td>                                                               
+                                                                <td ><input   checked="" type="checkbox" class="checkthis" disabled="" /></td>                                                               
                                                                     <%} else {%>
                                                                 <td > <input type="checkbox" class="checkthis" disabled=""/></td>                                                               
                                                                     <%}%>
@@ -449,6 +462,7 @@
 
 
                                 </div>
+                                                    
                             </div>
                         </div>
                     </div>

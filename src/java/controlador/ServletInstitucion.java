@@ -124,7 +124,7 @@ public class ServletInstitucion extends HttpServlet {
                         //Lama metodo para procesar y subir el archivo
                         beanInstitucion.setUrl_logo_institucion(item.getName());//
 
-                        if (daoInstitucion.insertarUniforme(beanInstitucion)) {
+                        if (daoInstitucion.insertarInstitucion(beanInstitucion)) {
 
                             if (FileUpload.processFile(path, item, carpeta)) {
                                 request.setAttribute("acualizado", "Se a guardado el archivo y los datos correctamente");

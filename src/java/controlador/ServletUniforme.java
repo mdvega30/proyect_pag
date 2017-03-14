@@ -34,7 +34,7 @@ public class ServletUniforme extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
+        out.print("<h1>jdsjdsjds");
         BeanUniforme beanUniforme = new BeanUniforme();
         DaoUniforme daoUniforme = new DaoUniforme();
         carpeta = "images";
@@ -98,10 +98,12 @@ public class ServletUniforme extends HttpServlet {
                                 if (value != null && !value.isEmpty()) {
                                     beanUniforme.setPrecio(Double.parseDouble(value));
                                 }
-
                                 break;
                             case "textareaDescripU":
                                 beanUniforme.setDescripcion_uniforme(value);
+                                break;
+                            case "opTipoInsti":
+                                beanUniforme.setInstitucion_idInstitucion(Integer.parseInt(value));
                                 break;
                             case "opEstadoU":
                                 beanUniforme.setEstadoUniforme(Boolean.parseBoolean(value));
@@ -187,4 +189,5 @@ public class ServletUniforme extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    
 }

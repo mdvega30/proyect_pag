@@ -3,6 +3,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="beanUniform" scope="page" class="modelo.BEAN.BeanUniforme"></jsp:useBean>
 <jsp:useBean id="daoUnifor" scope="page" class="modelo.DAO.DaoUniforme"></jsp:useBean>
+<jsp:useBean id="controInstitucion" scope="page" class="controlador.ControladorInstitucion"></jsp:useBean>
 <% HttpSession sesion = request.getSession(false);
     String usuario1 = (String) sesion.getAttribute("admin");
     String usuario2 = (String) sesion.getAttribute("usuario");
@@ -42,6 +43,12 @@
             <option value="3">Uniformes militares y de fuerzas de seguridad</option>
             <option value="4">Uniformes religiosos o hábitos</option>
             <option value="5">Otros</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Tipo uniforme</label>
+        <select id="opTipoInsti" name="opTipoInsti" class="form-control">
+            <%=controInstitucion.getInstitucion()%>
         </select>
     </div>
     <div class="form-group">

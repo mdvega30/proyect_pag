@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import modelo.BEAN.BeanInstitucion;
+import modelo.BEAN.BeanTipoInstitucion;
 import modelo.BEAN.BeanTipoUniforme;
 
 /**
@@ -38,7 +39,7 @@ public class DaoInstitucion extends Conexion {
      * @param beanInstitucion
      * @return booleano
      */
-    public boolean insertarUniforme(BeanInstitucion beanInstitucion) {
+    public boolean insertarInstitucion(BeanInstitucion beanInstitucion) {
         PreparedStatement ps = null;
         try {
             consulta = "CALL insertarInstitucion(?,?,?,?)";
@@ -159,7 +160,7 @@ public class DaoInstitucion extends Conexion {
             ps = conexion.prepareCall(consulta);
             ps.setInt(1, pagina);
             ps.setInt(2, numeroRegistro);
-            BeanTipoUniforme tipo = new BeanTipoUniforme();
+           
 
             ResultSet print = ps.executeQuery();
             /**
@@ -168,11 +169,14 @@ public class DaoInstitucion extends Conexion {
             while (print.next()) {
 
                 BeanInstitucion bnInstitucion = new BeanInstitucion();
-
+               
+             
+                
                 bnInstitucion.setId_institucion(print.getInt("idInstitucion"));
                 bnInstitucion.setNombre_intitucion(print.getString("Nombre_institucion"));
                 bnInstitucion.setDescripcion_institucion(print.getString("Descripcion_institucion"));
                 bnInstitucion.setUrl_logo_institucion(print.getString("Url_logo_institucion"));
+//                bnInstitucion.setNombre_tipo_institucion(print.getString("Nombre_tipo_institucion"));
                 bnInstitucion.setNombre_tipo_institucion(print.getString("Nombre_tipo_institucion"));
 
                 listaInstitucion.add(bnInstitucion);
@@ -255,7 +259,7 @@ public class DaoInstitucion extends Conexion {
 //        beanInstitucion.setUrl_logo_institucion("prueba.png");
 //        beanInstitucion.setId_tipoInstitucion(1);
 //
-//        if (daoInstitucion.insertarUniforme(beanInstitucion)) {
+//        if (daoInstitucion.insertarInstitucion(beanInstitucion)) {
 //
 //            System.out.println("Se ha insertado correctamente");
 //
@@ -265,15 +269,17 @@ public class DaoInstitucion extends Conexion {
 //        }
         /*PRUEBA  INSERTAR INSTITUCION*/
  /*PRUEBA LISTAR INSTITUCIONES */
-//        ArrayList<BeanInstitucion> listaInstitucion = daoInstitucion.listarInstitucion(1, 10);
-//
-//        for (BeanInstitucion beanInstitucio : listaInstitucion) {
-//            System.out.println(beanInstitucio.getId_institucion());
-//            System.out.println(beanInstitucio.getNombre_intitucion());
-//            System.out.println(beanInstitucio.getDescripcion_institucion());
-//            System.out.println(beanInstitucio.getUrl_logo_institucion());
-//            System.out.println(beanInstitucio.getNombre_tipo_institucion());
-//        }
+
+        ArrayList<BeanInstitucion> listaInstitucion = daoInstitucion.listarInstitucion(1, 10);
+
+        for (BeanInstitucion beanInstitucio : listaInstitucion) {
+            System.out.println(beanInstitucio.getId_institucion());
+            System.out.println(beanInstitucio.getNombre_intitucion());
+            System.out.println(beanInstitucio.getDescripcion_institucion());
+            System.out.println(beanInstitucio.getUrl_logo_institucion());
+            System.out.println(beanInstitucio.getNombre_tipo_institucion());
+            System.out.println("_______________________________________");
+        }
         /*PRUEBA LISTAR INSTITUCIONES */
  /*PRUEBA VER REGISTROS */
 

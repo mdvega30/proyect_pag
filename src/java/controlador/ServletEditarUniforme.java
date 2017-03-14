@@ -56,6 +56,9 @@ public class ServletEditarUniforme extends HttpServlet {
                             case "txtnombreU":
                                 beanUniforme.setNombre_uniforme(value);
                                 break;
+                            case "opTipoInsti":
+                                beanUniforme.setInstitucion_idInstitucion(Integer.parseInt(value));
+                                break;
                             case "opTipoU":
                                 beanUniforme.setId_tipoUniforme(Integer.parseInt(value));
                                 break;
@@ -124,7 +127,7 @@ public class ServletEditarUniforme extends HttpServlet {
             } catch (FileUploadException fue) {
                 fue.printStackTrace();
             }
-        }else{
+        } else {
             request.getRequestDispatcher("Adduniformes.jsp").forward(request, response);
         }
     }

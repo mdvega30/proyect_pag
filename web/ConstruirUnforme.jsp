@@ -27,7 +27,7 @@
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/_css.css" rel="stylesheet" type="text/css"/>
-        <title>Construir uniforme</title>
+        <title>Construir Uniformes</title>
     </head>
     <body>
 
@@ -42,7 +42,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
+                        <span class="icon-bar">a</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>                        
                     </button>

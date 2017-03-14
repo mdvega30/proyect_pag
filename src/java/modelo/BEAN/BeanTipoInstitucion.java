@@ -58,7 +58,7 @@ public class BeanTipoInstitucion {
      *
      * @return Nombre_tipo_institucion
      */
-    public String getNombre_tipo_institucion() {
+    public String getNombre_tipo_institucions() {
         return Nombre_tipo_institucion;
     }
 
@@ -66,7 +66,7 @@ public class BeanTipoInstitucion {
      *
      * @param Nombre_tipo_institucion
      */
-    public void setNombre_tipo_institucion(String Nombre_tipo_institucion) {
+    public void setNombre_tipo_institucions(String Nombre_tipo_institucion) {
         this.Nombre_tipo_institucion = Nombre_tipo_institucion;
     }
 

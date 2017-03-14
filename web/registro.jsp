@@ -140,12 +140,12 @@
 
                                 <a name="contra1"></a>
                                 <label for="contraseña">Contraseña:</label>
-                                <input type="password" id="contra1" class="form-control" name="pass" placeholder="Ingrese Contraseña">
+                                <input onpaste="return false" type="password" id="contra1" class="form-control" name="pass" placeholder="Ingrese Contraseña">
                                 <div class="message " id="resultado8"></div>
 
                                 <a name="contra2"></a>
                                 <label for="confirmar_contraseña">Confirmar Contraseña:</label>
-                                <input type="password" id="contra2" class="form-control" name="pass2" placeholder="Confirmar Contraseña">
+                                <input onpaste="return false" type="password" id="contra2" class="form-control" name="pass2" placeholder="Confirmar Contraseña">
                                 <div class="message alert-danger" id="resultado9"></div>
                             </div>
 

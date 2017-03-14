@@ -40,7 +40,7 @@ public class DaoUniforme extends Conexion {
         try {
             consulta = "call insertar_uniforme(?,?,?,?,?,?,?)";
             ps = conexion.prepareCall(consulta);
-            beanUniforme.setInstitucion_idInstitucion(1);
+            
             ps.setString(1, beanUniforme.getNombre_uniforme());
             ps.setString(2, beanUniforme.getDescripcion_uniforme());
             ps.setString(3, beanUniforme.getUrl_diseño_Uniforme());
@@ -92,7 +92,9 @@ public class DaoUniforme extends Conexion {
                 bnUnifor.setPrecio(print.getDouble("Precio"));
                 bnUnifor.setEstadoUniforme(print.getBoolean("EstadoUniforme"));
                 bnUnifor.setNombreTipo(print.getString("Nombre_Tipo"));
-
+                bnUnifor.setEstadoUniforme(print.getBoolean("EstadoUniforme"));
+                bnUnifor.setNombre_tipo_institucion(print.getString("Nombre_institucion"));
+                
                 listaUniformes.add(bnUnifor);
 
             }
@@ -104,9 +106,9 @@ public class DaoUniforme extends Conexion {
         return listaUniformes;
     }
 
-    public ArrayList<BeanUniforme> listarUniformeCatalog(int pagina, int numeroRegistro ,String bucar) {
+    public ArrayList<BeanUniforme> listarUniformeCatalog(int pagina, int numeroRegistro, String bucar) {
         PreparedStatement ps = null;
-       
+
         ArrayList<BeanUniforme> listaUniformes = new ArrayList<>();
 //SET FOREIGN_KEY_CHECKS = on
         try {
@@ -127,6 +129,7 @@ public class DaoUniforme extends Conexion {
                 bnUnifor.setPrecio(print.getDouble("Precio"));
                 bnUnifor.setEstadoUniforme(print.getBoolean("EstadoUniforme"));
                 bnUnifor.setNombreTipo(print.getString("Nombre_Tipo"));
+
                 listaUniformes.add(bnUnifor);
 
             }
@@ -230,7 +233,7 @@ public class DaoUniforme extends Conexion {
         try {
             consulta = "call actualizar_uniforme(?,?,?,?,?,?,?,?)";
             ps = conexion.prepareCall(consulta);
-            beanUniforme.setInstitucion_idInstitucion(1);
+        
 
             if (beanUniforme.getUrl_diseño_Uniforme().equals("")) {
                 beanUniforme.setUrl_diseño_Uniforme(null);
@@ -277,6 +280,7 @@ public class DaoUniforme extends Conexion {
                 bnUnifor.setPrecio(print.getDouble("Precio"));
                 bnUnifor.setEstadoUniforme(print.getBoolean("EstadoUniforme"));
                 bnUnifor.setId_tipoUniforme(print.getInt("Tipo_Uniforme_idTipo_Uniforme"));
+
                 return bnUnifor;
             }
             ps.close();
@@ -329,7 +333,7 @@ public class DaoUniforme extends Conexion {
         BeanUniforme bnUniforme = new BeanUniforme();
         DaoUniforme uni = new DaoUniforme();
 
-        ArrayList<BeanUniforme> listaUniforme = uni.listarUniformeCatalog(0,10,"a");
+        ArrayList<BeanUniforme> listaUniforme = uni.listarUniforme(0, 10);
 
         for (BeanUniforme BeanUnforme : listaUniforme) {
             System.out.println("------------------------------------");
@@ -339,6 +343,7 @@ public class DaoUniforme extends Conexion {
             System.out.println(BeanUnforme.getUrl_diseño_Uniforme());
             System.out.println(BeanUnforme.getNombreTipo());
             System.out.println(BeanUnforme.isEstadoUniforme());
+            System.out.println(BeanUnforme.getNombre_tipo_institucion());
             System.out.println("-------------------------------------");
         }
 //        BeanUniforme bnUniforme = new BeanUniforme();
@@ -383,6 +388,6 @@ limit pagina,numrRegistros;
 END IF;
 END$$
 DELIMITER ;
-*/
+         */
     }
 }

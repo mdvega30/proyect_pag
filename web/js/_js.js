@@ -47,7 +47,7 @@ $(document).ready(function () {
     var validacion10 = true;
     console.log(validacion8);
     console.log(validacion9);
-    var validarSujeto = new RegExp(/^[a-z\d_]{4,25}$/i);
+    var validarSujeto = new RegExp(/^[a-z\s_]{1,25}$/i);
     $('#pass').keyup(function (e) {
         var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
         var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
@@ -69,14 +69,14 @@ $(document).ready(function () {
 //Validacion Nombre
     $('#nom1').on('focusout', function (e) {
         var nom1 = $('#nom1').val()
-        var vali = new RegExp(/^[a-z\d_]{4,25}$/i);
+        var vali = new RegExp(/^[a-z\d_]{1,25}$/i);
         if (nom1.trim() === '') {
             $('#resultado1').addClass('alert-danger');
             $('#resultado1').html('<strong>¡Error!</strong> Este campo es requerido, no debe ir vacío.');
             validacion1 = true;
         } else if (false == validarSujeto.test(nom1)) {
             $('#resultado1').addClass('alert-danger');
-            $('#resultado1').html('<strong>¡Error!</strong> ¡Error! Este campo debe contener mínimo 4 caracteres y máximo 25 y no puede llevar caracteres especiales.');
+            $('#resultado1').html('<strong>¡Error!</strong> ¡Error! Este campo debe contener mínimo 1 caracteres y máximo 25 y no puede llevar caracteres especiales.');
             validacion1 = true;
         } else {
             $('#resultado1').removeClass('alert-danger');
