@@ -32,7 +32,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="shortcu icon" href="imagenes/icono.co.ico">
+        <link rel="shortcut icon" href="imagenes/icono.png"> 
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/_css.css" rel="stylesheet" type="text/css"/>
@@ -73,7 +73,7 @@
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav">
                             <li><a href="menu.jsp">Inicio</a></li>
-                            <li class="active"><a href="http://localhost:8080/proyecto-master/Disena1.jsp">Crear Uniforme</a></li>
+                            <li class="active"><a href="http://localhost:8080/ProyectoSenaTuniforme/Disena1.jsp">Crear Uniforme</a></li>
                             <li><a href="#">¿Quiénes somos?</a></li>
                             <li><a href="#">Contactenos</a></li>
                         </ul>
@@ -190,25 +190,24 @@
                                 </div>
 
                                 <!--fin menu -->
-
-
+                                
                                 <div id='fondoeditar' >
                                     <h1>Pantalones</h1>
                                     <div class="container-fluid">
                                         <br>
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <img src="imagenesDiseño/pant1.png" id="lamp" style="right:10; width:40;height:32"><br>
+                                                <img src="imagenes/imagenesdiseñocamisas/pantalon-diario-hombre.png" id="lamp" right="10"width="40" height="32"><br>
                                                 <h5>Pantalon smoking</h5>
                                                 <button  onclick="draw('no-repeat')">select</button>
                                                 <br>
                                                 <br>
-                                                <img src="imagenesDiseño/pant2.png" id="lam" right="10" width="40" height="32"><br>
+                                                <img src="imagenes/imagenesdiseñocamisas/pantalon-sudadera.png" id="lam" right="10" width="40" height="32"><br>
                                                 <h5>Jeans</h5>
                                                 <button  onclick="draw2('no-repeat')">select</button>
                                                 <br>
                                                 <br>
-                                                <img src="imagenesDiseño/pant3.png"   id="lampa" right="10" width="40" height="32"><br>
+                                                <img src="imagenes/imagenesdiseñocamisas/pantaloneta-edf.png"   id="lampa" right="10" width="40" height="32"><br>
                                                 <h5>Sudadera</h5>
                                                 <button  onclick="draw3('no-repeat')">select</button>
 
