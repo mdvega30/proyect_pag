@@ -1,13 +1,10 @@
 <%-- 
-    Document   : editarinstitucion
-    Created on : 10-mar-2017, 21:05:10
+    Document   : editarprenda
+    Created on : 15-mar-2017, 16:35:23
     Author     : David
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:useBean id="beanInstitucion" scope="page" class="modelo.BEAN.BeanInstitucion"></jsp:useBean>
-<jsp:useBean id="daoInstitucion" scope="page" class="modelo.DAO.DaoInstitucion"></jsp:useBean>
-<jsp:useBean id="contTipoInstitucion" scope="page" class="controlador.ControladorTipoInstitucion"></jsp:useBean>
 <% HttpSession sesion = request.getSession(false);
     String usuario1 = (String) sesion.getAttribute("admin");
     String usuario2 = (String) sesion.getAttribute("usuario");
@@ -48,8 +45,8 @@
 
     <div class="form-group">
         <label>Tipo de Institución</label>
-        <select id="tipoInstitucion" name="tipoInstitucion" class="form-control"  >
-            <%=contTipoInstitucion.getTipoIntitucion(beanInstitucion)%>
+        <select id="tipoInstitucion" name="tipoInstitucion" class="form-control">
+            <option value="1">Escolar</option>
         </select>
     </div>
     <div class="form-group">

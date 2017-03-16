@@ -3,18 +3,17 @@ package modelo.BEAN;
 public class BeanUniforme extends BeanTipoUniforme {
 
     private int id_uniforme;
+    private int id_tipoUniforme;
+    private int institucion_idInstitucion;
     private String nombre_uniforme;
     private String descripcion_uniforme;
     private String url_diseño_Uniforme;
+    private String nombreTipoUniforme;
+    private String Nombre_tipo_institucion;
     private double precio;
     private boolean estadoUniforme;
-    private int id_tipoUniforme;
-    private String nombreTipo;
-    private int institucion_idInstitucion;
 
-    private String Nombre_tipo_institucion;
-
-    public BeanUniforme(int id_uniforme, String nombre_uniforme, String descripcion_uniforme, String url_diseño_Uniforme, double precio, boolean estadoUniforme, int id_tipoUniforme, String nombreTipo, int institucion_idInstitucion, String Nombre_tipo_institucion) {
+    public BeanUniforme(int id_uniforme, String nombre_uniforme, String descripcion_uniforme, String url_diseño_Uniforme, double precio, boolean estadoUniforme, int id_tipoUniforme, String nombreTipoUniforme, int institucion_idInstitucion, String Nombre_tipo_institucion) {
         this.id_uniforme = id_uniforme;
         this.nombre_uniforme = nombre_uniforme;
         this.descripcion_uniforme = descripcion_uniforme;
@@ -22,7 +21,7 @@ public class BeanUniforme extends BeanTipoUniforme {
         this.precio = precio;
         this.estadoUniforme = estadoUniforme;
         this.id_tipoUniforme = id_tipoUniforme;
-        this.nombreTipo = nombreTipo;
+        this.nombreTipoUniforme = nombreTipoUniforme;
         this.institucion_idInstitucion = institucion_idInstitucion;
         this.Nombre_tipo_institucion = Nombre_tipo_institucion;
     }
@@ -86,12 +85,12 @@ public class BeanUniforme extends BeanTipoUniforme {
         this.id_tipoUniforme = id_tipoUniforme;
     }
 
-    public String getNombreTipo() {
-        return nombreTipo;
+    public String getNombreTipoUniforme() {
+        return nombreTipoUniforme;
     }
 
-    public void setNombreTipo(String nombreTipo) {
-        this.nombreTipo = nombreTipo;
+    public void setNombreTipoUniforme(String nombreTipoUniforme) {
+        this.nombreTipoUniforme = nombreTipoUniforme;
     }
 
     public int getInstitucion_idInstitucion() {

@@ -4,6 +4,7 @@
 <jsp:useBean id="beanUniform" scope="page" class="modelo.BEAN.BeanUniforme"></jsp:useBean>
 <jsp:useBean id="daoUnifor" scope="page" class="modelo.DAO.DaoUniforme"></jsp:useBean>
 <jsp:useBean id="controInstitucion" scope="page" class="controlador.ControladorInstitucion"></jsp:useBean>
+<jsp:useBean id="controTipoUniforme" scope="page" class="controlador.ControladorTipoUniforme"></jsp:useBean>
 <% HttpSession sesion = request.getSession(false);
     String usuario1 = (String) sesion.getAttribute("admin");
     String usuario2 = (String) sesion.getAttribute("usuario");
@@ -38,17 +39,14 @@
     <div class="form-group">
         <label>Tipo uniforme</label>
         <select id="opTipoU" name="opTipoU" class="form-control">
-            <option value="1">Uniforme Escolar</option>
-            <option value="2">Uniformes deportivos</option>
-            <option value="3">Uniformes militares y de fuerzas de seguridad</option>
-            <option value="4">Uniformes religiosos o hábitos</option>
-            <option value="5">Otros</option>
+            <%= controTipoUniforme.getTipoUniforme(beanUniform)%>
         </select>
     </div>
     <div class="form-group">
-        <label>Tipo uniforme</label>
-        <select id="opTipoInsti" name="opTipoInsti" class="form-control">
-            <%=controInstitucion.getInstitucion()%>
+        <label>Instituciòn</label>
+        <select id="opTipoInsti" name="opTipoInsti" class="form-control"  >
+            <%=controInstitucion.getInstitucion(beanUniform)%>
+
         </select>
     </div>
     <div class="form-group">
@@ -63,8 +61,14 @@
     <div class="form-group">
         <label>Estado</label><br>
         <select id="opEstadoU" name="opEstadoU" class="form-control">
-            <option value="true">En venta</option>
+            <%
+                if (beanUniform.isEstadoUniforme()) {%>
+            <option selected value="true">En venta</option>
             <option value="False">No está en venta</option>
+            <%} else {%>
+            <option selected value="False">No está en venta</option>
+            <option  value="true">En venta</option>
+            <%}%>
         </select>
     </div>
 
@@ -82,7 +86,7 @@
         </div>
         <br>
         <div id="contenedorimg">
-             <img id='img-upload'/>
+            <img id='img-upload'/>
         </div>
 
     </div>

@@ -1,18 +1,18 @@
 <%-- 
-    Document   : Addinstitucion
-    Created on : 10-mar-2017, 13:15:47
+    Document   : Addprendas
+    Created on : 14-mar-2017, 21:54:21
     Author     : David
 --%>
 
-<%@page import="modelo.DAO.DaoInstitucion"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="modelo.BEAN.BeanInstitucion"%>
-<%@page import="modelo.BEAN.BeanUniforme"%>
+<%@page import="controlador.ControladorUniforme"%>
+<%@page import="modelo.DAO.DaoUniforme"%>
 <%@page import="modelo.DAO.DaoUsuario"%>
 <%@page import="modelo.BEAN.BeanUsuario"%>
-<jsp:useBean id="contTipoInstitucion" scope="page" class="controlador.ControladorTipoInstitucion"></jsp:useBean>
-<jsp:useBean id="beanInstitucion" scope="page" class="modelo.BEAN.BeanInstitucion"></jsp:useBean>
+<jsp:useBean id="controUniforme" scope="page" class="controlador.ControladorUniforme"></jsp:useBean>
+<jsp:useBean id="controTalla" scope="page" class="controlador.ControladorTalla"></jsp:useBean>
+<jsp:useBean id="controPrenda" scope="page" class="controlador.ControladorPrendas"></jsp:useBean>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
 <% HttpSession sesion = request.getSession(false);
     String usuario1 = (String) sesion.getAttribute("admin");
     String usuario2 = (String) sesion.getAttribute("usuario");
@@ -41,8 +41,6 @@
             DaoUsuario daoUs = new DaoUsuario();
             beanUs.setCorreo(usuario1);
             daoUs.contruirObjetoUsuario(beanUs);
-
-
         %>
     <nav class="navbar navbar-inverse" >
         <div class="container">
@@ -148,7 +146,7 @@
         <br>
         <div class="alert alert-info">
             <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
-            <strong>Buen dia aqui podra agregar los institcuones</strong> <br>Esto se vera en el catalogo de inicio para la posterior compra.
+            <strong>Buen dia aqui podra agregar las prendas de cada uniforme agregado</strong> <br>Esto se vera en el catalogo de inicio para la posterior compra.
         </div>
         <!--FIN DE INFORMACION DE PAGINA-->
     </div><!--FIN CONTAINER-->
@@ -160,9 +158,9 @@
                 <div class="panel with-nav-tabs panel">
                     <div class="panel-heading">
                         <ul class="nav nav-tabs">
-                            <li class="active" ><a href="Addinstitucion.jsp" >Paso 1</a></li>
+                            <li><a href="Addinstitucion.jsp" >Paso 1</a></li>
                             <li><a href="Adduniformes.jsp">Paso 2</a></li>
-                            <li><a href="#tab3default" data-toggle="tab">Paso 3</a></li>
+                            <li class="active"><a href="Addprendas.jsp">Paso 3</a></li>
 
                         </ul>
                     </div>
@@ -182,28 +180,34 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Agregue un Institución</h4>
+                                                <h4 class="modal-title">Agregue una Prenda</h4>
                                             </div>
                                             <div class="modal-body">
                                                 <!--Inicio form insertyar datos-->
-                                                <form method="POST" action="Institucion" enctype="multipart/form-data" name="formInsert" id="form-AddUniforme">
+                                                <form method="POST" action="Prendas" enctype="multipart/form-data" name="formInsert" id="form-AddUniforme">
 
                                                     <div class="form-group">
-                                                        <label>Nombre de la Institución</label>
-                                                        <input type="text" name="txtInstitucion" id="txtInstitucion" placeholder="Nombre de Institución" value="" class="form-control"/>
+                                                        <label>Nombre de la prenda</label>
+                                                        <input type="text" name="txtPrenda" id="txtPrenda" placeholder="Nombre de la prenda" value="" class="form-control"/>
                                                     </div>
                                                     <div id="respuesta1" class="  alert-danger" ></div>
 
                                                     <div class="form-group">
                                                         <label>Descripción</label>
-                                                        <textarea  name="txaDescripcion" id="txaDescripcion" class="form-control input-sm" placeholder="Escriba una descripción de la institucion"></textarea>
+                                                        <textarea  name="txaDescripcionP" id="txaDescripcionP" class="form-control input-sm" placeholder="Escriba una descripción de la prenda"></textarea>
                                                     </div>
                                                     <div id="respuesta3" class="  alert-danger" ></div>
 
                                                     <div class="form-group">
-                                                        <label>Tipo de Institución</label>
-                                                        <select id="tipoInstitucion" name="tipoInstitucion" class="form-control">
-                                                            <%= contTipoInstitucion.getTipoIntitucion(beanInstitucion)%>
+                                                        <label>Uniforme</label>
+                                                        <select id="tipoUniforme" name="tipoUniforme" class="form-control">
+                                                            <%=controUniforme.getUniformes()%>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Talla de la prenda</label>
+                                                        <select id="tallaUni" name="tallaUni" class="form-control">
+                                                            <%= controTalla.getTallas()%>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -211,7 +215,7 @@
                                                         <div class="input-group">
                                                             <span class="input-group-btn">
                                                                 <span class="btn btn-info btn-file ">
-                                                                    Subir <input class="btn btn-default btn-file disabled btnfi" type="file" name="file" id="imgInp"  accept="image/*" >
+                                                                    Subir <input class="btn btn-default btn-file disabled btnfi" type="file" name="file" id="imgPren"  accept="image/*" >
                                                                 </span>
                                                             </span>
                                                             <input type="text" class="form-control imgsubir" readonly>
@@ -234,11 +238,16 @@
                     </div>
                     <!--Fin  Modal-->
 
-
                     <!---INICIO TABLA--->
 
                     <!-- Tabla responsive-->
-
+                    <%int pagina = 0; //pagina a mostrar
+                        if (request.getParameter("pagina") == null) {
+                            pagina = 0;
+                        } else {
+                            pagina = Integer.valueOf(request.getParameter("pagina"));
+                        }
+                    %>
                     <div class="container">
                         <div class="row">
                             <br>
@@ -246,24 +255,14 @@
                             <div class="col-md-11">
                                 <h4>Uniformes en catalogo para la venta</h4>
                                 <div class="table-responsive">
-
-                                    <%int pagina = 0; //pagina a mostrar
-                                        if (request.getParameter("pagina") == null) {
-                                            pagina = 0;
-                                        } else {
-                                            pagina = Integer.valueOf(request.getParameter("pagina"));
-                                        }
-                                    %>
-                                    <table id="mytable" class="table table-bordred table-striped "  >
-
+                                    <table id="mytable" class="table table-bordred table-striped">
                                         <thead>
 
-
                                         <th>N°</th>
-                                        <th>Nombre Prenda</th>
+                                        <th>Nombre Institución</th>
                                         <th class="tx">Descripción</th>
-                                        <th class="tx">Imagen</th>
-                                        <th>Uniforme</th>
+                                        <th class="tx">Logo</th>
+                                        <th>Tipo de intitucion</th>
                                         <th>Talla</th>
 
                                         <th>Editar</th>
@@ -273,40 +272,11 @@
 
                                         </thead>
                                         <tbody>
-                                            <%
-                                                DaoInstitucion daoInstitucion = new DaoInstitucion();
-                                                ArrayList<BeanInstitucion> listaUniforme = daoInstitucion.listarInstitucion(pagina * 10, 10);
-                                                int cont = pagina * 10;
-                                                int contador2 = 0;
 
-                                                for (BeanInstitucion bnInstitucion : listaUniforme) {%>
-                                            <tr>
-
-                                                <td><%=cont + 1%></td>
-                                                <td><%=bnInstitucion.getNombre_intitucion()%></td>
-                                                <td class="tx"><textarea disabled="" class="txtareal"><%=bnInstitucion.getDescripcion_institucion()%></textarea> </td>
-                                                <td><img class="imgl" src="images/<%=bnInstitucion.getUrl_logo_institucion()%>" alt=""/></td>
-                                                <td class="imgt" ><%=bnInstitucion.getNombre_tipo_institucion()%></td>
-
-                                                <td><a data-placement="top" data-toggle="tooltip" title="Edit"  ><button class="btn btn-primary btn-xs btnInstitu editarI" data-title="Edit" value="<%= bnInstitucion.getId_institucion()%>" data-toggle="modal" data-target="#editIntitucion" ><span class="glyphicon glyphicon-pencil"></span></button></a></td>
-                                                <td><a data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs btnInstitu eliminaI"  value="<%= bnInstitucion.getId_institucion()%>" data-title="Delete" data-toggle="modal" data-target="#deleteInstitucion" ><span class="glyphicon glyphicon-trash"></span></button></a></td>
-
-                                            </tr>
-
-                                            <%cont++;
-                                                }%>
+                                            <%= controPrenda.listarPrendas(pagina, 10)%>
 
                                         </tbody>
                                     </table>
-
-
-
-
-
-
-
-
-
                                     <div class="clearfix"></div>
                                     <ul class="pagination pull-left">
 
@@ -318,7 +288,7 @@
                                         <li class="disabled"><a ><span class="glyphicon glyphicon-chevron-left"></span></a></li>
                                                 <%}%>
                                                 <%
-                                                    int numeroRegistros = daoInstitucion.verRegistrosTotales();
+                                                    int numeroRegistros = controPrenda.getNumerodeRegistros();
                                                     int numerPagina = numeroRegistros / 10;
 
                                                     for (int i = 0; i <= numerPagina; i++) {
@@ -343,8 +313,11 @@
                                     </ul>
 
                                 </div>
+
+
+
                                 <!--INICIO Modal para Editar-->
-                                <div class="modal fade" id="editIntitucion" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+                                <div class="modal fade" id="editPrenda" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -354,7 +327,7 @@
 
                                             <div class="modal-body">
                                                 <input type="hidden" name="txtOpc" value="3">
-                                                <div class="formularioEditar"></div>
+                                                <div class="formularioEditarPrenda"></div>
                                             </div>
                                             <div class="modal-footer ">
                                             </div>
@@ -365,9 +338,17 @@
                                 </div>   
                                 <!--FIN Modal para Editar-->
 
+
+
+
+
+
+
+
+
                                 <!--INICIO Modal para Eliminar-->
                                 <form method="POST" action="Institucion" name="formEliminar" >
-                                    <div class="modal fade" id="deleteInstitucion" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+                                    <div class="modal fade" id="deletePrenda" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
                                         <div class="modal-dialog">
 
                                             <div class="build-list">
@@ -416,8 +397,11 @@
 
 
 
+
+
+
     <script src="js/jquery.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="js/jsInstitucion.js" type="text/javascript"></script>
+    <script src="js/jsPrendas.js" type="text/javascript"></script>
 </body>
 </html>

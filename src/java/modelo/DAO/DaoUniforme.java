@@ -91,10 +91,39 @@ public class DaoUniforme extends Conexion {
                 bnUnifor.setUrl_diseño_Uniforme(print.getString("Url_Diseño_Uniforme"));
                 bnUnifor.setPrecio(print.getDouble("Precio"));
                 bnUnifor.setEstadoUniforme(print.getBoolean("EstadoUniforme"));
-                bnUnifor.setNombreTipo(print.getString("Nombre_Tipo"));
+                bnUnifor.setNombreTipoUniforme(print.getString("Nombre_Tipo"));
                 bnUnifor.setEstadoUniforme(print.getBoolean("EstadoUniforme"));
                 bnUnifor.setNombre_tipo_institucion(print.getString("Nombre_institucion"));
                 
+                listaUniformes.add(bnUnifor);
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Ocurrio error al listar" + e);
+        }
+
+        return listaUniformes;
+    }
+    public ArrayList<BeanUniforme> listarTodosLosUniformes() {
+        PreparedStatement ps = null;
+
+        ArrayList<BeanUniforme> listaUniformes = new ArrayList<>();
+
+        try {
+            consulta = "CALL listarTodosUniformes(?)";
+            ps = conexion.prepareCall(consulta);
+            ps.setInt(1, 1);
+           
+
+            ResultSet print = ps.executeQuery();
+            while (print.next()) {
+                BeanUniforme bnUnifor = new BeanUniforme();
+
+                bnUnifor.setId_uniforme(print.getInt("idUniforme"));
+                bnUnifor.setNombre_uniforme(print.getString("Nombre_Uniforme"));
+                bnUnifor.setDescripcion_uniforme(print.getString("Descripcion_Uniforme"));
+                bnUnifor.setUrl_diseño_Uniforme(print.getString("Url_Diseño_Uniforme"));
                 listaUniformes.add(bnUnifor);
 
             }
@@ -128,7 +157,7 @@ public class DaoUniforme extends Conexion {
                 bnUnifor.setUrl_diseño_Uniforme(print.getString("Url_Diseño_Uniforme"));
                 bnUnifor.setPrecio(print.getDouble("Precio"));
                 bnUnifor.setEstadoUniforme(print.getBoolean("EstadoUniforme"));
-                bnUnifor.setNombreTipo(print.getString("Nombre_Tipo"));
+                bnUnifor.setNombreTipoUniforme(print.getString("Nombre_Tipo"));
 
                 listaUniformes.add(bnUnifor);
 
@@ -280,6 +309,10 @@ public class DaoUniforme extends Conexion {
                 bnUnifor.setPrecio(print.getDouble("Precio"));
                 bnUnifor.setEstadoUniforme(print.getBoolean("EstadoUniforme"));
                 bnUnifor.setId_tipoUniforme(print.getInt("Tipo_Uniforme_idTipo_Uniforme"));
+                bnUnifor.setInstitucion_idInstitucion(print.getInt("institucion_idInstitucion"));
+                bnUnifor.setNombreTipoUniforme(print.getString("Nombre_Tipo"));
+                bnUnifor.setNombre_tipo_institucion(print.getString("Nombre_institucion"));
+                
 
                 return bnUnifor;
             }
@@ -341,7 +374,7 @@ public class DaoUniforme extends Conexion {
             System.out.println(BeanUnforme.getNombre_uniforme());
             System.out.println(BeanUnforme.getDescripcion_uniforme());
             System.out.println(BeanUnforme.getUrl_diseño_Uniforme());
-            System.out.println(BeanUnforme.getNombreTipo());
+            System.out.println(BeanUnforme.getNombreTipoUniforme());
             System.out.println(BeanUnforme.isEstadoUniforme());
             System.out.println(BeanUnforme.getNombre_tipo_institucion());
             System.out.println("-------------------------------------");

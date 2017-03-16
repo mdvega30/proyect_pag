@@ -8,7 +8,9 @@
 <%@page import="modelo.DAO.DaoUniforme"%>
 <%@page import="modelo.DAO.DaoUsuario"%>
 <%@page import="modelo.BEAN.BeanUsuario"%>
-<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<jsp:useBean id="controTipoUniforme" scope="page" class="controlador.ControladorTipoUniforme"></jsp:useBean>
+<jsp:useBean id="controInstitucion" scope="page" class="controlador.ControladorInstitucion"></jsp:useBean>
+
 <%-- 
     Document   : Adduniformes
     Created on : 31-oct-2016, 22:21:57
@@ -184,7 +186,7 @@
                             <ul class="nav nav-tabs">
                                 <li><a href="Addinstitucion.jsp" >Paso 1</a></li>
                                 <li class="active" ><a href="#tab2default" data-toggle="tab">Paso 2</a></li>
-                                <li><a href="#tab3default" data-toggle="tab">Paso 3</a></li>
+                                <li><a href="Addprendas.jsp" >Paso 3</a></li>
 
                             </ul>
                         </div>
@@ -217,19 +219,15 @@
                                                         <div class="form-group">
                                                             <label>Tipo uniforme</label>
                                                             <select id="opTipoU" name="opTipoU" class="form-control">
-                                                                <option value="1">Uniforme Escolar</option>
-                                                                <option value="2">Uniformes deportivos</option>
-                                                                <option value="3">Uniformes militares y de fuerzas de seguridad</option>
-                                                                <option value="4">Uniformes religiosos o hábitos</option>
-                                                                <option value="5">Otros</option>
+                                                                <%=controTipoUniforme.getTipoUniforme(beanUnif)%>
                                                             </select>
                                                         </div>
-                                                            <% ControladorInstitucion controInsti = new ControladorInstitucion(); %>
+
                                                         <div class="form-group">
                                                             <label>Instituciòn</label>
                                                             <select id="opTipoU" name="opTipoInsti" class="form-control">
-                                                                
-                                                            <%= controInsti.getInstitucion()%>
+
+                                                                <%= controInstitucion.getInstitucion(beanUnif)%>
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
@@ -310,7 +308,7 @@
 
                                                         <thead>
 
-                                                       
+
                                                         <th>N°</th>
                                                         <th>Nombre Uniforme</th>
                                                         <th >Tipo uniforme</th>
@@ -333,11 +331,11 @@
                                                                 BeanInstitucion beanInstitucion = new BeanInstitucion();
                                                                 for (BeanUniforme bnUnifor : listaUniforme) {%>
                                                             <tr> 
-                                                              
-                                                                
+
+
                                                                 <td><%=cont + 1%></td>
-                                                                <td><%=bnUnifor.getNombre_uniforme() %></td>
-                                                                <td class="imgt" ><%=bnUnifor.getNombreTipo()%></td>
+                                                                <td><%=bnUnifor.getNombre_uniforme()%></td>
+                                                                <td class="imgt" ><%=bnUnifor.getNombreTipoUniforme()%></td>
                                                                 <td class="" ><%=bnUnifor.getNombre_tipo_institucion()%></td>
                                                                 <td>$<%=bnUnifor.getPrecio()%></td> 
                                                                 <td><img class="imgl" src="images/<%=bnUnifor.getUrl_diseño_Uniforme()%>" alt=""/></td>
@@ -352,7 +350,7 @@
                                                             </tr>
 
                                                             <%cont++;
-                                                        }%>
+                                                                }%>
 
 
 
@@ -390,7 +388,7 @@
                                                         <li class=""><a href="?pagina=<%=(i)%>"><%=i + 1%></a></li> 
 
                                                         <%}
-                                                    }%>
+                                                            }%>
                                                         <%if (pagina < numerPagina) {%> 
                                                         <li><a href="?pagina=<%=pagina + 1%>"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
 
@@ -462,7 +460,7 @@
 
 
                                 </div>
-                                                    
+
                             </div>
                         </div>
                     </div>
@@ -472,14 +470,14 @@
         </div>
 
 
-<!--http://bootsnipp.com/snippets/featured/panels-with-nav-tabs-->
+        <!--http://bootsnipp.com/snippets/featured/panels-with-nav-tabs-->
 
 
-<footer class="container-fluid text-center">
-    <p>Footer ® David Daza</p>
-</footer>
-<script src="js/jquery.js" type="text/javascript"></script>
-<script src="js/bootstrap.min.js" type="text/javascript"></script>
-<script src="js/_js.js" type="text/javascript"></script>
-</body>
+        <footer class="container-fluid text-center">
+            <p>Footer ® David Daza</p>
+        </footer>
+        <script src="js/jquery.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/_js.js" type="text/javascript"></script>
+    </body>
 </html>
