@@ -186,7 +186,7 @@
                         <div class="panel-heading">
                             <ul class="nav nav-tabs">
                                 <li><a href="Addinstitucion.jsp" > Paso 1 </a></li>
-                                <li class="active" ><a href="#tab2default" > Paso 2 </a></li>
+                                <li class="active" ><a href="Adduniformes.jsp" > Paso 2 </a></li>
                                 <li><a href="Addprendas.jsp"  > Paso 3 </a></li>
 
                             </ul>
@@ -213,7 +213,7 @@
 
                                                         <div class="form-group">
                                                             <label>Nombre Uniforme</label>
-                                                            <input type="text" name="txtnombreU" id="txtnombreU" placeholder="Nombre de Uniforme" value="" class="form-control"/>
+                                                            <input type="text" name="txtnombreU" id="txtnombreU" placeholder="ej. Uniforme de diario" value="" class="form-control"/>
                                                         </div>
                                                         <div id="respuesta2" class="  alert-danger" ></div>
 
@@ -334,7 +334,7 @@
 
 
 
-                                                            <%=controUniforme.getListaUniformes(pagina, 10) %>
+                                                            <%=controUniforme.getListaUniformes(pagina, 10)%>
 
 
 

@@ -14,12 +14,13 @@ public class BeanPrenda {
     private int idTalla;
     private String Nombre_Uniforme;
     private String Talla_nombre;
+    private String Nombre_Institucion;
     private double precioPrenda;
 
     public BeanPrenda() {
     }
 
-    public BeanPrenda(int idPrenda, String Nombre_Prenda, String Descripcion_prenda, String Url_Diseño, int uniforme_idUniforme, int idTalla, String Nombre_Uniforme, String Talla_nombre, double precioPrenda) {
+    public BeanPrenda(int idPrenda, String Nombre_Prenda, String Descripcion_prenda, String Url_Diseño, int uniforme_idUniforme, int idTalla, String Nombre_Uniforme, String Talla_nombre, String Nombre_Institucion, double precioPrenda) {
         this.idPrenda = idPrenda;
         this.Nombre_Prenda = Nombre_Prenda;
         this.Descripcion_prenda = Descripcion_prenda;
@@ -28,7 +29,16 @@ public class BeanPrenda {
         this.idTalla = idTalla;
         this.Nombre_Uniforme = Nombre_Uniforme;
         this.Talla_nombre = Talla_nombre;
+        this.Nombre_Institucion = Nombre_Institucion;
         this.precioPrenda = precioPrenda;
+    }
+
+    public String getNombre_Institucion() {
+        return Nombre_Institucion;
+    }
+
+    public void setNombre_Institucion(String Nombre_Institucion) {
+        this.Nombre_Institucion = Nombre_Institucion;
     }
 
     public double getPrecioPrenda() {

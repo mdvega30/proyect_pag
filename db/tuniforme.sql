@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-03-2017 a las 20:06:50
+-- Tiempo de generación: 20-03-2017 a las 00:13:59
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.6.30
 
@@ -45,6 +45,20 @@ ELSE
 UPDATE insumo
 set Nombre_Insumo=Nombre_Insumo, Descripcion_Insumo=Descripcion_Insumo,unidad_medida_idUnidad_medida=unidad_medida_idUnidad_medida,url_insumo=url_insumo,precio=precio
 WHERE `idInsumo` = idInsu;
+END IF;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizarPrenda` (IN `Nombre_PrendaP` VARCHAR(45), IN `Descripcion_prendaP` VARCHAR(300), IN `Url_DiseñoP` VARCHAR(100), IN `uniforme_idUniformeP` INT, `idPrendaP` INT, `precioPrendaP` DECIMAL)  BEGIN
+if Url_DiseñoP is null or Url_DiseñoP LIKE '' THEN 
+UPDATE `prenda` SET `Nombre_Prenda` = Nombre_PrendaP, 
+`Descripcion_prenda` = Descripcion_prendaP, 
+`uniforme_idUniforme` = uniforme_idUniformeP, `precioPrenda` = precioPrendaP 
+WHERE `prenda`.`idPrenda` = idPrendaP;
+ELSE
+UPDATE `prenda` SET `Nombre_Prenda` = Nombre_PrendaP, 
+`Descripcion_prenda` = Descripcion_prendaP, `Url_Diseño` = Url_DiseñoP, 
+`uniforme_idUniforme` = uniforme_idUniformeP, `precioPrenda` = precioPrendaP 
+WHERE `prenda`.`idPrenda` = idPrendaP;
 END IF;
 end$$
 
@@ -102,13 +116,21 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminarInsumo` (IN `id` INT)  BEGI
 DELETE FROM insumo where idInsumo = id;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminarPrenda` (IN `idPrendaP` INT)  BEGIN
+DELETE FROM prenda where idPrenda = idPrendaP;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminarTallasPrendas` (IN `idPrendaP` INT)  BEGIN
+DELETE FROM prenda_talla where prenda_idPrenda = idPrendaP;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminarUniformes` (IN `id` INT)  BEGIN
 DELETE FROM Uniforme where idUniforme = id;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarInstitucion` (IN `nombreInstitucionP` VARCHAR(45), IN `descripcionInstitucionP` VARCHAR(300), IN `urlLogoP` VARCHAR(100), IN `tipoInstitucionP` INT)  BEGIN
 INSERT INTO `institucion` (`idInstitucion`, `Nombre_institucion`, `Descripcion_institucion`, `Url_logo_institucion`, `Tipo_institucion_idTipo_institucion`) 
-VALUES (NULL, nombreInstitucionP , descripcionInstitucionP, urlLogoP, tipoInstitucionP);
+VALUES (NULL, firstUpper(nombreInstitucionP) , descripcionInstitucionP, urlLogoP, tipoInstitucionP);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarInsumos` (IN `NombreInsumo` VARCHAR(45), IN `descripcionInsumo` VARCHAR(300), IN `Unidad_medidad_idUnidad_Medida` INT(11), IN `imagenInsumo` VARCHAR(100), IN `precioInsumo` DECIMAL(10))  INSERT INTO `insumo` (`idInsumo`, `Nombre_Insumo`, `Descripcion_Insumo`, `unidad_medida_idUnidad_medida`, `url_insumo`, `precio`)
@@ -117,13 +139,18 @@ values (null,NombreInsumo,descripcionInsumo,Unidad_medidad_idUnidad_Medida,image
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarMensaje` (IN `idUsuario` INT, IN `Estado_mensaje` VARCHAR(20), IN `nom1` VARCHAR(30), IN `ape1` VARCHAR(30), IN `correo` VARCHAR(30), IN `empresa` VARCHAR(30), IN `Fecha` DATETIME, IN `asunto` VARCHAR(100), IN `mensaje` VARCHAR(4000))  INSERT INTO `mensajes`(`idMensajes`, `Usuario_idUsuario`, `Estado_mensaje`, `Nombre`, `Apellido`, `Correo`, `Empresa`, `Fecha`, `Asunto`, `mensaje`) 
 VALUES (null,idUsuario,Estado_mensaje,nom1,ape1,correo,empresa,Fecha,asunto,mensaje)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarPrenda` (IN `Nombre_PrendaP` VARCHAR(45), IN `Descripcion_prendaP` VARCHAR(300), IN `Url_DiseñoP` VARCHAR(100), IN `uniforme_idUniformeP` INT, `talla_idTalla` INT)  BEGIN
-START TRANSACTION;
-INSERT INTO `prenda` (`idPrenda`, `Nombre_Prenda`, `Descripcion_prenda`, `Url_Diseño`, `uniforme_idUniforme`) 
-VALUES (NULL, Nombre_PrendaP, Descripcion_prendaP, Url_DiseñoP, uniforme_idUniformeP);
-INSERT INTO `prenda_talla` (`id_prenda_talla`, `prenda_idPrenda`, `talla_idTalla`) VALUES (NULL, LAST_INSERT_ID(), talla_idTalla);
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarPrenda` (IN `Nombre_PrendaP` VARCHAR(45), IN `Descripcion_prendaP` VARCHAR(300), IN `Url_DiseñoP` VARCHAR(100), IN `uniforme_idUniformeP` INT, IN `precioPrendaP` DECIMAL)  BEGIN
+INSERT INTO `prenda` (`idPrenda`, `Nombre_Prenda`, `Descripcion_prenda`, `Url_Diseño`, `uniforme_idUniforme`, `precioPrenda`) 
+VALUES (NULL, Nombre_PrendaP, Descripcion_prendaP, Url_DiseñoP, uniforme_idUniformeP,precioPrendaP);
+END$$
 
-COMMIT;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarTallasPrenda` (IN `talla_idTalla` INT)  BEGIN
+
+INSERT INTO `prenda_talla` (`id_prenda_talla`, `prenda_idPrenda`, `talla_idTalla`) VALUES (NULL, (select max(idPrenda)from prenda), talla_idTalla);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarTallasPrendaId` (IN `talla_idTalla` INT, `idPrendaP` INT)  BEGIN
+INSERT INTO `prenda_talla` (`id_prenda_talla`, `prenda_idPrenda`, `talla_idTalla`) VALUES (NULL,idPrendaP, talla_idTalla);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarUsuario` (IN `tpdoc` INT, IN `roll` INT, IN `nom1` VARCHAR(30), IN `nom2` VARCHAR(30), IN `ape1` VARCHAR(30), IN `ape2` VARCHAR(30), IN `doc` VARCHAR(20), IN `email` VARCHAR(45), IN `direc` VARCHAR(45), IN `pass` VARCHAR(60), IN `tok` INT(50))  BEGIN
@@ -163,21 +190,31 @@ from mensajes
 where Usuario_idUsuario=idUsuario$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarPrendas` (IN `pagina` INT, IN `numrRegistros` INT)  BEGIN
-SELECT p.idPrenda,p.Nombre_Prenda, p.Descripcion_prenda, p.Url_Diseño, u.Nombre_Uniforme, t.Talla_nombre
+SELECT p.idPrenda,p.Nombre_Prenda, p.Descripcion_prenda, p.Url_Diseño, u.Nombre_Uniforme,p.precioPrenda,it.Nombre_institucion
 FROM prenda p
 INNER JOIN uniforme u 
 ON p.uniforme_idUniforme  = u.idUniforme
-INNER JOIN prenda_talla pt
-ON pt.prenda_idPrenda = p.idPrenda 
-INNER JOIN talla t
-ON t.idTalla = pt.talla_idTalla
+INNER JOIN institucion it
+ON it.idInstitucion = u.institucion_idInstitucion
+ORDER BY p.Nombre_Prenda
 limit pagina,numrRegistros;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listarTallasPorPrenda` (IN `idPrendaP` INT)  BEGIN
+SELECT t.Talla_nombre, t.idTalla, t.Precio_talla
+FROM prenda_talla pt
+INNER JOIN talla t
+on pt.talla_idTalla = t.idTalla
+where pt.prenda_idPrenda = idPrendaP;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarTodosUniformes` (IN `estadoUp` TINYINT(1))  BEGIN
 SELECT * 
 FROM uniforme u
-WHERE u.EstadoUniforme is true;
+INNER JOIN institucion i 
+on u.institucion_idInstitucion = i.idInstitucion
+WHERE u.EstadoUniforme is true
+ORDER BY u.institucion_idInstitucion;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_uniformes` (IN `pagina` INT, IN `numrRegistros` INT)  BEGIN
@@ -186,11 +223,66 @@ u.Precio, t.Nombre_Tipo,u.EstadoUniforme, tipo.Nombre_institucion
 FROM uniforme u
 INNER JOIN tipo_uniforme t on u.Tipo_Uniforme_idTipo_Uniforme= t.idTipo_Uniforme 
 INNER JOIN institucion tipo ON U.institucion_idInstitucion = tipo.idInstitucion
+ORDER by tipo.Nombre_institucion
 limit pagina,numrRegistros;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_uniformesCatalogo` (IN `pagina` INT, IN `numrRegistros` INT, IN `nombre_Uni` VARCHAR(45))  BEGIN
-if nombre_Uni  LIKE '% %'  THEN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_uniformesCatalogo` (IN `pagina` INT, IN `numrRegistros` INT, IN `nombre_Uni` VARCHAR(45), IN `tipoBusqueda` INT)  BEGIN
+	CASE 
+		WHEN nombre_Uni  LIKE ''  then
+		
+		select u.idUniforme,u.Nombre_Uniforme,u.Descripcion_Uniforme,
+		u.Url_Diseño_Uniforme, ins.Nombre_institucion,
+		u.Precio, t.Nombre_Tipo, u.EstadoUniforme
+		from uniforme u
+		INNER JOIN tipo_uniforme t 
+        on u.Tipo_Uniforme_idTipo_Uniforme= t.idTipo_Uniforme 
+		INNER JOIN institucion ins 
+		ON u.institucion_idInstitucion=  ins.idInstitucion
+		where u.EstadoUniforme=1
+		limit pagina,numrRegistros;
+	
+		WHEN tipoBusqueda = 1 then 
+		
+		select u.idUniforme,u.Nombre_Uniforme,u.Descripcion_Uniforme,u.Url_Diseño_Uniforme,
+		u.Precio, t.Nombre_Tipo,u.EstadoUniforme, ins.Nombre_institucion
+		from uniforme u
+		INNER JOIN tipo_uniforme t 
+		on u.Tipo_Uniforme_idTipo_Uniforme= t.idTipo_Uniforme 
+		INNER JOIN institucion ins 
+		ON u.institucion_idInstitucion=  ins.idInstitucion
+		where u.Nombre_Uniforme LIKE concat('%',nombre_Uni,'%') and u.EstadoUniforme=1
+		limit pagina,numrRegistros;
+		
+		WHEN tipoBusqueda = 2 THEN
+		
+		select u.idUniforme,u.Nombre_Uniforme,u.Descripcion_Uniforme,u.Url_Diseño_Uniforme,
+		u.Precio, t.Nombre_Tipo,u.EstadoUniforme, ins.Nombre_institucion
+		from uniforme u
+		INNER JOIN tipo_uniforme t 
+		on u.Tipo_Uniforme_idTipo_Uniforme= t.idTipo_Uniforme 
+		INNER JOIN institucion ins 
+		ON u.institucion_idInstitucion=  ins.idInstitucion
+		where ins.Nombre_institucion LIKE concat('%',nombre_Uni,'%') and u.EstadoUniforme=1
+		limit pagina,numrRegistros;
+		
+		WHEN tipoBusqueda = 3 THEN
+		
+		select u.idUniforme,u.Nombre_Uniforme,u.Descripcion_Uniforme,u.Url_Diseño_Uniforme,
+		u.Precio, t.Nombre_Tipo,u.EstadoUniforme, ins.Nombre_institucion
+		from uniforme u
+		INNER JOIN tipo_uniforme t 
+		on u.Tipo_Uniforme_idTipo_Uniforme= t.idTipo_Uniforme 
+		INNER JOIN institucion ins 
+		ON u.institucion_idInstitucion=  ins.idInstitucion
+		where  t.Nombre_Tipo LIKE concat('%',nombre_Uni,'%') and u.EstadoUniforme=1
+		limit pagina,numrRegistros;
+		
+	END CASE;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_uniformesCatalogo1` (IN `pagina` INT, IN `numrRegistros` INT, IN `nombre_Uni` VARCHAR(45))  BEGIN
+if nombre_Uni  LIKE ''  THEN
 select u.idUniforme,u.Nombre_Uniforme,u.Descripcion_Uniforme,
 u.Url_Diseño_Uniforme,
 u.Precio, t.Nombre_Tipo,u.EstadoUniforme
@@ -226,6 +318,10 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `verInstitucion` (IN `idInstitutoP` INT)  BEGIN
 SELECT * FROM institucion WHERE idInstitucion = idInstitutoP;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `verPrenda` (IN `idPrendaP` INT)  BEGIN
+SELECT * FROM prenda WHERE idPrenda = idPrendaP;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ver_Insumo` (IN `id` INT)  BEGIN
@@ -363,11 +459,11 @@ CREATE TABLE `institucion` (
 --
 
 INSERT INTO `institucion` (`idInstitucion`, `Nombre_institucion`, `Descripcion_institucion`, `Url_logo_institucion`, `Tipo_institucion_idTipo_institucion`) VALUES
-(1, 'Colegio Mayor De Cundinamarca', 'Prueba desde la vista', '5.jpg', 2),
-(2, 'Colegio Main', 'solo es una prueba', 'prueba.png', 1),
-(3, 'Colegio Main', 'solo es una prueba', 'prueba.png', 1),
-(4, 'Colegio Main', 'solo es una prueba', 'prueba.png', 1),
-(5, '123', '123', '213', 1);
+(1, 'Gimnasio Vermont', 'Colegio Malditos Elitistas', 'GimVerm.png', 1),
+(2, 'San Jorge De Inglaterra', 'Colegio San Jorge De inglaterra', 'SanGeorgueSchool.jpg', 1),
+(3, 'Los Nogales', 'Colegio Los Nogales', 'colegioLosNogales.png', 1),
+(4, 'San Mateo Apostol', 'Colegio San Mateo Apostol', 'colegioSanMateoApostol.jpg', 1),
+(5, 'El Vaticanito', 'Uniforme para el  Vaticano', 'Vaticano.jpg', 5);
 
 -- --------------------------------------------------------
 
@@ -464,28 +560,18 @@ CREATE TABLE `prenda` (
   `Nombre_Prenda` varchar(45) NOT NULL,
   `Descripcion_prenda` varchar(300) DEFAULT NULL,
   `Url_Diseño` varchar(100) DEFAULT NULL,
-  `uniforme_idUniforme` int(11) NOT NULL
+  `uniforme_idUniforme` int(11) NOT NULL,
+  `precioPrenda` decimal(10,0) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `prenda`
 --
 
-INSERT INTO `prenda` (`idPrenda`, `Nombre_Prenda`, `Descripcion_prenda`, `Url_Diseño`, `uniforme_idUniforme`) VALUES
-(3, 'rreerres', 'retes', 'erres', 37),
-(4, 'ddfsdsd', 'dfssdfsdff', 'fsddfsfds', 36),
-(5, 'fddfs', 'sdffdsdf', 'dsfdfs', 36),
-(6, 'fddf', 'dsfdfdf', 'dfsdfs', 36),
-(7, 'SDFGG', 'GSSGDGD', 'GS', 43),
-(8, '12312', '123', '123', 44),
-(9, 'prenda prueba main', 'desc prueba main java', 'pruebamain.jpg', 45),
-(10, 'prenda prueba main', 'desc prueba main java', 'pruebamain.jpg', 45),
-(11, 'prenda prueba main', 'desc prueba main java', 'pruebamain.jpg', 45),
-(14, '123', '123', '123', 36),
-(19, 'prenda prueba main', 'desc prueba main java', 'pruebamain.jpg', 45),
-(21, 'prenda prueba main', 'desc prueba main java', 'pruebamain.jpg', 36),
-(22, 'Prueba desde la vista ', 'prueba de la vista', '1.jpg', 36),
-(23, 'Prueba dos vista ', 'Prueba dos vista ', '5.jpg', 41);
+INSERT INTO `prenda` (`idPrenda`, `Nombre_Prenda`, `Descripcion_prenda`, `Url_Diseño`, `uniforme_idUniforme`, `precioPrenda`) VALUES
+(1, 'Camisa Blanca ', 'Camisa de uniforme blanca ', '6.jpg', 1, '50000'),
+(2, 'Pantalon de Lino ', 'Pantalon negro para uniforme', '7.jpeg', 4, '60000'),
+(3, 'Falda de mujer', 'Falda del colegio elitista', '1.jpeg', 5, '60000');
 
 -- --------------------------------------------------------
 
@@ -504,20 +590,20 @@ CREATE TABLE `prenda_talla` (
 --
 
 INSERT INTO `prenda_talla` (`id_prenda_talla`, `prenda_idPrenda`, `talla_idTalla`) VALUES
-(1, 3, 2),
-(2, 3, 4),
-(3, 3, 3),
-(5, 5, 2),
-(6, 6, 2),
-(7, 8, 2),
-(8, 9, 4),
-(9, 10, 4),
-(10, 11, 4),
-(13, 14, 3),
-(16, 19, 3),
-(17, 21, 3),
-(18, 22, 3),
-(19, 23, 3);
+(5, 1, 1),
+(6, 1, 2),
+(7, 1, 3),
+(8, 1, 4),
+(35, 2, 8),
+(36, 2, 9),
+(37, 2, 10),
+(38, 2, 11),
+(39, 2, 12),
+(40, 2, 13),
+(41, 3, 8),
+(42, 3, 9),
+(43, 3, 10),
+(44, 3, 13);
 
 -- --------------------------------------------------------
 
@@ -555,9 +641,21 @@ CREATE TABLE `talla` (
 --
 
 INSERT INTO `talla` (`idTalla`, `Precio_talla`, `Talla_nombre`) VALUES
-(2, '12121', 'XL'),
-(3, '4500', 'L'),
-(4, '123123', 'S');
+(1, '2500', 'S'),
+(2, '3000', 'M'),
+(3, '3500', 'L'),
+(4, '4000', 'XL'),
+(5, '4500', '2XL'),
+(6, '2000', '26'),
+(7, '2500', '28'),
+(8, '3000', '30'),
+(9, '3500', '32'),
+(10, '4000', '34'),
+(11, '4500', '36'),
+(12, '5000', '38'),
+(13, '6000', '40'),
+(14, '6500', '42'),
+(15, '7000', '44');
 
 -- --------------------------------------------------------
 
@@ -596,8 +694,12 @@ CREATE TABLE `tipo_institucion` (
 --
 
 INSERT INTO `tipo_institucion` (`idTipo_institucion`, `Nombre_tipo_institucion`, `Descripcion_tipo_institucion`) VALUES
-(1, 'Colegial', 'Colegial'),
-(2, 'Universitario', 'Universitario');
+(1, 'Institución educacional', 'Institución educacional'),
+(2, 'Institución política', 'Institución política'),
+(3, 'Institución científica', 'Institución científica'),
+(4, 'Institución económica', 'Institución económica'),
+(5, 'Institución religiosa', 'Institución religiosa'),
+(6, 'Otras', 'Otras');
 
 -- --------------------------------------------------------
 
@@ -667,7 +769,7 @@ CREATE TABLE `uniforme` (
   `Nombre_Uniforme` varchar(45) NOT NULL,
   `Descripcion_Uniforme` varchar(400) DEFAULT NULL,
   `Url_Diseño_Uniforme` varchar(100) DEFAULT NULL,
-  `Precio` decimal(10,0) DEFAULT NULL,
+  `Precio` decimal(10,2) DEFAULT NULL,
   `EstadoUniforme` tinyint(1) NOT NULL,
   `Tipo_Uniforme_idTipo_Uniforme` int(11) NOT NULL,
   `institucion_idInstitucion` int(11) NOT NULL
@@ -678,14 +780,11 @@ CREATE TABLE `uniforme` (
 --
 
 INSERT INTO `uniforme` (`idUniforme`, `Nombre_Uniforme`, `Descripcion_Uniforme`, `Url_Diseño_Uniforme`, `Precio`, `EstadoUniforme`, `Tipo_Uniforme_idTipo_Uniforme`, `institucion_idInstitucion`) VALUES
-(36, 'COLEGIO CORAZONISTAS', 'Uniforme para el colegio corazonistas de colombia ', '1.jpg', '500000', 1, 3, 1),
-(37, 'COLEGIO MAYOR DE CUNDINAMARCA', 'Uniforme para la universidad colegio mayor', '3.jpg', '20000', 0, 1, 2),
-(39, 'COLEGIO DE PRUEBAS', 'Colegio de pruebas 2017', '4.jpg', '100000', 1, 1, 2),
-(41, '123', '123', '1.jpg', '123', 1, 1, 2),
-(42, 'ssddssd', 'dssdsd', '1.jpg', '26262', 1, 1, 2),
-(43, 'dsadsdsa', 'dasadsadssda', '4.jpg', '5', 1, 1, 2),
-(44, 'dsadsdsa', 'dasadsadssda', '4.jpg', '5', 1, 1, 2),
-(45, 'asasas', 'saasas', '2.jpg', '555', 1, 1, 2);
+(1, 'Uniforme de diario para hombres', 'Uniforme de diario para los hombres de el colegio de elitistas horribles ', '1.jpg', '400000.00', 1, 1, 1),
+(2, 'Uniforme de gala para mujeres', 'Uniforme de gala para las mujeres del colegio elistista', '2.jpg', '400000.00', 1, 1, 1),
+(3, 'Uniforme de diario para hombres', 'Uniforme de diario para hombres del colegio elitistaman', '3.jpg', '300000.00', 1, 1, 2),
+(4, 'Uniforme de sudar mucho para mujeres', 'Uniforme para lucir cool del colegio elitista 2', '4.jpg', '350000.00', 1, 1, 3),
+(5, 'Uniforme de diario para gays', 'Uniforme de diario para los elitistas horribles', '10.jpg', '150000.00', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -937,12 +1036,12 @@ ALTER TABLE `pedido`
 -- AUTO_INCREMENT de la tabla `prenda`
 --
 ALTER TABLE `prenda`
-  MODIFY `idPrenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `idPrenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `prenda_talla`
 --
 ALTER TABLE `prenda_talla`
-  MODIFY `id_prenda_talla` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_prenda_talla` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
@@ -952,7 +1051,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `talla`
 --
 ALTER TABLE `talla`
-  MODIFY `idTalla` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idTalla` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT de la tabla `tipo_documento`
 --
@@ -962,7 +1061,7 @@ ALTER TABLE `tipo_documento`
 -- AUTO_INCREMENT de la tabla `tipo_institucion`
 --
 ALTER TABLE `tipo_institucion`
-  MODIFY `idTipo_institucion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idTipo_institucion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `tipo_novedad`
 --
@@ -982,7 +1081,7 @@ ALTER TABLE `unidad_medida`
 -- AUTO_INCREMENT de la tabla `uniforme`
 --
 ALTER TABLE `uniforme`
-  MODIFY `idUniforme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `idUniforme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --

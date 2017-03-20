@@ -15,14 +15,14 @@ $(document).ready(function () {
             img = new Image();
             img.onload = function () {
                 //#img-upload
-                if (this.width == 330 && this.height == 660) {//Valida tamaño de imagen 
+                if (this.width <= 240 && this.height <= 240) {//Valida tamaño de imagen 
                     $("#respuesta1").html("");
                     readURL(origin_file);
                     return tamanoImagen = false;//retorna falso si todo esta correcto
 
                 } else {
                     $('#img-upload').attr('src', "");
-                    $("#respuesta1").html("La imagen debe ser de un tamaño de 800x500 pixeles.");
+                    $("#respuesta1").html("La imagen debe ser de un tamaño maximo de 240x240 pixeles.");
                     return tamanoImagen = true;
                 }
 

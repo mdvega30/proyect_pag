@@ -41,8 +41,8 @@ public class ServletUniforme extends HttpServlet {
 
         ///elimina
         if (request.getParameter("txtOpc") != null && Integer.parseInt(request.getParameter("txtOpc")) == 2
-                && request.getParameter("idEliminarIns") != null) {
-            beanUniforme.setId_uniforme(Integer.parseInt(request.getParameter("idEliminarIns")));
+                && request.getParameter("idEliminar") != null) {
+            beanUniforme.setId_uniforme(Integer.parseInt(request.getParameter("idEliminar")));
             BeanUniforme bnUniforme = daoUniforme.verImg(beanUniforme);
             if (bnUniforme.getUrl_diseño_Uniforme() != null) {
 

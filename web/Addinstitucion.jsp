@@ -182,7 +182,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Agregue un Institución</h4>
+                                                <h4 class="modal-title">Agregue una Institución</h4>
                                             </div>
                                             <div class="modal-body">
                                                 <!--Inicio form insertyar datos-->
@@ -190,9 +190,9 @@
 
                                                     <div class="form-group">
                                                         <label>Nombre de la Institución</label>
-                                                        <input type="text" name="txtInstitucion" id="txtInstitucion" placeholder="Nombre de Institución" value="" class="form-control"/>
+                                                        <input type="text" name="txtInstitucion" id="txtInstitucion" placeholder="ej. Nuevo Colombo " value="" class="form-control"/>
                                                     </div>
-                                                    <div id="respuesta1" class="  alert-danger" ></div>
+                                                    <div id="respuesta4" class="  alert-danger" ></div>
 
                                                     <div class="form-group">
                                                         <label>Descripción</label>
@@ -285,7 +285,7 @@
                                                 <td><%=cont + 1%></td>
                                                 <td><%=bnInstitucion.getNombre_intitucion()%></td>
                                                 <td class="tx"><textarea disabled="" class="txtareal"><%=bnInstitucion.getDescripcion_institucion()%></textarea> </td>
-                                                <td><img class="imgl" src="images/<%=bnInstitucion.getUrl_logo_institucion()%>" alt=""/></td>
+                                                <td><img class="imgl" src="institucion/<%=bnInstitucion.getUrl_logo_institucion()%>" alt=""/></td>
                                                 <td class="imgt" ><%=bnInstitucion.getNombre_tipo_institucion()%></td>
 
                                                 <td><a data-placement="top" data-toggle="tooltip" title="Edit"  ><button class="btn btn-primary btn-xs btnInstitu editarI" data-title="Edit" value="<%= bnInstitucion.getId_institucion()%>" data-toggle="modal" data-target="#editIntitucion" ><span class="glyphicon glyphicon-pencil"></span></button></a></td>

@@ -27,8 +27,11 @@ public class ControladorUniforme {
      * @return String
      */
     public String getUniformes(BeanPrenda bnPrenda) {
+        uniforme = "";
 
-        ArrayList<BeanUniforme> listaUnforme = daoUniforme.listarTodosLosUniformes();
+        ArrayList<BeanUniforme> listaUnforme = new ArrayList<>();
+        listaUnforme.clear();
+        listaUnforme = daoUniforme.listarTodosLosUniformes();
 
         String intitucionActual = "";
         for (BeanUniforme beanUni : listaUnforme) {
@@ -57,7 +60,7 @@ public class ControladorUniforme {
     public String getListaUniformes(int pagina, int numeroRegistros) {
 
         ArrayList<BeanUniforme> listaUniformesVista = daoUniforme.listarUniforme(pagina * 10, 10);
-        int cont = pagina*10;
+        int cont = pagina * 10;
         for (BeanUniforme beanUnforme : listaUniformesVista) {
 
             listaUnfiormes += "<tr> \n"

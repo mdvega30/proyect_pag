@@ -200,6 +200,7 @@ public class DaoPrenda extends Conexion {
                 beanPrenda.setUrl_Diseño(print.getString("Url_Diseño"));
                 beanPrenda.setNombre_Uniforme(print.getString("Nombre_Uniforme"));
                 beanPrenda.setPrecioPrenda(print.getDouble("precioPrenda"));
+                beanPrenda.setNombre_Institucion(print.getString("Nombre_institucion"));
 
                 listaPrenda.add(beanPrenda);
 

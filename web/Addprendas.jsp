@@ -192,7 +192,7 @@
                                                         <label>Nombre de la prenda</label>
                                                         <input type="text" name="txtPrenda" id="txtPrenda" placeholder="Nombre de la prenda" value="" class="form-control"/>
                                                     </div>
-                                                    <div id="respuesta1" class="  alert-danger" ></div>
+                                                    <div id="respuesta4" class="  alert-danger" ></div>
 
                                                     <div class="form-group">
                                                         <label>Descripción</label>
