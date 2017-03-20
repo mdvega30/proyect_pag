@@ -6,7 +6,7 @@ $(document).ready(function () {
     var validarSujeto1 = new RegExp(/^[a-z\d_]{15,35}$/i);
     var validarSujeto2 = new RegExp(/^[a-z\d_]{15,45}$/i);
 
-    $("#imgInp").change(function (e) {
+    $("#imgInt").change(function (e) {
         var _URL = window.URL;
         var respuesta = false;
         var file, img, origin_file;

@@ -53,7 +53,7 @@ public class ServletEditarInstitucion extends HttpServlet {
         if (request.getParameter("txtOpc") != null && Integer.parseInt(request.getParameter("txtOpc")) == 2
                 && request.getParameter("idEliminarIns") != null) {
             beanInstitucion.setId_institucion(Integer.parseInt(request.getParameter("idEliminarIns")));
-            BeanInstitucion beanInstitu = daoInstitucion.verUniforme(beanInstitucion);
+            BeanInstitucion beanInstitu = daoInstitucion.verPrenda(beanInstitucion);
             if (beanInstitu.getUrl_logo_institucion() != null) {
 
                 String path = getServletContext().getRealPath("/");//Se obtiene el path del la carpeta imagenes del servidor
@@ -139,7 +139,7 @@ public class ServletEditarInstitucion extends HttpServlet {
                         beanInstitucion.setUrl_logo_institucion(item.getName());//trae el nombre de la imagen que se va a editar 
                         if (daoInstitucion.actualizarInstitucion(beanInstitucion)) {//actualiza el uniforme
                             if (!item.getName().equals("")) {//Evalua que se haya subido una imagen al momento de editar
-                                beanInstitucion.setDescripcion_institucion(item.getName());
+                                beanInstitucion.setUrl_logo_institucion(item.getName());
                                 if (FileUpload.processFile(path, item, carpeta)) {//agrega la imagen al servidor 
                                     request.setAttribute("acualizado", "");
                                     request.getRequestDispatcher("Addinstitucion.jsp").forward(request, response);

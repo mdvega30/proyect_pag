@@ -6,7 +6,7 @@ $(document).ready(function () {
     var validarSujeto1 = new RegExp(/^[a-z\d_]{15,35}$/i);
     var validarSujeto2 = new RegExp(/^[a-z\d_]{15,45}$/i);
 
-    $("#imgInp").change(function (e) {
+    $("#imgPren").change(function (e) {
         var _URL = window.URL;
         var respuesta = false;
         var file, img, origin_file;
@@ -69,22 +69,22 @@ function readURL(input) {
 $(document).ready(function () {
 
 
-    $(document).on('click', '.eliminaI', function (e) {
+    $(document).on('click', '.eliminaP', function (e) {
         e.preventDefault();
         var mostrar = $(this).attr('value');
-        $('.idDeleteIns').val(mostrar);
+        $('.idDeletePre').val(mostrar);
     });
     
-    $(document).on('click', '.editarI', function (e) {
+    $(document).on('click', '.editarP', function (e) {
         e.preventDefault();
         var mostrar = $(this).attr('value');
         console.log(mostrar);
 //    $('.idEdit').val(mostrar);
 
         $.ajax({//pasar por post datos al controlador
-            url: 'editarinstitucion.jsp',
+            url: 'editarprenda.jsp',
             dataType: 'html',
-            data: {'idInstitucion': mostrar},
+            data: {'idPrenda': mostrar},
         }).done(function (data) {
 
             $('.formularioEditarPrenda').html(data);

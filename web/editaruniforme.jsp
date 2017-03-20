@@ -51,7 +51,7 @@
     </div>
     <div class="form-group">
         <label>Precio</label>
-        <input type="number" name="txtPrecio" placeholder="Precio" value="<%=beanUniform.getPrecio()%>" class="form-control"/>
+        <input type="number" name="txtPrecio" placeholder="Precio" value="<%= beanUniform.getPrecio()%>" class="form-control"/>
     </div>
 
     <div class="form-group">

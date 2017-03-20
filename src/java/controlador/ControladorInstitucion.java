@@ -1,6 +1,6 @@
 package controlador;
 
-import java.sql.Array;
+
 import java.util.ArrayList;
 import modelo.BEAN.BeanInstitucion;
 import modelo.BEAN.BeanUniforme;

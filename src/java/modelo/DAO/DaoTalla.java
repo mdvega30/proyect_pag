@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import modelo.BEAN.BeanPrenda;
 import modelo.BEAN.BeanTalla;
 
 /**
@@ -51,13 +52,44 @@ public class DaoTalla extends Conexion {
              */
             while (print.next()) {
 
-                BeanTalla bnInstitucion = new BeanTalla();
+                BeanTalla beanTalla = new BeanTalla();
 
-                bnInstitucion.setIdTalla(print.getInt("idTalla"));
-                bnInstitucion.setPrecio_talla(print.getString("Precio_talla"));
-                bnInstitucion.setTalla_nombre(print.getString("Talla_nombre"));
+                beanTalla.setIdTalla(print.getInt("idTalla"));
+                beanTalla.setPrecio_talla(print.getString("Precio_talla"));
+                beanTalla.setTalla_nombre(print.getString("Talla_nombre"));
 
-                listaTallas.add(bnInstitucion);
+                listaTallas.add(beanTalla);
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Ocurrio error al listar" + e);
+        }
+
+        return listaTallas;
+
+    }
+
+    public ArrayList<BeanTalla> listarTallasPorPrenda(BeanPrenda bnPrenda) {
+        PreparedStatement ps = null;
+        ArrayList<BeanTalla> listaTallas = new ArrayList<>();
+        listaTallas.clear();
+        try {
+            consulta = "CALL listarTallasPorPrenda(?)";
+            ps = conexion.prepareStatement(consulta);
+            ps.setInt(1, bnPrenda.getIdPrenda());
+            ResultSet print = ps.executeQuery();
+            /**
+             * Recorre los datos devueltos de la base de datos
+             */
+            while (print.next()) {
+
+                BeanTalla bnTalla = new BeanTalla();
+
+                bnTalla.setIdTalla(print.getInt("idTalla"));
+                bnTalla.setTalla_nombre(print.getString("Talla_nombre"));
+                bnTalla.setPrecio_talla(print.getString("Precio_talla"));
+                listaTallas.add(bnTalla);
 
             }
 
@@ -77,7 +109,22 @@ public class DaoTalla extends Conexion {
          * PRUEBA METODO listar todas las tallas
          */
 
-        ArrayList<BeanTalla> listaTallas = daoTalla.listarTodasLasTallas();
+//        ArrayList<BeanTalla> listaTallas = daoTalla.listarTodasLasTallas();
+//
+//        for (BeanTalla beanTall : listaTallas) {
+//            System.out.println("______________________");
+//            System.out.println(beanTall.getIdTalla());
+//            System.out.println(beanTall.getPrecio_talla());
+//            System.out.println(beanTall.getTalla_nombre());
+//            System.out.println("______________________");
+//        }
+        /**
+         * PRUEBA METODO listar Tallas Por Prenda
+         */
+        BeanPrenda bnPrenda = new BeanPrenda();
+
+        bnPrenda.setIdPrenda(53);
+        ArrayList<BeanTalla> listaTallas = daoTalla.listarTallasPorPrenda(bnPrenda);
 
         for (BeanTalla beanTall : listaTallas) {
             System.out.println("______________________");
@@ -86,7 +133,6 @@ public class DaoTalla extends Conexion {
             System.out.println(beanTall.getTalla_nombre());
             System.out.println("______________________");
         }
-
     }
 
 }

@@ -32,6 +32,10 @@
         <servlet-name>ServletPrenda</servlet-name>
         <servlet-class>controlador.ServletPrenda</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletEditarPrenda</servlet-name>
+        <servlet-class>controlador.ServletEditarPrenda</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletUsuario</servlet-name>
         <url-pattern>/iniciar</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>ServletPrenda</servlet-name>
         <url-pattern>/Prendas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletEditarPrenda</servlet-name>
+        <url-pattern>/EditarPrenda</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

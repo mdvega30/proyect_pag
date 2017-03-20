@@ -197,7 +197,7 @@ public class DaoInstitucion extends Conexion {
      * @param beanInstitucion
      * @return beanInstitucion
      */
-    public BeanInstitucion verUniforme(BeanInstitucion beanInstitucion) {
+    public BeanInstitucion verPrenda(BeanInstitucion beanInstitucion) {
         PreparedStatement ps = null;
 
         try {
@@ -301,7 +301,7 @@ public class DaoInstitucion extends Conexion {
         /*PRUEBA METODO VER INSTITUTO*/
 //        beanInstitucion.setId_institucion(1);
 //
-//        BeanInstitucion ver = daoInstitucion.verUniforme(beanInstitucion);
+//        BeanInstitucion ver = daoInstitucion.verPrenda(beanInstitucion);
 //
 //        System.out.println(ver.getId_institucion());
 //        System.out.println(ver.getNombre_intitucion());

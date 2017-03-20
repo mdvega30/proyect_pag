@@ -34,7 +34,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/_css.css" rel="stylesheet" type="text/css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>AgregaR Institucion</title>
+        <title>Agregar Institucion</title>
     </head>
     <body>
         <%  BeanUsuario beanUs = new BeanUsuario();
@@ -84,7 +84,7 @@
                             <ul class="dropdown-menu ">
 
                                 <li class="col-sm-3">
-                                <li><a href=""><i class="glyphicon glyphicon-tasks"></i> Uniformes Catalogo </a></li>
+                               <li><a href="Addinstitucion.jsp"><i class="glyphicon glyphicon-tasks"></i> Construir Uniforme </a></li>
                                 <li><a href=""><i class="glyphicon glyphicon-question-sign"></i> Prendas </a></li>
                                 <li><a href=""><i class="glyphicon glyphicon-question-sign"></i> Instituciones </a></li>
 
@@ -148,7 +148,7 @@
         <br>
         <div class="alert alert-info">
             <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
-            <strong>Buen dia aqui podra agregar los institcuones</strong> <br>Esto se vera en el catalogo de inicio para la posterior compra.
+            <strong>Buen dia aqui podra agregar las instituciónes</strong> <br> Posteriormente en el Paso 2 podrá agregar un uniforme que pertenecerá a una institución<br>
         </div>
         <!--FIN DE INFORMACION DE PAGINA-->
     </div><!--FIN CONTAINER-->
@@ -157,12 +157,12 @@
         <div class="row">
             <div class="col-md-12">
 
-                <div class="panel with-nav-tabs panel">
+                <div class="panel with-nav-tabs panel-primary">
                     <div class="panel-heading">
                         <ul class="nav nav-tabs">
                             <li class="active" ><a href="Addinstitucion.jsp" >Paso 1</a></li>
                             <li><a href="Adduniformes.jsp">Paso 2</a></li>
-                            <li><a href="#tab3default" data-toggle="tab">Paso 3</a></li>
+                            <li><a href="Addprendas.jsp" >Paso 3</a></li>
 
                         </ul>
                     </div>
@@ -211,7 +211,7 @@
                                                         <div class="input-group">
                                                             <span class="input-group-btn">
                                                                 <span class="btn btn-info btn-file ">
-                                                                    Subir <input class="btn btn-default btn-file disabled btnfi" type="file" name="file" id="imgInp"  accept="image/*" >
+                                                                    Subir <input class="btn btn-default btn-file disabled btnfi" type="file" name="file" id="imgInt"  accept="image/*" >
                                                                 </span>
                                                             </span>
                                                             <input type="text" class="form-control imgsubir" readonly>
@@ -244,7 +244,7 @@
                             <br>
 
                             <div class="col-md-11">
-                                <h4>Uniformes en catalogo para la venta</h4>
+                                <h4>Instituciones disponibles</h4>
                                 <div class="table-responsive">
 
                                     <%int pagina = 0; //pagina a mostrar
@@ -260,11 +260,11 @@
 
 
                                         <th>N°</th>
-                                        <th>Nombre Prenda</th>
+                                        <th>Nombre institución</th>
                                         <th class="tx">Descripción</th>
-                                        <th class="tx">Imagen</th>
-                                        <th>Uniforme</th>
-                                        <th>Talla</th>
+                                        <th class="tx">Logo</th>
+                                        <th>Tipo de institución</th>
+                                   
 
                                         <th>Editar</th>
                                         <th>Eliminar</th>

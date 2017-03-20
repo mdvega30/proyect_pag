@@ -390,21 +390,20 @@ $(document).ready(function () {
 
 
 
-
-
-
-$(document).ready(function () {
-    $(".dropdown").hover(
-            function () {
-                $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideDown("400");
-                $(this).toggleClass('open');
-            },
-            function () {
-                $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideUp("400");
-                $(this).toggleClass('open');
-            }
-    );
-});/*AMenu*/
+//al pasar se abre el doupdown
+//
+//$(document).ready(function () {
+//    $(".dropdown").hover(
+//            function () {
+//                $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideDown("400");
+//                $(this).toggleClass('open');
+//            },
+//            function () {
+//                $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideUp("400");
+//                $(this).toggleClass('open');
+//            }
+//    );
+//});/*AMenu*/
 
 
 
@@ -1064,3 +1063,15 @@ $(document).ready(function(){
 /*DETALLE PEDIDO*/
 
 
+/*buscador catalogo*/
+
+
+$(document).ready(function(e){
+    $('.search-panel .dropdown-menu').find('a').click(function(e) {
+    	e.preventDefault();
+		var param = $(this).attr("href").replace("#","");
+		var concept = $(this).text();
+		$('.search-panel span#search_concept').text(concept);
+		$('.input-group #search_param').val(param);
+	});
+});

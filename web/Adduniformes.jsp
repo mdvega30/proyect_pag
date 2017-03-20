@@ -10,6 +10,7 @@
 <%@page import="modelo.BEAN.BeanUsuario"%>
 <jsp:useBean id="controTipoUniforme" scope="page" class="controlador.ControladorTipoUniforme"></jsp:useBean>
 <jsp:useBean id="controInstitucion" scope="page" class="controlador.ControladorInstitucion"></jsp:useBean>
+<jsp:useBean id="controUniforme" scope="page" class="controlador.ControladorUniforme"></jsp:useBean>
 
 <%-- 
     Document   : Adduniformes
@@ -92,7 +93,7 @@
                                 <ul class="dropdown-menu ">
 
                                     <li class="col-sm-3">
-                                    <li><a href=""><i class="glyphicon glyphicon-tasks"></i> Uniformes Catalogo </a></li>
+                                    <li><a href="Addinstitucion.jsp"><i class="glyphicon glyphicon-tasks"></i> Construir Uniforme </a></li>
                                     <li><a href=""><i class="glyphicon glyphicon-question-sign"></i> Prendas </a></li>
                                     <li><a href=""><i class="glyphicon glyphicon-question-sign"></i> Instituciones </a></li>
 
@@ -172,7 +173,7 @@
             <!--Informacion-->
             <div class="alert alert-info">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
-                <strong>Buen dia aqui podra agregar los uniformes</strong> <br>Esto se vera en el catalogo de inicio para la posterior compra.
+                <strong>Aqui podrá agregar los uniformes</strong> <br>Esto se vera en el catalogo de inicio para la posterior compra.
             </div>
         </div>
 
@@ -181,12 +182,12 @@
             <div class="row">
 
                 <div class="col-md-12">
-                    <div class="panel with-nav-tabs panel">
+                    <div class="panel with-nav-tabs panel-primary">
                         <div class="panel-heading">
                             <ul class="nav nav-tabs">
-                                <li><a href="Addinstitucion.jsp" >Paso 1</a></li>
-                                <li class="active" ><a href="#tab2default" data-toggle="tab">Paso 2</a></li>
-                                <li><a href="Addprendas.jsp" >Paso 3</a></li>
+                                <li><a href="Addinstitucion.jsp" > Paso 1 </a></li>
+                                <li class="active" ><a href="#tab2default" > Paso 2 </a></li>
+                                <li><a href="Addprendas.jsp"  > Paso 3 </a></li>
 
                             </ul>
                         </div>
@@ -294,7 +295,7 @@
                                             <br>
 
                                             <div class="col-md-11">
-                                                <h4>Uniformes en catalogo para la venta</h4>
+                                                <h4>Uniformes disponibles</h4>
                                                 <div class="table-responsive">
 
                                                     <%int pagina = 0; //pagina a mostrar
@@ -329,31 +330,11 @@
                                                                 int contador2 = 0;
                                                                 DaoInstitucion daoInstitucion = new DaoInstitucion();
                                                                 BeanInstitucion beanInstitucion = new BeanInstitucion();
-                                                                for (BeanUniforme bnUnifor : listaUniforme) {%>
-                                                            <tr> 
-
-
-                                                                <td><%=cont + 1%></td>
-                                                                <td><%=bnUnifor.getNombre_uniforme()%></td>
-                                                                <td class="imgt" ><%=bnUnifor.getNombreTipoUniforme()%></td>
-                                                                <td class="" ><%=bnUnifor.getNombre_tipo_institucion()%></td>
-                                                                <td>$<%=bnUnifor.getPrecio()%></td> 
-                                                                <td><img class="imgl" src="images/<%=bnUnifor.getUrl_diseño_Uniforme()%>" alt=""/></td>
-                                                                <td class="tx"><textarea disabled="" class="txtareal"><%=bnUnifor.getDescripcion_uniforme()%></textarea> </td>
-                                                                <% if (bnUnifor.isEstadoUniforme()) {%>
-                                                                <td ><input   checked="" type="checkbox" class="checkthis" disabled="" /></td>                                                               
-                                                                    <%} else {%>
-                                                                <td > <input type="checkbox" class="checkthis" disabled=""/></td>                                                               
-                                                                    <%}%>
-                                                                <td><a data-placement="top" data-toggle="tooltip" title="Edit"  ><button class="btn btn-primary btn-xs editar" data-title="Edit" value="<%= bnUnifor.getId_uniforme()%>" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></a></td>
-                                                                <td><a data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs elimina"  value="<%= bnUnifor.getId_uniforme()%>" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></a></td>
-                                                            </tr>
-
-                                                            <%cont++;
-                                                                }%>
+                                                            %>
 
 
 
+                                                            <%=controUniforme.getListaUniformes(pagina, 10) %>
 
 
 

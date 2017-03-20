@@ -124,6 +124,7 @@ public class DaoUniforme extends Conexion {
                 bnUnifor.setNombre_uniforme(print.getString("Nombre_Uniforme"));
                 bnUnifor.setDescripcion_uniforme(print.getString("Descripcion_Uniforme"));
                 bnUnifor.setUrl_diseño_Uniforme(print.getString("Url_Diseño_Uniforme"));
+                bnUnifor.setNombre_tipo_institucion(print.getString("Nombre_institucion"));
                 listaUniformes.add(bnUnifor);
 
             }
@@ -135,17 +136,18 @@ public class DaoUniforme extends Conexion {
         return listaUniformes;
     }
 
-    public ArrayList<BeanUniforme> listarUniformeCatalog(int pagina, int numeroRegistro, String bucar) {
+    public ArrayList<BeanUniforme> listarUniformeCatalog(int pagina, int numeroRegistro, String bucar , int tipoBusqueda) {
         PreparedStatement ps = null;
 
         ArrayList<BeanUniforme> listaUniformes = new ArrayList<>();
-//SET FOREIGN_KEY_CHECKS = on
+
         try {
-            consulta = "call listar_uniformesCatalogo(?,?,?)";
+            consulta = "call listar_uniformesCatalogo(?,?,?,?)";
             ps = conexion.prepareCall(consulta);
             ps.setInt(1, pagina);
             ps.setInt(2, numeroRegistro);
             ps.setString(3, bucar);
+            ps.setInt(4, tipoBusqueda);
 
             ResultSet print = ps.executeQuery();
             while (print.next()) {
@@ -158,6 +160,7 @@ public class DaoUniforme extends Conexion {
                 bnUnifor.setPrecio(print.getDouble("Precio"));
                 bnUnifor.setEstadoUniforme(print.getBoolean("EstadoUniforme"));
                 bnUnifor.setNombreTipoUniforme(print.getString("Nombre_Tipo"));
+                bnUnifor.setNombre_tipo_institucion(print.getString("Nombre_institucion"));
 
                 listaUniformes.add(bnUnifor);
 

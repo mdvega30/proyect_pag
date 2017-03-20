@@ -26,7 +26,7 @@
 <%    if (request.getParameter("idInstitucion") != null) {
 
         beanInstitucion.setId_institucion(Integer.parseInt(request.getParameter("idInstitucion")));
-        beanInstitucion = daoInstitucion.verUniforme(beanInstitucion);
+        beanInstitucion = daoInstitucion.verPrenda(beanInstitucion);
     }
 %>
 

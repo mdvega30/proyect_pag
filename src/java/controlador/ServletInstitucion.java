@@ -54,7 +54,7 @@ public class ServletInstitucion extends HttpServlet {
         if (request.getParameter("txtOpc") != null && Integer.parseInt(request.getParameter("txtOpc")) == 2
                 && request.getParameter("idEliminarIns") != null) {
             beanInstitucion.setId_institucion(Integer.parseInt(request.getParameter("idEliminarIns")));
-            BeanInstitucion beanInstitu = daoInstitucion.verUniforme(beanInstitucion);
+            BeanInstitucion beanInstitu = daoInstitucion.verPrenda(beanInstitucion);
             if (beanInstitu.getUrl_logo_institucion() != null) {
 
                 String path = getServletContext().getRealPath("/");//Se obtiene el path del la carpeta imagenes del servidor

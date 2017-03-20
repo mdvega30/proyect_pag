@@ -32,11 +32,14 @@ public class ServletCatalogo extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String buscar = request.getParameter("buscar");
-        
-        if (request.getParameter("buscar")!= null) {
-           request.setAttribute("buqueda", buscar);
-            request.getRequestDispatcher("catalogo.jsp").forward(request, response);
+        String tipoBu = request.getParameter("search_param");
+        if (request.getParameter("buscar") != null || request.getParameter("search_param") != null) {
+
+         request.setAttribute("buscar", buscar);
+            request.setAttribute("search_param", tipoBu);
             
+            request.getRequestDispatcher("catalogo.jsp").forward(request, response);
+
         }
     }
 

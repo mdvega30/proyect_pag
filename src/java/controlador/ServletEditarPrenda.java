@@ -27,7 +27,12 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author David
  */
-public class ServletPrenda extends HttpServlet {
+public class ServletEditarPrenda extends HttpServlet {
+
+    private String carpeta;
+    private String path;
+    private boolean isMultiPart;
+    ArrayList<String> selectTallas = new ArrayList<>();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,27 +43,48 @@ public class ServletPrenda extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private String carpeta;
-    private boolean isMultiPart;
-    private String path;
-    private ArrayList<String> selectTallas = new ArrayList();
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        /**
-         * Instancia objetos de tipo prenda
-         */
         BeanPrenda beanPrenda = new BeanPrenda();
         DaoPrenda daoPrenda = new DaoPrenda();
         BeanPrendaTalla beanPrendaTalla = new BeanPrendaTalla();
         DaoPrendaTalla daoPrendaTalla = new DaoPrendaTalla();
-        carpeta = "Prendas";
+        selectTallas.clear();/*Limpia el array*/
+        ///elimina
+        if (request.getParameter("txtOpc") != null && Integer.parseInt(request.getParameter("txtOpc")) == 2
+                && request.getParameter("idDeletePre") != null) {
+            beanPrenda.setIdPrenda(Integer.parseInt(request.getParameter("idDeletePre")));
+            BeanPrenda beanInstitu = daoPrenda.verPrenda(beanPrenda);
+            if (beanInstitu.getUrl_Diseño() != null) {
 
-        /**
-         * Inserta la prenda
-         */
+                String path = getServletContext().getRealPath("/");//Se obtiene el path del la carpeta imagenes del servidor
+                String item = beanInstitu.getUrl_Diseño();//El nombre del archivo es decir de la img
+                if (daoPrendaTalla.eliminarTodasLasTallas(beanPrenda) && daoPrenda.eliminarPrenda(beanInstitu)) {
+
+                    if (FileUpload.DeleteFile(path, item, carpeta)) {//el metodo que se creo devuelve verdadero si se elimino correctamente 
+                        request.setAttribute("acualizado", "");
+                        request.getRequestDispatcher("Addprendas.jsp").forward(request, response);
+
+                    } else {
+                        request.setAttribute("noActualizadoS", "");
+                        request.getRequestDispatcher("Addprendas.jsp").forward(request, response);
+
+                    }
+
+                } else {
+                    request.setAttribute("noActualizado", "");
+                    request.getRequestDispatcher("Addprendas.jsp").forward(request, response);
+
+                }
+            } else {
+                request.setAttribute("noActualizado", "");
+                request.getRequestDispatcher("Addprendas.jsp").forward(request, response);
+            }
+
+        }
+
         isMultiPart = ServletFileUpload.isMultipartContent(request);//obtiene todos los valores y nombres de los campos
         if (isMultiPart) {//Valida que sea correcto
             ServletFileUpload upload = new ServletFileUpload();//instancia el metodo de coomons upload
@@ -70,30 +96,29 @@ public class ServletPrenda extends HttpServlet {
                         //Hace los pocesos especificos del campo
                         String fieldName = item.getFieldName();//obtiene el nombre
                         InputStream is = item.openStream();
-                        int contador = 0;
                         byte[] b = new byte[is.available()];//crea array de bits y le da el tamaño por cada item
                         is.read(b);
                         String value = new String(b);//Obtiene el valor del campo
                         switch (fieldName) {//obtiene el nombre y los divide en un switch para ahcerle el tratamiento especifico a cada campo
+                            case "idEditP":
+                                beanPrenda.setIdPrenda(Integer.parseInt(value));
+                                break;
                             case "txtPrenda":
                                 beanPrenda.setNombre_Prenda(value);
                                 break;
                             case "txaDescripcionP":
                                 beanPrenda.setDescripcion_prenda(value);
                                 break;
-                            case "tipoUniforme":
-                                beanPrenda.setUniforme_idUniforme(Integer.parseInt(value));
-
-                                break;
-                            case "imgPren":
-                                beanPrenda.setUrl_Diseño(value);
-
-                                break;
                             case "txtPrecioP":
                                 beanPrenda.setPrecioPrenda(Double.parseDouble(value));
-
                                 break;
-                            case "selectTallas":
+                            case "tipoUniforme":
+                                beanPrenda.setUniforme_idUniforme(Integer.parseInt(value));
+                                break;
+                            case "imgPre":
+                                beanPrenda.setUrl_Diseño(value);
+                                break;
+                            case "selectTallass":
 
                                 selectTallas.add(value);
 
@@ -108,9 +133,23 @@ public class ServletPrenda extends HttpServlet {
                         // Hace lo especifico al archivo
                         path = getServletContext().getRealPath("/");//Pat del servidor
                         //Lama metodo para procesar y subir el archivo
-                        beanPrenda.setUrl_Diseño(item.getName());//
+                        BeanPrenda bns = new BeanPrenda();
 
-                        if (daoPrenda.insertarPrenda(beanPrenda)) {
+                        if (bns.getUrl_Diseño() != null) {///Pendiente para eliminar el archivo y agregar el nuevo archivo
+                            bns.setUrl_Diseño(item.getName());
+
+                            String paths = getServletContext().getRealPath("/");//Se obtiene el path del la carpeta imagenes del servidor
+                            String items = bns.getUrl_Diseño();//El nombre del archivo es decir de la img
+
+                            if (FileUpload.DeleteFile(paths, items, carpeta)) {//el metodo que se creo devuelve verdadero si se elimino correctamente 
+
+                            }
+
+                        }
+
+                        if (daoPrenda.actualizarPrenda(beanPrenda)) {//actualiza prenda 
+
+                            daoPrendaTalla.eliminarTodasLasTallas(beanPrenda);
                             /**
                              * Esta arrayList tiene todos los valores del select
                              * de tallas, se itera y cada vez que se itera se
@@ -119,36 +158,39 @@ public class ServletPrenda extends HttpServlet {
                              */
                             for (String tallas : selectTallas) {
                                 beanPrendaTalla.setTalla_idTalla(Integer.parseInt(tallas));
-                                daoPrendaTalla.insertarTallaPorPrenda(beanPrendaTalla);
+                                daoPrendaTalla.insertarTallaPorId(beanPrendaTalla, beanPrenda);
                             }
                             /**
                              * Verifica que el archivo se ha guardado
                              * correctamente
                              */
-                            if (FileUpload.processFile(path, item, carpeta)) {
-                                request.setAttribute("acualizado", "Se a guardado el archivo y los datos correctamente");
-                                request.getRequestDispatcher("Addprendas.jsp").forward(request, response);
 
-                                response.getWriter().print("pribando 1");
-                            } else {
-                                request.setAttribute("noActualizado", "No se pudo guardar el archivo");
-                                request.getRequestDispatcher("Addprendas.jsp").forward(request, response);
-                                response.getWriter().print("pribando 2");
+                            if (!item.getName().equals("")) {//Evalua que se haya subido una imagen al momento de editar
+                                beanPrenda.setUrl_Diseño(item.getName());
+                                if (FileUpload.processFile(path, item, carpeta)) {//agrega la imagen al servidor 
+                                    request.setAttribute("acualizado", "");
+                                    request.getRequestDispatcher("Addprendas.jsp").forward(request, response);
+
+                                } else {
+                                    request.setAttribute("noActualizado", "");
+                                    request.getRequestDispatcher("Addprendas.jsp").forward(request, response);
+                                }
                             }
-                        } else {
-                            request.setAttribute("noActualizado", "No se puedo insertar ");
+                            request.setAttribute("acualizado", "");
                             request.getRequestDispatcher("Addprendas.jsp").forward(request, response);
-                            response.getWriter().print("pribando 2");
+                        } else {
+                            request.setAttribute("noActualizado", "");
+                            request.getRequestDispatcher("Addprendas.jsp").forward(request, response);
                         }
                     }
                 }
             } catch (FileUploadException fue) {
                 fue.printStackTrace();
             }
-
         } else {
             request.getRequestDispatcher("Addinstitucion.jsp").forward(request, response);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
