@@ -174,8 +174,8 @@
 
                                                         <div class="container">
                                                             <header class="jumbotron hero-spacer">
-                                                                <h1>A Warm Welcome!</h1>
-                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
+                                                                <h1>¡Bienvenido al Catalogo!</h1>
+                                                                <p>Aquí encontrara todos los uniformes disponibles en nuestra tienda, los podrá buscar por el nombre de la institución ej. Gimnasio Moderno, por tipo de uniforme ej. Colegial o por el nombre de los uniformes ej. Uniforme de diario.</p>
                                                                 <p></p>
 
 
@@ -190,7 +190,7 @@
                                                                             <div class="input-group">
                                                                                 <div class="input-group-btn search-panel">
                                                                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                                                        <span id="search_concept" href="#1">Nombre Uniforme</span> <span class="caret"></span>
+                                                                                        <span id="search_concept" href="#2">Institucion</span> <span class="caret"></span>
                                                                                     </button>
                                                                                     <ul class="dropdown-menu" role="menu">
                                                                                         <li><a href="#1">Nombre Uniforme</a></li>
@@ -199,10 +199,13 @@
                                                                                         <li class="divider"></li>
                                                                                     </ul>
                                                                                 </div>
-                                                                                <input type="hidden" name="search_param" value="1" id="search_param">         
-                                                                                <input type="text" class="form-control" name="buscar" placeholder="Search">
+                                                                                <input type="hidden" name="search_param" value="2" id="search_param">         
+                                                                                <input type="text" class="form-control" name="buscar" placeholder="Busca ej. Gimnasio Vermont">
                                                                                 <span class="input-group-btn">
-                                                                                    <button class="btn btn-default" type="submit" ><span class="glyphicon glyphicon-search"></span></button>
+                                                                                    <button class="btn btn-default" style="
+                                                                                            padding-top: 7px;
+                                                                                            padding-bottom: 11px;
+                                                                                            " type="submit" ><span class="glyphicon glyphicon-search"></span></button>
                                                                                 </span>
                                                                             </div>
                                                                         </form>

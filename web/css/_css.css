@@ -1856,88 +1856,7 @@ td input[type="checkbox"] {
     color: #fff;
     background-color: #31708f;
 }
-/********************************************************************/
-/*** PANEL WARNING ***/
-.with-nav-tabs.panel-warning .nav-tabs > li > a,
-.with-nav-tabs.panel-warning .nav-tabs > li > a:hover,
-.with-nav-tabs.panel-warning .nav-tabs > li > a:focus {
-	color: #8a6d3b;
-}
-.with-nav-tabs.panel-warning .nav-tabs > .open > a,
-.with-nav-tabs.panel-warning .nav-tabs > .open > a:hover,
-.with-nav-tabs.panel-warning .nav-tabs > .open > a:focus,
-.with-nav-tabs.panel-warning .nav-tabs > li > a:hover,
-.with-nav-tabs.panel-warning .nav-tabs > li > a:focus {
-	color: #8a6d3b;
-	background-color: #faebcc;
-	border-color: transparent;
-}
-.with-nav-tabs.panel-warning .nav-tabs > li.active > a,
-.with-nav-tabs.panel-warning .nav-tabs > li.active > a:hover,
-.with-nav-tabs.panel-warning .nav-tabs > li.active > a:focus {
-	color: #8a6d3b;
-	background-color: #fff;
-	border-color: #faebcc;
-	border-bottom-color: transparent;
-}
-.with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu {
-    background-color: #fcf8e3;
-    border-color: #faebcc;
-}
-.with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > li > a {
-    color: #8a6d3b; 
-}
-.with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
-.with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
-    background-color: #faebcc;
-}
-.with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > .active > a,
-.with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
-.with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
-    color: #fff;
-    background-color: #8a6d3b;
-}
-/********************************************************************/
-/*** PANEL DANGER ***/
-.with-nav-tabs.panel-danger .nav-tabs > li > a,
-.with-nav-tabs.panel-danger .nav-tabs > li > a:hover,
-.with-nav-tabs.panel-danger .nav-tabs > li > a:focus {
-	color: #a94442;
-}
-.with-nav-tabs.panel-danger .nav-tabs > .open > a,
-.with-nav-tabs.panel-danger .nav-tabs > .open > a:hover,
-.with-nav-tabs.panel-danger .nav-tabs > .open > a:focus,
-.with-nav-tabs.panel-danger .nav-tabs > li > a:hover,
-.with-nav-tabs.panel-danger .nav-tabs > li > a:focus {
-	color: #a94442;
-	background-color: #ebccd1;
-	border-color: transparent;
-}
-.with-nav-tabs.panel-danger .nav-tabs > li.active > a,
-.with-nav-tabs.panel-danger .nav-tabs > li.active > a:hover,
-.with-nav-tabs.panel-danger .nav-tabs > li.active > a:focus {
-	color: #a94442;
-	background-color: #fff;
-	border-color: #ebccd1;
-	border-bottom-color: transparent;
-}
-.with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu {
-    background-color: #f2dede; /* bg color */
-    border-color: #ebccd1; /* border color */
-}
-.with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu > li > a {
-    color: #a94442; /* normal text color */  
-}
-.with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
-.with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
-    background-color: #ebccd1; /* hover bg color */
-}
-.with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu > .active > a,
-.with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
-.with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
-    color: #fff; /* active text color */
-    background-color: #a94442; /* active bg color */
-}
+
 
 
 
@@ -1978,7 +1897,6 @@ li.active{border-bottom:3px solid silver;}
 
 .item-photo{display:flex;justify-content:center;align-items:center;border-right:1px solid #f6f6f6;}
 .menu-items{list-style-type:none;font-size:11px;display:inline-flex;margin-bottom:0px;margin-top:20px}
-.btn-success{width:100%;border-radius:0px;}
 .section{width:100%;margin-left:-15px;padding:2px;padding-left:15px;padding-right:15px;background:#99ccff}
 .section2{width:100%;margin-left:-15px;padding:2px;padding-left:15px;padding-right:15px;background:#99ccff}
 .title-price{margin-top:30px;margin-bottom:0px;color:black}
