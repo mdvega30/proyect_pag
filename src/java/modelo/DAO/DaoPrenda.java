@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import modelo.BEAN.BeanPrenda;
+import modelo.BEAN.BeanUniforme;
 
 /**
  *
@@ -168,6 +169,35 @@ public class DaoPrenda extends Conexion {
         return beanPrenda;
     }
 
+    public ArrayList<BeanPrenda> verPrendaPorIdUniforme(BeanUniforme beanUniforme) {
+        PreparedStatement ps = null;
+        ArrayList<BeanPrenda> listaPrenda = new ArrayList<>();
+        try {
+            consulta = "CALL verPrendaIdUniforme(?)";
+            ps = conexion.prepareCall(consulta);
+
+            ps.setInt(1, beanUniforme.getId_uniforme());
+            ResultSet print = ps.executeQuery();
+
+            while (print.next()) {
+                BeanPrenda beanPrenda = new BeanPrenda();
+                beanPrenda.setIdPrenda(print.getInt("idPrenda"));
+                beanPrenda.setNombre_Prenda(print.getString("Nombre_Prenda"));
+                beanPrenda.setDescripcion_prenda(print.getString("Descripcion_prenda"));
+                beanPrenda.setUrl_Diseño(print.getString("Url_Diseño"));
+                beanPrenda.setUniforme_idUniforme(print.getInt("uniforme_idUniforme"));
+                beanPrenda.setPrecioPrenda(print.getDouble("precioPrenda"));
+
+                listaPrenda.add(beanPrenda);
+            }
+            ps.close();
+
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return listaPrenda;
+    }
+
     /**
      * Metodo que lista las prendas y las gurda en un array de objetos
      *
@@ -305,13 +335,35 @@ public class DaoPrenda extends Conexion {
 //            System.out.println(beanPrend.getUrl_Diseño());
 //            System.out.println(beanPrend.getUniforme_idUniforme());
 //            System.out.println(beanPrend.getPrecioPrenda());
-        beanPrenda.setIdPrenda(6);
-        
-        if (daoPrenda.eliminarPrenda(beanPrenda)) {
-            System.out.println("Fue eliminada");
-        }else{
-            
-            System.out.println("Fue eliminada");
+//        beanPrenda.setIdPrenda(6);
+//
+//        if (daoPrenda.eliminarPrenda(beanPrenda)) {
+//            System.out.println("Fue eliminada");
+//        } else {
+//
+//            System.out.println("Fue eliminada");
+//        }
+        /**
+         * METODO PARA VER PRENDA POR ID UNIFORME
+         */
+        BeanUniforme beanUniforme = new BeanUniforme();
+
+        beanUniforme.setId_uniforme(5);
+
+        ArrayList<BeanPrenda> listaPrendas = daoPrenda.verPrendaPorIdUniforme(beanUniforme);
+
+        for (BeanPrenda beanPrend : listaPrendas) {
+
+            System.out.println("______________________________");
+            System.out.println(beanPrend.getIdPrenda());
+            System.out.println(beanPrend.getNombre_Prenda());
+            System.out.println(beanPrend.getDescripcion_prenda());
+            System.out.println(beanPrend.getUrl_Diseño());
+            System.out.println(beanPrend.getNombre_Uniforme());
+            System.out.println(beanPrend.getPrecioPrenda());
+            System.out.println("______________________________");
+
         }
+
     }
 }

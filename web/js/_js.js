@@ -31,6 +31,31 @@ $(document).ready(function () {
     });
 
 });
+$(document).ready(function () {
+
+
+    $('.recuperarContra').on('click', function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: 'iniciar',
+            dataType: 'text',
+            method: 'POST',
+            data: {'correo': $('.correoRestore').val(), 'textOpcion': 4},
+        }).done(function (data) {
+            if (data !== 'ok') {
+                $('#resultado5').removeClass('alert-success');
+                $('#resultado5').addClass('alert-danger');
+                $('#resultado5').html('<b>¡Error!</b> El correo no existe.');
+                error = true;
+
+            } else {
+                error = false;
+
+            }
+        });
+    });
+
+});
 
 /*Validacion Formulario de Registro*/
 $(document).ready(function () {

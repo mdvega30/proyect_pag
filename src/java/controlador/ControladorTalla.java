@@ -86,4 +86,27 @@ public class ControladorTalla {
         return isMySize;
     }
 
+    public String getTallasPorPrendaDetalleProdcuto(BeanPrenda bnPrenda) {
+        ArrayList<BeanTalla> listaTallas = new ArrayList<>();
+        listaTallas.clear();
+        tallasPorPrenda = "";
+        listaTallas = daoTalla.listarTallasPorPrenda(bnPrenda);
+        for (BeanTalla listaTalla : listaTallas) {
+            tallasPorPrenda += "                                                  <fieldset> \n"
+                    + "                                                                                                            <div class=\"form-group\">\n"
+                    + "                                                                                                                <div > \n"
+                    + "                                                                                                                    <label class=\"radio-inline\" for=\"radios-0\">\n"
+                    + "                                                                                                                        <input type=\"radio\" name=\"radios\" id=\"radios-0\" value=\"" + listaTalla.getIdTalla() + "\" checked=\"checked\">\n"
+                    + "                                                                                                                        " + listaTalla.getTalla_nombre() + "\n"
+                    + "                                                                                                                    </label> \n"
+                    + "                                                                                                                </div>\n"
+                    + "                                                                                                            </div>\n"
+                    + "\n"
+                    + "                                                                                                        </fieldset>";
+        }
+
+        return tallasPorPrenda;
+
+    }
+
 }

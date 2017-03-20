@@ -7,7 +7,9 @@ package controlador;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import modelo.BEAN.BeanPrenda;
 import modelo.BEAN.BeanUniforme;
+import modelo.DAO.DaoPrenda;
 import modelo.DAO.DaoUniforme;
 
 /**
@@ -28,7 +30,7 @@ public class ControladorCatalogo {
         ArrayList<BeanUniforme> listarCatalogos = new ArrayList<>();
         listarCatalogos.clear();
         listarCatalogos = daoUniforme.listarUniformeCatalog(pagina, numeroRegistro, buscar, tipoBusqueda);
-        
+
         for (BeanUniforme listaCatalogo : listarCatalogos) {
 
             productos += "<div class=\"product\">\n"
@@ -38,7 +40,7 @@ public class ControladorCatalogo {
                     + "                                                                                            <div class=\"shadow\"></div>\n"
                     + "                                                                                            <img src=\"images/" + listaCatalogo.getUrl_diseño_Uniforme() + "\" alt=\"\" />\n"
                     + "                                                                                            <div class=\"image_overlay\"></div>\n"
-                    + "                                                                                            <a href=\"google.com\" target=\"_blank\"><div class=\"add_to_cart\" >VER DETALLES</div></a>\n"
+                    + "                                                                                            <a href=\"detalleProducto.jsp?product=" + listaCatalogo.getId_uniforme() + "\" target=\"_blank\"><div class=\"add_to_cart\" >VER DETALLES</div></a>\n"
                     + "                                                                                            <div class=\"view_gallery\">View gallery</div>                \n"
                     + "                                                                                            <div class=\"stats\">         \n"
                     + "                                                                                                <div class=\"stats-container\">\n"
@@ -74,6 +76,17 @@ public class ControladorCatalogo {
         }
 
         return avisos;
+    }
+
+    public BeanUniforme getArticulo(BeanUniforme bnUniforme) {
+
+        return new DaoUniforme().verUniforme(bnUniforme);
+    }
+
+    public ArrayList<BeanPrenda> getPrendasPorUniforme(BeanUniforme bnuniforme) {
+        ArrayList<BeanPrenda> listaPrendas = new ArrayList<>();
+        DaoPrenda daoPrenda = new DaoPrenda();
+        return listaPrendas = daoPrenda.verPrendaPorIdUniforme(bnuniforme);
     }
 
 }

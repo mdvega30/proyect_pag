@@ -19,7 +19,7 @@ public class Correo {
 
     public void envirCorreeoDeVerificacion(BeanUsuario beanUsu) {
 
-        this.destinatario = "dadaza770@misena.edu.co";
+        this.destinatario = beanUsu.getCorreo();
         this.asunto = "Verificacion de correo Tuniforme";
         this.mensaje = "Hola <b>" + beanUsu.getNombre1() + "</b><br>"
                 + "Por favor verifique su cuenta, visitando el siguiente enlace.<br>"

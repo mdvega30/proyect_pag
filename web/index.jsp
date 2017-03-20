@@ -8,7 +8,7 @@
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/_css.css" rel="stylesheet" type="text/css"/>
-        
+
         <title>TUniforme</title>
     </head>
     <body>
@@ -55,14 +55,14 @@
 
                                                     <label class="sr-only" for="pass">Contraseña</label>
                                                     <input type="password" class="form-control" name="pass" placeholder="Password" required>
-                                                    <div class="help-block text-right"><a href="">¿Olvido su contraseña?</a></div>
+                                                    <div class="help-block text-right"><a href="recuperarPass.jsp" >¿Olvido su contraseña?</a></div>
                                                     <div class="help-block text-right"><a href="registro.jsp">¿Registrarse?</a></div>
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="submit" class="btn btn-primary btn-block" value="Ingresar">
                                                     <input type="hidden" name="textOpcion" value="1">
                                                 </div>
-                                                
+
                                             </form>
                                         </div>
                                     </div>
@@ -80,6 +80,8 @@
                                             <h2>Tuniforme</h2>
                                         </div>
                                     </div>
+
+
 
                                     <div class="row">
                                         <!-- The carousel -->
@@ -140,6 +142,9 @@
                                     </div>
                                 </div>
 
+                                <!-- Modal -->
+
+
 
 
 
@@ -169,7 +174,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <footer class="container-fluid text-center">
                                     <p>Footer ® David Daza</p>
                                 </footer>

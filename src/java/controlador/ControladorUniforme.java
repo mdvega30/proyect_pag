@@ -45,12 +45,15 @@ public class ControladorUniforme {
                  * else if que sirve para seleccionar el item seleccionado
                  * editar Prenda
                  */
-            } else if (bnPrenda.getUniforme_idUniforme() == beanUni.getId_uniforme()) {
+            } 
+            if (bnPrenda.getUniforme_idUniforme() == beanUni.getId_uniforme()) {
                 uniforme += "<option selected value=\"" + beanUni.getId_uniforme() + "\">" + beanUni.getNombre_uniforme() + "</option>";
 
+            }else{
+                
+            uniforme += "<option value=\"" + beanUni.getId_uniforme() + "\">" + beanUni.getNombre_uniforme() + "</option>";
             }
             intitucionActual = beanUni.getNombre_tipo_institucion();
-            uniforme += "<option value=\"" + beanUni.getId_uniforme() + "\">" + beanUni.getNombre_uniforme() + "</option>";
 
         }
 

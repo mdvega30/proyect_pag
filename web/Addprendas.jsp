@@ -273,6 +273,7 @@
                                         <th class="tx">Descripción</th>
                                         <th>Precio</th>
                                         <th class="tx">Diseño</th>
+                                        <th>Institución</th>
                                         <th>Uniforme</th>
                                         <th class="tx">Talla</th>
 
