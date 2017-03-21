@@ -21,9 +21,11 @@ public class Correo {
 
         this.destinatario = beanUsu.getCorreo();
         this.asunto = "Verificacion de correo Tuniforme";
-        this.mensaje = "Hola <b>" + beanUsu.getNombre1() + "</b><br>"
+        this.mensaje = "<img src=\"http://i67.tinypic.com/11v0gnk.png\" alt=\"\"/>"
+                + "<h1 style=\" color:#3687c9\">Tuniforme.com</h1>"
+                + "<br><h3>Hola <b>" + beanUsu.getNombre1() + "</b><br>"
                 + "Por favor verifique su cuenta, visitando el siguiente enlace.<br>"
-                + "http://localhost:8080/ProyectoSenaTuniforme/verificarCorreo.jsp?token="+beanUsu.getToken()+"";
+                + "http://localhost:8080/ProyectoSenaTuniforme/verificarCorreo.jsp?token="+beanUsu.getToken()+"</h3>";
         
         
         EnviarCorreo enviarVerificacion = new EnviarCorreo();

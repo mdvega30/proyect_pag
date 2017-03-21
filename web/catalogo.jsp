@@ -199,6 +199,7 @@
                                                                                         <li class="divider"></li>
                                                                                     </ul>
                                                                                 </div>
+                                                                                
                                                                                 <input type="hidden" name="search_param" value="2" id="search_param">         
                                                                                 <input type="text" class="form-control" name="buscar" placeholder="Busca ej. Gimnasio Vermont">
                                                                                 <span class="input-group-btn">
